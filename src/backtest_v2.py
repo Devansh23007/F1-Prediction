@@ -34,7 +34,7 @@ def walk_forward(df):
         test["score_model"] = M.score(models, test)
         test["score_grid"] = test["grid_position"]
         test["score_elo"] = -test["combined_elo"]
-        test["p_dnf"] = M.dnf_prob(test, models["base_dnf"])
+        test["p_dnf"] = M.dnf_prob(models, test)
         out.append(test)
     return pd.concat(out, ignore_index=True)
 

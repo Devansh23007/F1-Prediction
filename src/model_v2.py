@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import lightgbm as lgb
 from sklearn.impute import SimpleImputer
-from sklearn.linear_model import Ridge
+from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -42,11 +42,20 @@ def _ridge():
                          Ridge(alpha=300))
 
 
+DNF_FEATURES = [
+    "grid_position", "circuit_dnf_rate", "circuit_chaos",
+    "team_dnf_l10", "drv_dnf_l10", "track_temp", "rainfall", "fp_laps_count",
+]
+
+
 def fit(train: pd.DataFrame):
     y = train["finish_position"] - train["grid_position"]
     m1 = _lgb().fit(train[SMALL].astype(float), y)
     m2 = _ridge().fit(train[FEATURES].astype(float), y)
-    return {"lgb": m1, "ridge": m2, "base_dnf": float(train["dnf"].mean())}
+    m3 = make_pipeline(SimpleImputer(strategy="median"), StandardScaler(),
+                       LogisticRegression(C=0.1, max_iter=200, random_state=1))
+    m3.fit(train[DNF_FEATURES].astype(float), train["dnf"].astype(int))
+    return {"lgb": m1, "ridge": m2, "dnf_clf": m3, "base_dnf": float(train["dnf"].mean())}
 
 
 def predict_delta(models, test: pd.DataFrame):
@@ -59,10 +68,24 @@ def score(models, test: pd.DataFrame):
     return test["grid_position"].values + predict_delta(models, test)
 
 
-def dnf_prob(test: pd.DataFrame, base: float):
-    p = (0.4 * test["drv_dnf_l10"].fillna(base)
-         + 0.4 * test["team_dnf_l10"].fillna(base) + 0.2 * base)
-    return p.clip(0.01, 0.5).values
+def dnf_prob(models_or_test, test_or_base=None, base: float = None):
+    """Dedicated retirement classifier probability with empirical fallback."""
+    if isinstance(models_or_test, dict):
+        models = models_or_test
+        test = test_or_base
+        base_rate = models.get("base_dnf", 0.15)
+        if "dnf_clf" in models:
+            p_clf = models["dnf_clf"].predict_proba(test[DNF_FEATURES].astype(float))[:, 1]
+            p = 0.85 * p_clf + 0.15 * base_rate
+        else:
+            p = (0.4 * test["drv_dnf_l10"].fillna(base_rate)
+                 + 0.4 * test["team_dnf_l10"].fillna(base_rate) + 0.2 * base_rate)
+    else:
+        test = models_or_test
+        base_rate = float(test_or_base if test_or_base is not None else (base if base is not None else 0.15))
+        p = (0.4 * test["drv_dnf_l10"].fillna(base_rate)
+             + 0.4 * test["team_dnf_l10"].fillna(base_rate) + 0.2 * base_rate)
+    return np.asarray(p).clip(0.02, 0.60)
 
 
 def simulate(scores, p_dnf, temp, n=10000, seed=0):
