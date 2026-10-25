@@ -117,28 +117,54 @@ def get_upcoming_round(season: int = 2026) -> dict:
 
 
 def fetch_live_qualifying(season: int, round_num: int) -> Optional[pd.DataFrame]:
+    # 1. Try Jolpica Ergast API
     url = f"https://api.jolpi.ca/ergast/f1/{season}/{round_num}/qualifying.json"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "F1-Predictor/2.0"})
         with urllib.request.urlopen(req, timeout=10) as r:
             payload = json.loads(r.read())
         races = payload.get("MRData", {}).get("RaceTable", {}).get("Races", [])
-        if not races or "QualifyingResults" not in races[0]:
-            return None
-        q_results = races[0]["QualifyingResults"]
-        records = []
-        for q in q_results:
-            records.append({
-                "grid_position": int(q.get("position", 20)),
-                "driver_id": q.get("Driver", {}).get("driverId", ""),
-                "driver_name": f"{q.get('Driver', {}).get('givenName', '')} {q.get('Driver', {}).get('familyName', '')}".strip(),
-                "constructor_id": q.get("Constructor", {}).get("constructorId", ""),
-                "constructor_name": q.get("Constructor", {}).get("name", ""),
-            })
-        return pd.DataFrame(records)
+        if races and "QualifyingResults" in races[0] and races[0]["QualifyingResults"]:
+            records = []
+            for q in races[0]["QualifyingResults"]:
+                pos = int(q.get("position", 20))
+                records.append({
+                    "grid_position": pos,
+                    "qualifying_position": pos,
+                    "driver_id": q.get("Driver", {}).get("driverId", ""),
+                    "driver_name": f"{q.get('Driver', {}).get('givenName', '')} {q.get('Driver', {}).get('familyName', '')}".strip(),
+                    "constructor_id": q.get("Constructor", {}).get("constructorId", ""),
+                    "constructor_name": q.get("Constructor", {}).get("name", ""),
+                })
+            df = pd.DataFrame(records).sort_values("grid_position").reset_index(drop=True)
+            return df
     except Exception as e:
         print(f"Qualifying not available on Jolpica ({e})")
-        return None
+
+    # 2. Try FastF1 as fallback
+    try:
+        import fastf1
+        session = fastf1.get_session(season, round_num, "Q")
+        session.load(telemetry=False, weather=False, messages=False)
+        results = session.results
+        if results is not None and not results.empty:
+            records = []
+            for _, r in results.iterrows():
+                pos = int(r["Position"]) if pd.notna(r["Position"]) else 20
+                records.append({
+                    "grid_position": pos,
+                    "qualifying_position": pos,
+                    "driver_id": str(r.get("DriverId", r.get("Abbreviation", ""))).lower(),
+                    "driver_name": str(r.get("FullName", r.get("BroadcastName", ""))).strip(),
+                    "constructor_id": str(r.get("TeamName", "")).lower().replace(" ", "_"),
+                    "constructor_name": str(r.get("TeamName", "")).strip(),
+                })
+            df = pd.DataFrame(records).sort_values("grid_position").reset_index(drop=True)
+            return df
+    except Exception as e:
+        print(f"FastF1 qualifying fallback exception: {e}")
+
+    return None
 
 
 def get_default_grid_for_next_round(season: int = 2026) -> pd.DataFrame:
@@ -173,14 +199,26 @@ def run_prediction_for_grid(grid_df: pd.DataFrame, season: int, round_num: int,
     features_list = []
     n = len(grid_df)
     for _, row in grid_df.iterrows():
-        d_id = row["driver_id"]
-        # Find driver's most recent record in df
-        d_hist = df[df.driver_id == d_id]
+        d_id = str(row.get("driver_id", "")).strip()
+        d_name = str(row.get("driver_name", "")).strip()
+        
+        # 1. Match driver by ID
+        d_hist = df[df.driver_id == d_id] if d_id else pd.DataFrame()
+        # 2. Fallback: match by full name or last name
+        if d_hist.empty and d_name:
+            d_hist = df[df.driver_name.str.lower() == d_name.lower()]
+            if d_hist.empty:
+                last_name = d_name.split()[-1].lower()
+                d_hist = df[df.driver_name.str.lower().str.endswith(last_name)]
+        
         if not d_hist.empty:
             recent_row = d_hist.iloc[-1].to_dict()
         else:
-            # Fallback to team's most recent
-            c_hist = df[df.constructor_id == row["constructor_id"]]
+            # Fallback to team's most recent record
+            c_id = str(row.get("constructor_id", "")).strip()
+            c_hist = df[df.constructor_id == c_id] if c_id else pd.DataFrame()
+            if c_hist.empty and "constructor_name" in row:
+                c_hist = df[df.constructor_name.str.lower() == str(row["constructor_name"]).lower()]
             recent_row = c_hist.iloc[-1].to_dict() if not c_hist.empty else df.iloc[-1].to_dict()
 
         # Update race & grid-specific attributes
@@ -188,15 +226,19 @@ def run_prediction_for_grid(grid_df: pd.DataFrame, season: int, round_num: int,
         recent_row["round"] = round_num
         recent_row["race_name"] = race_name
         recent_row["circuit_id"] = circuit_id
-        recent_row["grid_position"] = float(row["grid_position"])
-        recent_row["qualifying_position"] = float(row["grid_position"])
-        recent_row["grid_penalty"] = 0.0
-        recent_row["grid_rank_pct"] = float(row["grid_position"]) / n
-        recent_row["pit_lane_start"] = 1 if row["grid_position"] > n else 0
-        recent_row["driver_name"] = row["driver_name"]
-        recent_row["constructor_name"] = row["constructor_name"]
-        recent_row["driver_id"] = d_id
-        recent_row["constructor_id"] = row["constructor_id"]
+        
+        grid_pos = float(row.get("grid_position", 20))
+        quali_pos = float(row.get("qualifying_position", grid_pos))
+        
+        recent_row["grid_position"] = grid_pos
+        recent_row["qualifying_position"] = quali_pos
+        recent_row["grid_penalty"] = max(0.0, grid_pos - quali_pos)
+        recent_row["grid_rank_pct"] = grid_pos / n
+        recent_row["pit_lane_start"] = 1 if grid_pos > n else 0
+        recent_row["driver_name"] = row.get("driver_name", recent_row.get("driver_name", ""))
+        recent_row["constructor_name"] = row.get("constructor_name", recent_row.get("constructor_name", ""))
+        recent_row["driver_id"] = d_id or recent_row.get("driver_id", "")
+        recent_row["constructor_id"] = row.get("constructor_id", recent_row.get("constructor_id", ""))
         features_list.append(recent_row)
 
     feat_df = pd.DataFrame(features_list)

@@ -12,3 +12,4 @@ streamlit>=1.50
 plotly
 python-dotenv
 fastf1
+pytest

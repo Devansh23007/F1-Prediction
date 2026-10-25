@@ -121,43 +121,84 @@ if page == "⚡ Live Next Race":
 
     col1, col2, col3 = st.columns([2, 1, 1])
     with col1:
-        st.subheader(f"Next Event: Round {r} - {rname}")
+        st.subheader(f"Event: Round {r} - {rname}")
         st.caption(f"Circuit: **{circuit}** | Date: **{upcoming.get('date', 'TBD')}**")
     with col2:
         st.metric("Season", s)
     with col3:
         st.metric("Round", f"R{r:02d}")
 
-    # Check for live qualifying
-    qual_df = None
-    if st.button("🔄 Check Live Qualifying on Jolpica / FastF1"):
-        qual_df = LP.fetch_live_qualifying(s, r)
-        if qual_df is not None and not qual_df.empty:
-            st.success(f"Fetched official qualifying grid with {len(qual_df)} drivers!")
-        else:
-            st.info("Official qualifying not published yet. Using latest driver form grid.")
+    # Persistent State Keys
+    grid_key = f"active_grid_{s}_{r}"
+    source_key = f"grid_source_{s}_{r}"
+    ver_key = f"grid_ver_{s}_{r}"
 
-    if qual_df is None or qual_df.empty:
-        grid_base = LP.get_default_grid_for_next_round(s)
-    else:
-        grid_base = qual_df
+    # Initialize grid in session_state if not present
+    if grid_key not in st.session_state:
+        fetched = LP.fetch_live_qualifying(s, r)
+        if fetched is not None and not fetched.empty:
+            st.session_state[grid_key] = fetched
+            st.session_state[source_key] = "Official Qualifying (Live)"
+        else:
+            st.session_state[grid_key] = LP.get_default_grid_for_next_round(s)
+            st.session_state[source_key] = "Default (Estimated Form Grid)"
+        st.session_state[ver_key] = 0
+
+    # Grid Controls: Fetch vs Reset vs Status Badge
+    c_fetch, c_reset, c_info = st.columns([1, 1, 2])
+    with c_fetch:
+        if st.button("🔄 Fetch Official Qualifying", key=f"fetch_btn_{s}_{r}"):
+            with st.spinner("Querying Jolpica & FastF1 for official qualifying..."):
+                fetched = LP.fetch_live_qualifying(s, r)
+                if fetched is not None and not fetched.empty:
+                    st.session_state[grid_key] = fetched
+                    st.session_state[source_key] = "Official Qualifying (Live)"
+                    st.session_state[ver_key] = st.session_state.get(ver_key, 0) + 1
+                    st.session_state.pop(f"latest_live_preds_{s}_{r}", None)
+                    st.rerun()
+                else:
+                    st.warning(f"Official qualifying for Round {r} has not taken place yet or is not published.")
+    with c_reset:
+        if st.button("⏮️ Reset to Form Grid", key=f"reset_btn_{s}_{r}"):
+            st.session_state[grid_key] = LP.get_default_grid_for_next_round(s)
+            st.session_state[source_key] = "Default (Estimated Form Grid)"
+            st.session_state[ver_key] = st.session_state.get(ver_key, 0) + 1
+            st.session_state.pop(f"latest_live_preds_{s}_{r}", None)
+            st.rerun()
+    with c_info:
+        badge_border = GREEN if "Official" in st.session_state[source_key] else RED
+        st.markdown(
+            f"<div style='padding: 8px 14px; border-radius: 8px; border-left: 4px solid {badge_border}; background: rgba(128,128,128,0.12);'>"
+            f"<strong>Grid Source:</strong> {st.session_state[source_key]} &nbsp;|&nbsp; <strong>{len(st.session_state[grid_key])}</strong> Drivers"
+            f"</div>",
+            unsafe_allow_html=True
+        )
 
     st.write("### 1. Starting Grid for this Grand Prix")
     st.caption("You can edit starting positions or penalty drops before running predictions.")
-    
+
+    curr_grid = st.session_state[grid_key].copy()
+    ver = st.session_state.get(ver_key, 0)
+
+    if "qualifying_position" not in curr_grid.columns:
+        curr_grid["qualifying_position"] = curr_grid["grid_position"]
+
+    editor_view = curr_grid[["grid_position", "driver_name", "constructor_name"]].rename(
+        columns={"grid_position": "Grid", "driver_name": "Driver", "constructor_name": "Team"}
+    )
+
     edited_grid = st.data_editor(
-        grid_base[["grid_position", "driver_name", "constructor_name"]].rename(
-            columns={"grid_position": "Grid", "driver_name": "Driver", "constructor_name": "Team"}
-        ),
+        editor_view,
         disabled=["Driver", "Team"],
         hide_index=True,
         width="stretch",
-        height=32 * len(grid_base) + 38,
-        key=f"grid_live_{s}_{r}"
+        height=32 * len(curr_grid) + 38,
+        key=f"data_editor_{s}_{r}_{ver}"
     )
 
-    grid_input = grid_base.copy()
-    grid_input["grid_position"] = edited_grid["Grid"].values
+    # Persist any manual grid adjustments made in the table
+    curr_grid["grid_position"] = edited_grid["Grid"].astype(float).values
+    st.session_state[grid_key] = curr_grid
 
     c_run, c_temp = st.columns([1, 2])
     with c_run:
@@ -166,11 +207,13 @@ if page == "⚡ Live Next Race":
         temp_scale = st.slider("Race Chaos Multiplier", 0.6, 1.8, 1.0, 0.1, key="live_chaos")
 
     if run_btn:
-        with st.spinner("Training walk-forward model on historical data & running 12,000 Monte Carlo simulations..."):
+        with st.spinner(f"Training walk-forward model on historical data & running 12,000 Monte Carlo simulations using {st.session_state[source_key]}..."):
+            grid_input = st.session_state[grid_key].copy()
+            grid_input = grid_input.sort_values("grid_position").reset_index(drop=True)
             live_res = LP.run_prediction_for_grid(grid_input, s, r, rname, circuit, temp_scale=temp_scale)
-            run_id = LP.log_predictions_to_db(live_res, notes=f"Dashboard live run (chaos={temp_scale})")
+            run_id = LP.log_predictions_to_db(live_res, notes=f"Live run ({st.session_state[source_key]}, chaos={temp_scale})")
             st.session_state[f"latest_live_preds_{s}_{r}"] = live_res
-            st.success(f"Predictions calculated & logged to SQLite database! (Run ID: #{run_id})")
+            st.success(f"Predictions calculated using **{st.session_state[source_key]}** & logged to SQLite database! (Run ID: #{run_id})")
 
     # Display prediction if in state
     if f"latest_live_preds_{s}_{r}" in st.session_state:
