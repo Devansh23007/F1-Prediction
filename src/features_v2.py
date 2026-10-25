@@ -215,6 +215,28 @@ def build(save=True) -> pd.DataFrame:
     df["dnf"] = (~df["status"].map(_is_finished)).astype(int)
     df["pos_gain"] = df["grid_position"] - df["finish_position"]
 
+    # ---------- Sprint race results & sprint flags ----------
+    sprint_path = RAW / "sprint_results.csv"
+    if sprint_path.exists():
+        sprints = pd.read_csv(sprint_path)
+        sprints["season"] = sprints["season"].astype(int)
+        sprints["round"] = sprints["round"].astype(int)
+        sprint_cols = ["season", "round", "driver_id", "sprint_grid",
+                       "sprint_finish", "sprint_points", "sprint_pos_gain"]
+        df = df.merge(sprints[sprint_cols], on=["season", "round", "driver_id"], how="left")
+    else:
+        df["sprint_grid"] = np.nan
+        df["sprint_finish"] = np.nan
+        df["sprint_points"] = np.nan
+        df["sprint_pos_gain"] = np.nan
+
+    df["is_sprint_weekend"] = df["sprint_finish"].notna().astype(int)
+    # When sprint took place, sprint_finish is actual Saturday race result; otherwise fall back to qualifying position
+    df["sprint_finish"] = df["sprint_finish"].fillna(df["qualifying_position"])
+    df["sprint_points"] = df["sprint_points"].fillna(0.0)
+    df["sprint_pos_gain"] = df["sprint_pos_gain"].fillna(0.0)
+    df["sprint_vs_grid"] = df["sprint_finish"] - df["grid_position"]
+
     df = df.sort_values(["season", "round", "driver_id"]).reset_index(drop=True)
     df["race_id"] = df["season"].astype(str) + "_" + df["round"].astype(str).str.zfill(2)
     df["race_idx"] = df.groupby(["season", "round"]).ngroup()
@@ -351,6 +373,8 @@ FEATURES = [
     "drv_wet_vs_dry_gain", "drv_wet_skill_active",
     "pit_loss_time", "pit_loss_scaled", "fast_quali_tyre_wear_penalty",
     "high_deg_circuit", "drv_tyre_mgmt_skill",
+    "is_sprint_weekend", "sprint_finish", "sprint_points",
+    "sprint_pos_gain", "sprint_vs_grid",
 ]
 
 if __name__ == "__main__":

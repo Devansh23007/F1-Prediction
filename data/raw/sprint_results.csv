@@ -1,0 +1,521 @@
+season,round,race_name,driver_id,sprint_grid,sprint_finish,sprint_points,sprint_laps,sprint_status,sprint_pos_gain
+2021,10,British Grand Prix,max_verstappen,2,1,3,17,Finished,1
+2021,10,British Grand Prix,hamilton,1,2,2,17,Finished,-1
+2021,10,British Grand Prix,bottas,3,3,1,17,Finished,0
+2021,10,British Grand Prix,leclerc,4,4,0,17,Finished,0
+2021,10,British Grand Prix,norris,6,5,0,17,Finished,1
+2021,10,British Grand Prix,ricciardo,7,6,0,17,Finished,1
+2021,10,British Grand Prix,alonso,11,7,0,17,Finished,4
+2021,10,British Grand Prix,vettel,10,8,0,17,Finished,2
+2021,10,British Grand Prix,russell,8,9,0,17,Finished,-1
+2021,10,British Grand Prix,ocon,13,10,0,17,Finished,3
+2021,10,British Grand Prix,sainz,9,11,0,17,Finished,-2
+2021,10,British Grand Prix,gasly,12,12,0,17,Finished,0
+2021,10,British Grand Prix,raikkonen,17,13,0,17,Finished,4
+2021,10,British Grand Prix,stroll,15,14,0,17,Finished,1
+2021,10,British Grand Prix,giovinazzi,14,15,0,17,Finished,-1
+2021,10,British Grand Prix,tsunoda,16,16,0,17,Finished,0
+2021,10,British Grand Prix,latifi,18,17,0,17,Finished,1
+2021,10,British Grand Prix,mick_schumacher,19,18,0,17,Finished,1
+2021,10,British Grand Prix,mazepin,20,19,0,17,Finished,1
+2021,10,British Grand Prix,perez,5,20,0,16,Vibrations,-15
+2021,14,Italian Grand Prix,bottas,1,1,3,18,Finished,0
+2021,14,Italian Grand Prix,max_verstappen,3,2,2,18,Finished,1
+2021,14,Italian Grand Prix,ricciardo,5,3,1,18,Finished,2
+2021,14,Italian Grand Prix,norris,4,4,0,18,Finished,0
+2021,14,Italian Grand Prix,hamilton,2,5,0,18,Finished,-3
+2021,14,Italian Grand Prix,leclerc,8,6,0,18,Finished,2
+2021,14,Italian Grand Prix,sainz,7,7,0,18,Finished,0
+2021,14,Italian Grand Prix,giovinazzi,10,8,0,18,Finished,2
+2021,14,Italian Grand Prix,perez,9,9,0,18,Finished,0
+2021,14,Italian Grand Prix,stroll,12,10,0,18,Finished,2
+2021,14,Italian Grand Prix,alonso,13,11,0,18,Finished,2
+2021,14,Italian Grand Prix,vettel,11,12,0,18,Finished,-1
+2021,14,Italian Grand Prix,ocon,14,13,0,18,Finished,1
+2021,14,Italian Grand Prix,latifi,16,14,0,18,Finished,2
+2021,14,Italian Grand Prix,russell,15,15,0,18,Finished,0
+2021,14,Italian Grand Prix,tsunoda,17,16,0,18,Finished,1
+2021,14,Italian Grand Prix,mazepin,20,17,0,18,Finished,3
+2021,14,Italian Grand Prix,kubica,19,18,0,18,Finished,1
+2021,14,Italian Grand Prix,mick_schumacher,18,19,0,18,Finished,-1
+2021,14,Italian Grand Prix,gasly,6,20,0,0,Accident,-14
+2021,19,São Paulo Grand Prix,bottas,2,1,3,24,Finished,1
+2021,19,São Paulo Grand Prix,max_verstappen,1,2,2,24,Finished,-1
+2021,19,São Paulo Grand Prix,sainz,5,3,1,24,Finished,2
+2021,19,São Paulo Grand Prix,perez,3,4,0,24,Finished,-1
+2021,19,São Paulo Grand Prix,hamilton,20,5,0,24,Finished,15
+2021,19,São Paulo Grand Prix,norris,7,6,0,24,Finished,1
+2021,19,São Paulo Grand Prix,leclerc,6,7,0,24,Finished,-1
+2021,19,São Paulo Grand Prix,gasly,4,8,0,24,Finished,-4
+2021,19,São Paulo Grand Prix,ocon,10,9,0,24,Finished,1
+2021,19,São Paulo Grand Prix,vettel,11,10,0,24,Finished,1
+2021,19,São Paulo Grand Prix,ricciardo,8,11,0,24,Finished,-3
+2021,19,São Paulo Grand Prix,alonso,9,12,0,24,Finished,-3
+2021,19,São Paulo Grand Prix,giovinazzi,14,13,0,24,Finished,1
+2021,19,São Paulo Grand Prix,stroll,15,14,0,24,Finished,1
+2021,19,São Paulo Grand Prix,tsunoda,12,15,0,24,Finished,-3
+2021,19,São Paulo Grand Prix,latifi,16,16,0,24,Finished,0
+2021,19,São Paulo Grand Prix,russell,17,17,0,24,Finished,0
+2021,19,São Paulo Grand Prix,raikkonen,13,18,0,24,Finished,-5
+2021,19,São Paulo Grand Prix,mick_schumacher,18,19,0,24,Finished,-1
+2021,19,São Paulo Grand Prix,mazepin,19,20,0,24,Finished,-1
+2022,4,Emilia Romagna Grand Prix,max_verstappen,1,1,8,21,Finished,0
+2022,4,Emilia Romagna Grand Prix,leclerc,2,2,7,21,Finished,0
+2022,4,Emilia Romagna Grand Prix,perez,7,3,6,21,Finished,4
+2022,4,Emilia Romagna Grand Prix,sainz,10,4,5,21,Finished,6
+2022,4,Emilia Romagna Grand Prix,norris,3,5,4,21,Finished,-2
+2022,4,Emilia Romagna Grand Prix,ricciardo,6,6,3,21,Finished,0
+2022,4,Emilia Romagna Grand Prix,bottas,8,7,2,21,Finished,1
+2022,4,Emilia Romagna Grand Prix,kevin_magnussen,4,8,1,21,Finished,-4
+2022,4,Emilia Romagna Grand Prix,alonso,5,9,0,21,Finished,-4
+2022,4,Emilia Romagna Grand Prix,mick_schumacher,12,10,0,21,Finished,2
+2022,4,Emilia Romagna Grand Prix,russell,11,11,0,21,Finished,0
+2022,4,Emilia Romagna Grand Prix,tsunoda,16,12,0,21,Finished,4
+2022,4,Emilia Romagna Grand Prix,vettel,9,13,0,21,Finished,-4
+2022,4,Emilia Romagna Grand Prix,hamilton,13,14,0,21,Finished,-1
+2022,4,Emilia Romagna Grand Prix,stroll,15,15,0,21,Finished,0
+2022,4,Emilia Romagna Grand Prix,ocon,19,16,0,21,Finished,3
+2022,4,Emilia Romagna Grand Prix,gasly,17,17,0,21,Finished,0
+2022,4,Emilia Romagna Grand Prix,albon,20,18,0,21,Finished,2
+2022,4,Emilia Romagna Grand Prix,latifi,18,19,0,21,Finished,-1
+2022,4,Emilia Romagna Grand Prix,zhou,0,20,0,0,Retired,-20
+2022,11,Austrian Grand Prix,max_verstappen,1,1,8,23,Finished,0
+2022,11,Austrian Grand Prix,leclerc,2,2,7,23,Finished,0
+2022,11,Austrian Grand Prix,sainz,3,3,6,23,Finished,0
+2022,11,Austrian Grand Prix,russell,4,4,5,23,Finished,0
+2022,11,Austrian Grand Prix,perez,13,5,4,23,Finished,8
+2022,11,Austrian Grand Prix,ocon,5,6,3,23,Finished,-1
+2022,11,Austrian Grand Prix,kevin_magnussen,6,7,2,23,Finished,-1
+2022,11,Austrian Grand Prix,hamilton,9,8,1,23,Finished,1
+2022,11,Austrian Grand Prix,mick_schumacher,7,9,0,23,Finished,-2
+2022,11,Austrian Grand Prix,bottas,12,10,0,23,Finished,2
+2022,11,Austrian Grand Prix,norris,15,11,0,23,Finished,4
+2022,11,Austrian Grand Prix,ricciardo,16,12,0,23,Finished,4
+2022,11,Austrian Grand Prix,stroll,17,13,0,23,Finished,4
+2022,11,Austrian Grand Prix,zhou,18,14,0,23,Finished,4
+2022,11,Austrian Grand Prix,gasly,10,15,0,23,Finished,-5
+2022,11,Austrian Grand Prix,albon,11,16,0,23,Finished,-5
+2022,11,Austrian Grand Prix,tsunoda,14,17,0,23,Finished,-3
+2022,11,Austrian Grand Prix,latifi,19,18,0,23,Finished,1
+2022,11,Austrian Grand Prix,vettel,20,19,0,21,Collision damage,1
+2022,11,Austrian Grand Prix,alonso,8,20,0,0,Electrical,-12
+2022,21,São Paulo Grand Prix,russell,3,1,8,24,Finished,2
+2022,21,São Paulo Grand Prix,sainz,5,2,7,24,Finished,3
+2022,21,São Paulo Grand Prix,hamilton,8,3,6,24,Finished,5
+2022,21,São Paulo Grand Prix,max_verstappen,2,4,5,24,Finished,-2
+2022,21,São Paulo Grand Prix,perez,9,5,4,24,Finished,4
+2022,21,São Paulo Grand Prix,leclerc,10,6,3,24,Finished,4
+2022,21,São Paulo Grand Prix,norris,4,7,2,24,Finished,-3
+2022,21,São Paulo Grand Prix,kevin_magnussen,1,8,1,24,Finished,-7
+2022,21,São Paulo Grand Prix,vettel,13,9,0,24,Finished,4
+2022,21,São Paulo Grand Prix,gasly,12,10,0,24,Finished,2
+2022,21,São Paulo Grand Prix,ricciardo,14,11,0,24,Finished,3
+2022,21,São Paulo Grand Prix,mick_schumacher,20,12,0,24,Finished,8
+2022,21,São Paulo Grand Prix,zhou,17,13,0,24,Finished,4
+2022,21,São Paulo Grand Prix,bottas,18,14,0,24,Finished,4
+2022,21,São Paulo Grand Prix,tsunoda,19,15,0,24,Finished,4
+2022,21,São Paulo Grand Prix,stroll,15,16,0,24,Finished,-1
+2022,21,São Paulo Grand Prix,ocon,6,17,0,24,Finished,-11
+2022,21,São Paulo Grand Prix,alonso,7,18,0,24,Finished,-11
+2022,21,São Paulo Grand Prix,latifi,16,19,0,24,Finished,-3
+2022,21,São Paulo Grand Prix,albon,11,20,0,12,Retired,-9
+2023,4,Azerbaijan Grand Prix,perez,2,1,8,17,Finished,1
+2023,4,Azerbaijan Grand Prix,leclerc,1,2,7,17,Finished,-1
+2023,4,Azerbaijan Grand Prix,max_verstappen,3,3,6,17,Finished,0
+2023,4,Azerbaijan Grand Prix,russell,4,4,5,17,Finished,0
+2023,4,Azerbaijan Grand Prix,sainz,5,5,4,17,Finished,0
+2023,4,Azerbaijan Grand Prix,alonso,8,6,3,17,Finished,2
+2023,4,Azerbaijan Grand Prix,hamilton,6,7,2,17,Finished,-1
+2023,4,Azerbaijan Grand Prix,stroll,9,8,1,17,Finished,1
+2023,4,Azerbaijan Grand Prix,albon,7,9,0,17,Finished,-2
+2023,4,Azerbaijan Grand Prix,piastri,11,10,0,17,Finished,1
+2023,4,Azerbaijan Grand Prix,kevin_magnussen,13,11,0,17,Finished,2
+2023,4,Azerbaijan Grand Prix,zhou,14,12,0,17,Finished,2
+2023,4,Azerbaijan Grand Prix,gasly,17,13,0,17,Finished,4
+2023,4,Azerbaijan Grand Prix,de_vries,18,14,0,17,Finished,4
+2023,4,Azerbaijan Grand Prix,hulkenberg,12,15,0,17,Finished,-3
+2023,4,Azerbaijan Grand Prix,bottas,15,16,0,17,Finished,-1
+2023,4,Azerbaijan Grand Prix,norris,10,17,0,17,Finished,-7
+2023,4,Azerbaijan Grand Prix,ocon,0,18,0,17,Finished,-18
+2023,4,Azerbaijan Grand Prix,tsunoda,16,19,0,2,Collision damage,-3
+2023,4,Azerbaijan Grand Prix,sargeant,0,20,0,0,Accident,-20
+2023,9,Austrian Grand Prix,max_verstappen,1,1,8,24,Finished,0
+2023,9,Austrian Grand Prix,perez,2,2,7,24,Finished,0
+2023,9,Austrian Grand Prix,sainz,5,3,6,24,Finished,2
+2023,9,Austrian Grand Prix,stroll,7,4,5,24,Finished,3
+2023,9,Austrian Grand Prix,alonso,6,5,4,24,Finished,1
+2023,9,Austrian Grand Prix,hulkenberg,4,6,3,24,Finished,-2
+2023,9,Austrian Grand Prix,ocon,8,7,2,24,Finished,1
+2023,9,Austrian Grand Prix,russell,15,8,1,24,Finished,7
+2023,9,Austrian Grand Prix,norris,3,9,0,24,Finished,-6
+2023,9,Austrian Grand Prix,hamilton,18,10,0,24,Finished,8
+2023,9,Austrian Grand Prix,piastri,17,11,0,24,Finished,6
+2023,9,Austrian Grand Prix,leclerc,9,12,0,24,Finished,-3
+2023,9,Austrian Grand Prix,albon,11,13,0,24,Finished,-2
+2023,9,Austrian Grand Prix,kevin_magnussen,10,14,0,24,Finished,-4
+2023,9,Austrian Grand Prix,gasly,12,15,0,24,Finished,-3
+2023,9,Austrian Grand Prix,tsunoda,13,16,0,24,Finished,-3
+2023,9,Austrian Grand Prix,de_vries,14,17,0,24,Finished,-3
+2023,9,Austrian Grand Prix,sargeant,20,18,0,24,Finished,2
+2023,9,Austrian Grand Prix,zhou,16,19,0,24,Finished,-3
+2023,9,Austrian Grand Prix,bottas,19,20,0,24,Finished,-1
+2023,12,Belgian Grand Prix,max_verstappen,1,1,8,11,Finished,0
+2023,12,Belgian Grand Prix,piastri,2,2,7,11,Finished,0
+2023,12,Belgian Grand Prix,gasly,6,3,6,11,Finished,3
+2023,12,Belgian Grand Prix,sainz,3,4,5,11,Finished,-1
+2023,12,Belgian Grand Prix,leclerc,4,5,4,11,Finished,-1
+2023,12,Belgian Grand Prix,norris,5,6,3,11,Finished,-1
+2023,12,Belgian Grand Prix,hamilton,7,7,2,11,Finished,0
+2023,12,Belgian Grand Prix,russell,10,8,1,11,Finished,2
+2023,12,Belgian Grand Prix,ocon,9,9,0,11,Finished,0
+2023,12,Belgian Grand Prix,ricciardo,11,10,0,11,Finished,1
+2023,12,Belgian Grand Prix,stroll,14,11,0,11,Finished,3
+2023,12,Belgian Grand Prix,albon,12,12,0,11,Finished,0
+2023,12,Belgian Grand Prix,bottas,17,13,0,11,Finished,4
+2023,12,Belgian Grand Prix,kevin_magnussen,18,14,0,11,Finished,4
+2023,12,Belgian Grand Prix,zhou,19,15,0,11,Finished,4
+2023,12,Belgian Grand Prix,sargeant,13,16,0,11,Finished,-3
+2023,12,Belgian Grand Prix,hulkenberg,20,17,0,11,Finished,3
+2023,12,Belgian Grand Prix,tsunoda,16,18,0,11,Finished,-2
+2023,12,Belgian Grand Prix,perez,8,19,0,8,Collision damage,-11
+2023,12,Belgian Grand Prix,alonso,15,20,0,2,Accident,-5
+2023,17,Qatar Grand Prix,piastri,1,1,8,19,Finished,0
+2023,17,Qatar Grand Prix,max_verstappen,3,2,7,19,Finished,1
+2023,17,Qatar Grand Prix,norris,2,3,6,19,Finished,-1
+2023,17,Qatar Grand Prix,russell,4,4,5,19,Finished,0
+2023,17,Qatar Grand Prix,hamilton,12,5,4,19,Finished,7
+2023,17,Qatar Grand Prix,sainz,5,6,3,19,Finished,-1
+2023,17,Qatar Grand Prix,albon,17,7,2,19,Finished,10
+2023,17,Qatar Grand Prix,alonso,9,8,1,19,Finished,1
+2023,17,Qatar Grand Prix,gasly,11,9,0,19,Finished,2
+2023,17,Qatar Grand Prix,bottas,13,10,0,19,Finished,3
+2023,17,Qatar Grand Prix,tsunoda,18,11,0,19,Finished,7
+2023,17,Qatar Grand Prix,leclerc,6,12,0,19,Finished,-6
+2023,17,Qatar Grand Prix,stroll,16,13,0,19,Finished,3
+2023,17,Qatar Grand Prix,kevin_magnussen,19,14,0,19,Finished,5
+2023,17,Qatar Grand Prix,zhou,15,15,0,19,Finished,0
+2023,17,Qatar Grand Prix,hulkenberg,7,16,0,11,Retired,-9
+2023,17,Qatar Grand Prix,ocon,10,17,0,10,Retired,-7
+2023,17,Qatar Grand Prix,perez,8,18,0,10,Retired,-10
+2023,17,Qatar Grand Prix,sargeant,20,19,0,2,Retired,1
+2023,17,Qatar Grand Prix,lawson,14,20,0,0,Retired,-6
+2023,18,United States Grand Prix,max_verstappen,1,1,8,19,Finished,0
+2023,18,United States Grand Prix,hamilton,3,2,7,19,Finished,1
+2023,18,United States Grand Prix,leclerc,2,3,6,19,Finished,-1
+2023,18,United States Grand Prix,norris,4,4,5,19,Finished,0
+2023,18,United States Grand Prix,perez,7,5,4,19,Finished,2
+2023,18,United States Grand Prix,sainz,6,6,3,19,Finished,0
+2023,18,United States Grand Prix,gasly,9,7,2,19,Finished,2
+2023,18,United States Grand Prix,russell,11,8,1,19,Finished,3
+2023,18,United States Grand Prix,albon,8,9,0,19,Finished,-1
+2023,18,United States Grand Prix,piastri,5,10,0,19,Finished,-5
+2023,18,United States Grand Prix,ocon,13,11,0,19,Finished,2
+2023,18,United States Grand Prix,ricciardo,10,12,0,19,Finished,-2
+2023,18,United States Grand Prix,alonso,12,13,0,19,Finished,-1
+2023,18,United States Grand Prix,tsunoda,19,14,0,19,Finished,5
+2023,18,United States Grand Prix,hulkenberg,16,15,0,19,Finished,1
+2023,18,United States Grand Prix,bottas,18,16,0,19,Finished,2
+2023,18,United States Grand Prix,zhou,15,17,0,19,Finished,-2
+2023,18,United States Grand Prix,kevin_magnussen,17,18,0,19,Finished,-1
+2023,18,United States Grand Prix,sargeant,20,19,0,19,Finished,1
+2023,18,United States Grand Prix,stroll,14,20,0,16,Brakes,-6
+2024,5,Chinese Grand Prix,max_verstappen,4,1,8,19,Finished,3
+2024,5,Chinese Grand Prix,hamilton,2,2,7,19,Finished,0
+2024,5,Chinese Grand Prix,perez,6,3,6,19,Finished,3
+2024,5,Chinese Grand Prix,leclerc,7,4,5,19,Finished,3
+2024,5,Chinese Grand Prix,sainz,5,5,4,19,Finished,0
+2024,5,Chinese Grand Prix,norris,1,6,3,19,Finished,-5
+2024,5,Chinese Grand Prix,piastri,8,7,2,19,Finished,1
+2024,5,Chinese Grand Prix,russell,11,8,1,19,Finished,3
+2024,5,Chinese Grand Prix,zhou,10,9,0,19,Finished,1
+2024,5,Chinese Grand Prix,kevin_magnussen,12,10,0,19,Finished,2
+2024,5,Chinese Grand Prix,ricciardo,14,11,0,19,Finished,3
+2024,5,Chinese Grand Prix,bottas,9,12,0,19,Finished,-3
+2024,5,Chinese Grand Prix,ocon,17,13,0,19,Finished,4
+2024,5,Chinese Grand Prix,stroll,15,14,0,19,Finished,1
+2024,5,Chinese Grand Prix,gasly,16,15,0,19,Finished,1
+2024,5,Chinese Grand Prix,tsunoda,19,16,0,19,Finished,3
+2024,5,Chinese Grand Prix,albon,18,17,0,19,Finished,1
+2024,5,Chinese Grand Prix,sargeant,20,18,0,19,Finished,2
+2024,5,Chinese Grand Prix,hulkenberg,13,19,0,19,Finished,-6
+2024,5,Chinese Grand Prix,alonso,3,20,0,17,Retired,-17
+2024,6,Miami Grand Prix,max_verstappen,1,1,8,19,Finished,0
+2024,6,Miami Grand Prix,leclerc,2,2,7,19,Finished,0
+2024,6,Miami Grand Prix,perez,3,3,6,19,Finished,0
+2024,6,Miami Grand Prix,ricciardo,4,4,5,19,Finished,0
+2024,6,Miami Grand Prix,sainz,5,5,4,19,Finished,0
+2024,6,Miami Grand Prix,piastri,6,6,3,19,Finished,0
+2024,6,Miami Grand Prix,hulkenberg,10,7,2,19,Finished,3
+2024,6,Miami Grand Prix,tsunoda,15,8,1,19,Finished,7
+2024,6,Miami Grand Prix,gasly,16,9,0,19,Finished,7
+2024,6,Miami Grand Prix,sargeant,18,10,0,19,Finished,8
+2024,6,Miami Grand Prix,zhou,17,11,0,19,Finished,6
+2024,6,Miami Grand Prix,russell,11,12,0,19,Finished,-1
+2024,6,Miami Grand Prix,albon,20,13,0,19,Finished,7
+2024,6,Miami Grand Prix,bottas,19,14,0,19,Finished,5
+2024,6,Miami Grand Prix,ocon,13,15,0,19,Finished,-2
+2024,6,Miami Grand Prix,hamilton,12,16,0,19,Finished,-4
+2024,6,Miami Grand Prix,alonso,8,17,0,19,Finished,-9
+2024,6,Miami Grand Prix,kevin_magnussen,14,18,0,19,Finished,-4
+2024,6,Miami Grand Prix,stroll,7,19,0,1,Retired,-12
+2024,6,Miami Grand Prix,norris,9,20,0,0,Retired,-11
+2024,11,Austrian Grand Prix,max_verstappen,1,1,8,23,Finished,0
+2024,11,Austrian Grand Prix,piastri,3,2,7,23,Finished,1
+2024,11,Austrian Grand Prix,norris,2,3,6,23,Finished,-1
+2024,11,Austrian Grand Prix,russell,4,4,5,23,Finished,0
+2024,11,Austrian Grand Prix,sainz,5,5,4,23,Finished,0
+2024,11,Austrian Grand Prix,hamilton,6,6,3,23,Finished,0
+2024,11,Austrian Grand Prix,leclerc,10,7,2,23,Finished,3
+2024,11,Austrian Grand Prix,perez,7,8,1,23,Finished,-1
+2024,11,Austrian Grand Prix,kevin_magnussen,11,9,0,23,Finished,2
+2024,11,Austrian Grand Prix,stroll,12,10,0,23,Finished,2
+2024,11,Austrian Grand Prix,ocon,8,11,0,23,Finished,-3
+2024,11,Austrian Grand Prix,gasly,9,12,0,23,Finished,-3
+2024,11,Austrian Grand Prix,tsunoda,14,13,0,23,Finished,1
+2024,11,Austrian Grand Prix,ricciardo,16,14,0,23,Finished,2
+2024,11,Austrian Grand Prix,alonso,13,15,0,23,Finished,-2
+2024,11,Austrian Grand Prix,sargeant,15,16,0,23,Finished,-1
+2024,11,Austrian Grand Prix,albon,20,17,0,23,Finished,3
+2024,11,Austrian Grand Prix,bottas,18,18,0,23,Finished,0
+2024,11,Austrian Grand Prix,hulkenberg,17,19,0,23,Finished,-2
+2024,11,Austrian Grand Prix,zhou,19,20,0,23,Finished,-1
+2024,19,United States Grand Prix,max_verstappen,1,1,8,19,Finished,0
+2024,19,United States Grand Prix,sainz,5,2,7,19,Finished,3
+2024,19,United States Grand Prix,norris,4,3,6,19,Finished,1
+2024,19,United States Grand Prix,leclerc,3,4,5,19,Finished,-1
+2024,19,United States Grand Prix,russell,2,5,4,19,Finished,-3
+2024,19,United States Grand Prix,hamilton,7,6,3,19,Finished,1
+2024,19,United States Grand Prix,kevin_magnussen,8,7,2,19,Finished,1
+2024,19,United States Grand Prix,hulkenberg,6,8,1,19,Finished,-2
+2024,19,United States Grand Prix,perez,11,9,0,19,Finished,2
+2024,19,United States Grand Prix,piastri,16,10,0,19,Finished,6
+2024,19,United States Grand Prix,tsunoda,9,11,0,19,Finished,-2
+2024,19,United States Grand Prix,colapinto,10,12,0,19,Finished,-2
+2024,19,United States Grand Prix,stroll,13,13,0,19,Finished,0
+2024,19,United States Grand Prix,gasly,12,14,0,19,Finished,-2
+2024,19,United States Grand Prix,ocon,17,15,0,19,Finished,2
+2024,19,United States Grand Prix,lawson,15,16,0,19,Finished,-1
+2024,19,United States Grand Prix,albon,20,17,0,19,Finished,3
+2024,19,United States Grand Prix,alonso,14,18,0,19,Finished,-4
+2024,19,United States Grand Prix,zhou,19,19,0,19,Finished,0
+2024,19,United States Grand Prix,bottas,18,20,0,19,Finished,-2
+2024,21,São Paulo Grand Prix,norris,2,1,8,24,Finished,1
+2024,21,São Paulo Grand Prix,piastri,1,2,7,24,Finished,-1
+2024,21,São Paulo Grand Prix,leclerc,3,3,6,24,Finished,0
+2024,21,São Paulo Grand Prix,max_verstappen,4,4,5,24,Finished,0
+2024,21,São Paulo Grand Prix,sainz,5,5,4,24,Finished,0
+2024,21,São Paulo Grand Prix,russell,6,6,3,24,Finished,0
+2024,21,São Paulo Grand Prix,gasly,7,7,2,24,Finished,0
+2024,21,São Paulo Grand Prix,perez,13,8,1,24,Finished,5
+2024,21,São Paulo Grand Prix,lawson,8,9,0,24,Finished,-1
+2024,21,São Paulo Grand Prix,albon,9,10,0,24,Finished,-1
+2024,21,São Paulo Grand Prix,hamilton,11,11,0,24,Finished,0
+2024,21,São Paulo Grand Prix,colapinto,14,12,0,24,Finished,2
+2024,21,São Paulo Grand Prix,ocon,16,13,0,24,Finished,3
+2024,21,São Paulo Grand Prix,bearman,10,14,0,24,Finished,-4
+2024,21,São Paulo Grand Prix,tsunoda,17,15,0,24,Finished,2
+2024,21,São Paulo Grand Prix,bottas,15,16,0,24,Finished,-1
+2024,21,São Paulo Grand Prix,zhou,20,17,0,24,Finished,3
+2024,21,São Paulo Grand Prix,alonso,18,18,0,24,Finished,0
+2024,21,São Paulo Grand Prix,stroll,19,19,0,24,Finished,0
+2024,21,São Paulo Grand Prix,hulkenberg,12,20,0,19,Retired,-8
+2025,2,Chinese Grand Prix,hamilton,1,1,8,19,Finished,0
+2025,2,Chinese Grand Prix,piastri,3,2,7,19,Finished,1
+2025,2,Chinese Grand Prix,max_verstappen,2,3,6,19,Finished,-1
+2025,2,Chinese Grand Prix,russell,5,4,5,19,Finished,1
+2025,2,Chinese Grand Prix,leclerc,4,5,4,19,Finished,-1
+2025,2,Chinese Grand Prix,tsunoda,8,6,3,19,Finished,2
+2025,2,Chinese Grand Prix,antonelli,7,7,2,19,Finished,0
+2025,2,Chinese Grand Prix,norris,6,8,1,19,Finished,-2
+2025,2,Chinese Grand Prix,stroll,10,9,0,19,Finished,1
+2025,2,Chinese Grand Prix,alonso,11,10,0,19,Finished,1
+2025,2,Chinese Grand Prix,albon,9,11,0,19,Finished,-2
+2025,2,Chinese Grand Prix,gasly,17,12,0,19,Finished,5
+2025,2,Chinese Grand Prix,hadjar,15,13,0,19,Finished,2
+2025,2,Chinese Grand Prix,lawson,19,14,0,19,Finished,5
+2025,2,Chinese Grand Prix,bearman,12,15,0,19,Finished,-3
+2025,2,Chinese Grand Prix,ocon,18,16,0,19,Finished,2
+2025,2,Chinese Grand Prix,sainz,13,17,0,19,Finished,-4
+2025,2,Chinese Grand Prix,bortoleto,14,18,0,19,Finished,-4
+2025,2,Chinese Grand Prix,hulkenberg,20,19,0,19,Finished,1
+2025,2,Chinese Grand Prix,doohan,16,20,0,19,Finished,-4
+2025,6,Miami Grand Prix,norris,3,1,8,18,Finished,2
+2025,6,Miami Grand Prix,piastri,2,2,7,18,Finished,0
+2025,6,Miami Grand Prix,hamilton,7,3,6,18,Finished,4
+2025,6,Miami Grand Prix,russell,5,4,5,18,Finished,1
+2025,6,Miami Grand Prix,stroll,16,5,4,18,Finished,11
+2025,6,Miami Grand Prix,tsunoda,20,6,3,18,Finished,14
+2025,6,Miami Grand Prix,antonelli,1,7,2,18,Finished,-6
+2025,6,Miami Grand Prix,gasly,13,8,1,18,Finished,5
+2025,6,Miami Grand Prix,hulkenberg,11,9,0,18,Finished,2
+2025,6,Miami Grand Prix,hadjar,9,10,0,18,Finished,-1
+2025,6,Miami Grand Prix,albon,8,11,0,18,Finished,-3
+2025,6,Miami Grand Prix,ocon,12,12,0,18,Finished,0
+2025,6,Miami Grand Prix,lawson,14,13,0,18,Finished,1
+2025,6,Miami Grand Prix,bearman,19,14,0,18,Finished,5
+2025,6,Miami Grand Prix,bortoleto,18,15,0,18,Finished,3
+2025,6,Miami Grand Prix,doohan,17,16,0,18,Finished,1
+2025,6,Miami Grand Prix,max_verstappen,4,17,0,18,Finished,-13
+2025,6,Miami Grand Prix,alonso,10,18,0,13,Retired,-8
+2025,6,Miami Grand Prix,sainz,15,19,0,12,Retired,-4
+2025,6,Miami Grand Prix,leclerc,6,20,0,0,Retired,-14
+2025,13,Belgian Grand Prix,max_verstappen,2,1,8,15,Finished,1
+2025,13,Belgian Grand Prix,piastri,1,2,7,15,Finished,-1
+2025,13,Belgian Grand Prix,norris,3,3,6,15,Finished,0
+2025,13,Belgian Grand Prix,leclerc,4,4,5,15,Finished,0
+2025,13,Belgian Grand Prix,ocon,5,5,4,15,Finished,0
+2025,13,Belgian Grand Prix,sainz,6,6,3,15,Finished,0
+2025,13,Belgian Grand Prix,bearman,7,7,2,15,Finished,0
+2025,13,Belgian Grand Prix,hadjar,9,8,1,15,Finished,1
+2025,13,Belgian Grand Prix,bortoleto,10,9,0,15,Finished,1
+2025,13,Belgian Grand Prix,lawson,11,10,0,15,Finished,1
+2025,13,Belgian Grand Prix,tsunoda,12,11,0,15,Finished,1
+2025,13,Belgian Grand Prix,russell,13,12,0,15,Finished,1
+2025,13,Belgian Grand Prix,stroll,15,13,0,15,Finished,2
+2025,13,Belgian Grand Prix,alonso,14,14,0,15,Finished,0
+2025,13,Belgian Grand Prix,hamilton,18,15,0,15,Finished,3
+2025,13,Belgian Grand Prix,albon,16,16,0,15,Finished,0
+2025,13,Belgian Grand Prix,antonelli,19,17,0,15,Finished,2
+2025,13,Belgian Grand Prix,hulkenberg,17,18,0,15,Finished,-1
+2025,13,Belgian Grand Prix,colapinto,20,19,0,15,Finished,1
+2025,13,Belgian Grand Prix,gasly,8,20,0,12,Retired,-12
+2025,19,United States Grand Prix,max_verstappen,1,1,8,19,Finished,0
+2025,19,United States Grand Prix,russell,5,2,7,19,Finished,3
+2025,19,United States Grand Prix,sainz,7,3,6,19,Finished,4
+2025,19,United States Grand Prix,hamilton,8,4,5,19,Finished,4
+2025,19,United States Grand Prix,leclerc,10,5,4,19,Finished,5
+2025,19,United States Grand Prix,albon,9,6,3,19,Finished,3
+2025,19,United States Grand Prix,tsunoda,18,7,2,19,Finished,11
+2025,19,United States Grand Prix,antonelli,11,8,1,19,Finished,3
+2025,19,United States Grand Prix,lawson,15,9,0,19,Finished,6
+2025,19,United States Grand Prix,gasly,13,10,0,19,Finished,3
+2025,19,United States Grand Prix,bortoleto,20,11,0,19,Finished,9
+2025,19,United States Grand Prix,hadjar,12,12,0,19,Finished,0
+2025,19,United States Grand Prix,hulkenberg,4,13,0,19,Finished,-9
+2025,19,United States Grand Prix,colapinto,17,14,0,19,Finished,3
+2025,19,United States Grand Prix,bearman,16,15,0,19,Finished,1
+2025,19,United States Grand Prix,ocon,19,16,0,15,Retired,3
+2025,19,United States Grand Prix,stroll,14,17,0,15,Retired,-3
+2025,19,United States Grand Prix,norris,2,18,0,0,Retired,-16
+2025,19,United States Grand Prix,piastri,3,19,0,0,Retired,-16
+2025,19,United States Grand Prix,alonso,6,20,0,0,Retired,-14
+2025,21,São Paulo Grand Prix,norris,1,1,8,24,Finished,0
+2025,21,São Paulo Grand Prix,antonelli,2,2,7,24,Finished,0
+2025,21,São Paulo Grand Prix,russell,4,3,6,24,Finished,1
+2025,21,São Paulo Grand Prix,max_verstappen,6,4,5,24,Finished,2
+2025,21,São Paulo Grand Prix,leclerc,8,5,4,24,Finished,3
+2025,21,São Paulo Grand Prix,alonso,5,6,3,24,Finished,-1
+2025,21,São Paulo Grand Prix,hamilton,11,7,2,24,Finished,4
+2025,21,São Paulo Grand Prix,gasly,13,8,1,24,Finished,5
+2025,21,São Paulo Grand Prix,stroll,7,9,0,24,Finished,-2
+2025,21,São Paulo Grand Prix,hadjar,9,10,0,24,Finished,-1
+2025,21,São Paulo Grand Prix,ocon,18,11,0,24,Finished,7
+2025,21,São Paulo Grand Prix,bearman,15,12,0,24,Finished,3
+2025,21,São Paulo Grand Prix,tsunoda,19,13,0,24,Finished,6
+2025,21,São Paulo Grand Prix,sainz,20,14,0,24,Finished,6
+2025,21,São Paulo Grand Prix,hulkenberg,10,15,0,24,Finished,-5
+2025,21,São Paulo Grand Prix,lawson,17,16,0,24,Finished,1
+2025,21,São Paulo Grand Prix,albon,12,17,0,24,Finished,-5
+2025,21,São Paulo Grand Prix,bortoleto,14,18,0,23,Retired,-4
+2025,21,São Paulo Grand Prix,piastri,3,19,0,5,Retired,-16
+2025,21,São Paulo Grand Prix,colapinto,16,20,0,5,Retired,-4
+2026,2,Chinese Grand Prix,russell,1,1,8,19,Finished,0
+2026,2,Chinese Grand Prix,leclerc,6,2,7,19,Finished,4
+2026,2,Chinese Grand Prix,hamilton,4,3,6,19,Finished,1
+2026,2,Chinese Grand Prix,norris,3,4,5,19,Finished,-1
+2026,2,Chinese Grand Prix,antonelli,2,5,4,19,Finished,-3
+2026,2,Chinese Grand Prix,piastri,5,6,3,19,Finished,-1
+2026,2,Chinese Grand Prix,lawson,13,7,2,19,Finished,6
+2026,2,Chinese Grand Prix,bearman,9,8,1,19,Finished,1
+2026,2,Chinese Grand Prix,max_verstappen,8,9,0,19,Finished,-1
+2026,2,Chinese Grand Prix,ocon,12,10,0,19,Finished,2
+2026,2,Chinese Grand Prix,gasly,7,11,0,19,Finished,-4
+2026,2,Chinese Grand Prix,sainz,17,12,0,19,Finished,5
+2026,2,Chinese Grand Prix,bortoleto,14,13,0,19,Finished,1
+2026,2,Chinese Grand Prix,colapinto,16,14,0,19,Finished,2
+2026,2,Chinese Grand Prix,hadjar,10,15,0,19,Finished,-5
+2026,2,Chinese Grand Prix,albon,22,16,0,19,Finished,6
+2026,2,Chinese Grand Prix,alonso,18,17,0,19,Finished,1
+2026,2,Chinese Grand Prix,stroll,19,18,0,19,Finished,1
+2026,2,Chinese Grand Prix,perez,21,19,0,19,Finished,2
+2026,2,Chinese Grand Prix,hulkenberg,11,20,0,12,Retired,-9
+2026,2,Chinese Grand Prix,bottas,20,21,0,12,Retired,-1
+2026,2,Chinese Grand Prix,arvid_lindblad,15,22,0,11,Retired,-7
+2026,4,Miami Grand Prix,norris,1,1,8,19,Finished,0
+2026,4,Miami Grand Prix,piastri,3,2,7,19,Finished,1
+2026,4,Miami Grand Prix,leclerc,4,3,6,19,Finished,1
+2026,4,Miami Grand Prix,russell,6,4,5,19,Finished,2
+2026,4,Miami Grand Prix,max_verstappen,5,5,4,19,Finished,0
+2026,4,Miami Grand Prix,antonelli,2,6,3,19,Finished,-4
+2026,4,Miami Grand Prix,hamilton,7,7,2,19,Finished,0
+2026,4,Miami Grand Prix,gasly,10,8,1,19,Finished,2
+2026,4,Miami Grand Prix,hadjar,9,9,0,19,Finished,0
+2026,4,Miami Grand Prix,colapinto,8,10,0,19,Finished,-2
+2026,4,Miami Grand Prix,ocon,16,11,0,19,Finished,5
+2026,4,Miami Grand Prix,bearman,13,12,0,19,Finished,1
+2026,4,Miami Grand Prix,sainz,14,13,0,19,Finished,1
+2026,4,Miami Grand Prix,lawson,15,14,0,19,Finished,1
+2026,4,Miami Grand Prix,alonso,20,15,0,19,Finished,5
+2026,4,Miami Grand Prix,perez,17,16,0,19,Finished,1
+2026,4,Miami Grand Prix,stroll,21,17,0,19,Finished,4
+2026,4,Miami Grand Prix,albon,18,18,0,19,Finished,0
+2026,4,Miami Grand Prix,bottas,19,19,0,19,Finished,0
+2026,4,Miami Grand Prix,hulkenberg,12,20,0,0,Did not start,-8
+2026,4,Miami Grand Prix,arvid_lindblad,22,21,0,0,Did not start,1
+2026,4,Miami Grand Prix,bortoleto,11,22,0,19,Disqualified,-11
+2026,5,Canadian Grand Prix,russell,1,1,8,23,Finished,0
+2026,5,Canadian Grand Prix,norris,3,2,7,23,Finished,1
+2026,5,Canadian Grand Prix,antonelli,2,3,6,23,Finished,-1
+2026,5,Canadian Grand Prix,piastri,4,4,5,23,Finished,0
+2026,5,Canadian Grand Prix,leclerc,6,5,4,23,Finished,1
+2026,5,Canadian Grand Prix,hamilton,5,6,3,23,Finished,-1
+2026,5,Canadian Grand Prix,max_verstappen,7,7,2,23,Finished,0
+2026,5,Canadian Grand Prix,arvid_lindblad,9,8,1,23,Finished,1
+2026,5,Canadian Grand Prix,colapinto,13,9,0,23,Finished,4
+2026,5,Canadian Grand Prix,sainz,10,10,0,23,Finished,0
+2026,5,Canadian Grand Prix,lawson,18,11,0,23,Finished,7
+2026,5,Canadian Grand Prix,bortoleto,12,12,0,23,Finished,0
+2026,5,Canadian Grand Prix,ocon,14,13,0,23,Finished,1
+2026,5,Canadian Grand Prix,perez,16,14,0,23,Finished,2
+2026,5,Canadian Grand Prix,hulkenberg,11,15,0,23,Finished,-4
+2026,5,Canadian Grand Prix,stroll,17,16,0,22,Lapped,1
+2026,5,Canadian Grand Prix,bottas,21,17,0,22,Lapped,4
+2026,5,Canadian Grand Prix,bearman,19,18,0,22,Lapped,1
+2026,5,Canadian Grand Prix,albon,22,19,0,22,Lapped,3
+2026,5,Canadian Grand Prix,gasly,20,20,0,22,Lapped,0
+2026,5,Canadian Grand Prix,hadjar,8,21,0,20,Lapped,-13
+2026,5,Canadian Grand Prix,alonso,15,22,0,15,Retired,-7
+2026,9,British Grand Prix,antonelli,2,1,8,17,Finished,1
+2026,9,British Grand Prix,hamilton,1,2,7,17,Finished,-1
+2026,9,British Grand Prix,norris,6,3,6,17,Finished,3
+2026,9,British Grand Prix,russell,5,4,5,17,Finished,1
+2026,9,British Grand Prix,leclerc,4,5,4,17,Finished,-1
+2026,9,British Grand Prix,max_verstappen,3,6,3,17,Finished,-3
+2026,9,British Grand Prix,piastri,7,7,2,17,Finished,0
+2026,9,British Grand Prix,lawson,9,8,1,17,Finished,1
+2026,9,British Grand Prix,hadjar,8,9,0,17,Finished,-1
+2026,9,British Grand Prix,arvid_lindblad,10,10,0,17,Finished,0
+2026,9,British Grand Prix,gasly,11,11,0,17,Finished,0
+2026,9,British Grand Prix,colapinto,14,12,0,17,Finished,2
+2026,9,British Grand Prix,bortoleto,12,13,0,17,Finished,-1
+2026,9,British Grand Prix,bearman,16,14,0,17,Finished,2
+2026,9,British Grand Prix,hulkenberg,13,15,0,17,Finished,-2
+2026,9,British Grand Prix,ocon,17,16,0,17,Finished,1
+2026,9,British Grand Prix,sainz,15,17,0,17,Finished,-2
+2026,9,British Grand Prix,albon,22,18,0,17,Finished,4
+2026,9,British Grand Prix,bottas,19,19,0,17,Finished,0
+2026,9,British Grand Prix,alonso,20,20,0,17,Finished,0
+2026,9,British Grand Prix,stroll,21,21,0,16,Lapped,0
+2026,9,British Grand Prix,perez,18,22,0,16,Lapped,-4
+2026,12,Dutch Grand Prix,russell,1,1,8,24,Finished,0
+2026,12,Dutch Grand Prix,leclerc,3,2,7,24,Finished,1
+2026,12,Dutch Grand Prix,norris,2,3,6,24,Finished,-1
+2026,12,Dutch Grand Prix,antonelli,5,4,5,24,Finished,1
+2026,12,Dutch Grand Prix,piastri,4,5,4,24,Finished,-1
+2026,12,Dutch Grand Prix,max_verstappen,6,6,3,24,Finished,0
+2026,12,Dutch Grand Prix,hamilton,7,7,2,24,Finished,0
+2026,12,Dutch Grand Prix,gasly,8,8,1,24,Finished,0
+2026,12,Dutch Grand Prix,bortoleto,9,9,0,24,Finished,0
+2026,12,Dutch Grand Prix,arvid_lindblad,10,10,0,24,Finished,0
+2026,12,Dutch Grand Prix,lawson,11,11,0,24,Finished,0
+2026,12,Dutch Grand Prix,colapinto,13,12,0,24,Finished,1
