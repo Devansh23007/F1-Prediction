@@ -19,6 +19,7 @@ import model_v2 as M  # noqa: E402
 import live_predictions as LP  # noqa: E402
 import championship_sim as CS  # noqa: E402
 import leaderboard as LB  # noqa: E402
+import h2h_and_circuits as HC  # noqa: E402
 
 REPORTS = ROOT / "reports"
 DATA = ROOT / "data" / "processed" / "model_dataset_v2.csv"
@@ -95,8 +96,8 @@ def order_top3(g, col, asc=True):
 
 # ------------------------------------------------------------------ sidebar
 st.sidebar.title("🏎️ F1 Race Predictor")
-page = st.sidebar.radio("Page", ["⚡ Live Next Race", "🏆 Championship Simulator", "🏁 Race Explorer", "🎯 Check Yourself",
-                                 "📊 Model Report", "🔮 What-if Lab"])
+page = st.sidebar.radio("Page", ["⚡ Live Next Race", "🏆 Championship Simulator", "⚔️ Head-to-Head", "🗺️ Circuit Profiles",
+                                 "🏁 Race Explorer", "🎯 Check Yourself", "📊 Model Report", "🔮 What-if Lab"])
 st.sidebar.caption(
     "All predictions on these pages are **walk-forward**: each race was predicted "
     "by a model that had only seen earlier races.")
@@ -306,6 +307,169 @@ elif page == "🏆 Championship Simulator":
             )
             fig.update_layout(title=f"WCC Title Probability ({sim_count:,} Sims)", height=400, coloraxis_showscale=False)
             st.plotly_chart(fig, width="stretch")
+
+# ================================================================== HEAD-TO-HEAD
+elif page == "⚔️ Head-to-Head":
+    st.title("⚔️ Head-to-Head Rivalry & Elo Evolution")
+    st.write(
+        "Compare any two drivers or constructors across modern Formula 1 (2014-2026). "
+        "Analyze head-to-head race finishes, qualifying battles, and dynamic **Elo skill evolution** over time."
+    )
+
+    feats = load_features()
+    h2h_type = st.radio("Comparison Type", ["Driver vs Driver", "Team vs Team"], horizontal=True)
+
+    if h2h_type == "Driver vs Driver":
+        all_drivers = sorted(feats.driver_name.unique().tolist())
+        c_d1, c_d2 = st.columns(2)
+        idx_a = all_drivers.index("Max Verstappen") if "Max Verstappen" in all_drivers else 0
+        idx_b = all_drivers.index("Lewis Hamilton") if "Lewis Hamilton" in all_drivers else min(1, len(all_drivers) - 1)
+        d_a = c_d1.selectbox("Driver A", all_drivers, index=idx_a)
+        d_b = c_d2.selectbox("Driver B", all_drivers, index=idx_b)
+
+        if d_a == d_b:
+            st.warning("Please choose two different drivers.")
+        else:
+            h2h = HC.get_driver_h2h(feats, d_a, d_b)
+            if h2h["total_races"] == 0:
+                st.info(f"{d_a} and {d_b} have never competed in the same race.")
+            else:
+                if h2h["were_teammates"]:
+                    st.success(f"🤝 Teammate Alert: {d_a} and {d_b} were teammates for **{h2h['teammate_count']}** races!")
+
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("Common Races", h2h["total_races"])
+                c2.metric("Race Finishes Ahead", f"{h2h['finishes_a_ahead']} - {h2h['finishes_b_ahead']}", f"{d_a} vs {d_b}")
+                c3.metric("Qualifying Battle", f"{h2h['quali_a_ahead']} - {h2h['quali_b_ahead']}", f"{d_a} vs {d_b}")
+                c4.metric("Wins / Podiums", f"{h2h['wins_a']}W ({h2h['podiums_a']}P) vs {h2h['wins_b']}W ({h2h['podiums_b']}P)")
+
+                st.subheader(f"Elo Skill Trajectory: {d_a} vs {d_b}")
+                elo_df = h2h["elo_ts"]
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(
+                    x=elo_df.index, y=elo_df.driver_elo_a, mode="lines",
+                    name=d_a, line=dict(color=RED, width=2.5),
+                    text=elo_df.apply(lambda r: f"{r.season} {r.race_name}", axis=1),
+                    hoverinfo="text+y"
+                ))
+                fig.add_trace(go.Scatter(
+                    x=elo_df.index, y=elo_df.driver_elo_b, mode="lines",
+                    name=d_b, line=dict(color=BLUE, width=2.5),
+                    text=elo_df.apply(lambda r: f"{r.season} {r.race_name}", axis=1),
+                    hoverinfo="text+y"
+                ))
+                fig.update_layout(
+                    title="Pre-Race Elo Rating Over Time (Higher = Stronger)",
+                    xaxis_title="Chronological Common Race #",
+                    yaxis_title="Elo Rating",
+                    height=420
+                )
+                st.plotly_chart(fig, width="stretch")
+
+                with st.expander("View Detailed Common Race Log"):
+                    m_view = h2h["merged_races"][["season", "round", "race_name", "finish_position_a", "finish_position_b", "qualifying_position_a", "qualifying_position_b", "points_a", "points_b"]].copy()
+                    m_view.columns = ["Season", "Round", "Race", f"{d_a} Finish", f"{d_b} Finish", f"{d_a} Grid", f"{d_b} Grid", f"{d_a} Pts", f"{d_b} Pts"]
+                    st.dataframe(m_view.sort_values(["Season", "Round"], ascending=False), hide_index=True, width="stretch")
+
+    else:
+        all_teams = sorted(feats.constructor_name.unique().tolist())
+        c_t1, c_t2 = st.columns(2)
+        idx_ta = all_teams.index("Mercedes") if "Mercedes" in all_teams else 0
+        idx_tb = all_teams.index("Ferrari") if "Ferrari" in all_teams else min(1, len(all_teams) - 1)
+        t_a = c_t1.selectbox("Constructor A", all_teams, index=idx_ta)
+        t_b = c_t2.selectbox("Constructor B", all_teams, index=idx_tb)
+
+        if t_a == t_b:
+            st.warning("Please choose two different constructors.")
+        else:
+            h2h_team = HC.get_constructor_h2h(feats, t_a, t_b)
+            if h2h_team["total_races"] == 0:
+                st.info(f"{t_a} and {t_b} have never competed in the same race.")
+            else:
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("Common Races", h2h_team["total_races"])
+                c2.metric("Races Outscored", f"{h2h_team['ahead_a']} - {h2h_team['ahead_b']}", f"{t_a} vs {t_b}")
+                c3.metric("Wins / Podiums", f"{h2h_team['wins_a']}W ({h2h_team['podiums_a']}P) vs {h2h_team['wins_b']}W ({h2h_team['podiums_b']}P)")
+                c4.metric("Total Points", f"{int(h2h_team['pts_a'])} vs {int(h2h_team['pts_b'])}")
+
+                st.subheader(f"Team Elo Trajectory: {t_a} vs {t_b}")
+                elo_t = h2h_team["elo_ts"]
+                fig_t = go.Figure()
+                fig_t.add_trace(go.Scatter(
+                    x=elo_t.index, y=elo_t.team_elo_a, mode="lines",
+                    name=t_a, line=dict(color=RED, width=2.5),
+                    text=elo_t.apply(lambda r: f"{r.season} {r.race_name}", axis=1),
+                    hoverinfo="text+y"
+                ))
+                fig_t.add_trace(go.Scatter(
+                    x=elo_t.index, y=elo_t.team_elo_b, mode="lines",
+                    name=t_b, line=dict(color=BLUE, width=2.5),
+                    text=elo_t.apply(lambda r: f"{r.season} {r.race_name}", axis=1),
+                    hoverinfo="text+y"
+                ))
+                fig_t.update_layout(
+                    title="Pre-Race Team Elo Rating Over Time (Car Pace)",
+                    xaxis_title="Chronological Common Race #",
+                    yaxis_title="Team Elo",
+                    height=420
+                )
+                st.plotly_chart(fig_t, width="stretch")
+
+# ================================================================== CIRCUIT PROFILES
+elif page == "🗺️ Circuit Profiles":
+    st.title("🗺️ Circuit Profiles & Track Chaos Index")
+    st.write(
+        "Explore track-specific characteristics across all **33 Formula 1 circuits** (2014-2026), "
+        "including empirical DNF rates, pit stop time loss, overtaking dynamics, and simulation chaos."
+    )
+
+    feats = load_features()
+    all_circuits = HC.get_all_circuits_table(feats)
+
+    # Circuit selector
+    circuit_choices = all_circuits.apply(lambda r: f"{r.circuit_name} ({r.circuit_id})", axis=1).tolist()
+    c_sel = st.selectbox("Select Circuit", circuit_choices, index=0)
+    sel_id = all_circuits.iloc[circuit_choices.index(c_sel)].circuit_id
+    sel_row = all_circuits[all_circuits.circuit_id == sel_id].iloc[0]
+
+    # Metrics
+    c1, c2, c3, c4, c5 = st.columns(5)
+    c1.metric("Chaos Index", f"{sel_row.chaos_index:+.2f} σ")
+    c2.metric("Historical DNF Rate", f"{sel_row.dnf_rate_pct:.1f}%")
+    c3.metric("Pit Stop Loss", f"{sel_row.pit_loss_sec:.1f} s")
+    c4.metric("Pole-to-Win Rate", f"{sel_row.pole_to_win_pct:.1f}%")
+    c5.metric("Total Races Run", int(sel_row.races_held))
+
+    # All circuits scatter / ranking
+    fig_chaos = px.scatter(
+        all_circuits, x="pit_loss_sec", y="dnf_rate_pct", size="races_held",
+        color="chaos_index", color_continuous_scale="Viridis",
+        hover_name="circuit_name",
+        labels={"pit_loss_sec": "Pit Stop Time Loss (seconds)", "dnf_rate_pct": "Historical DNF Rate (%)", "chaos_index": "Chaos Index"}
+    )
+    # Highlight selected circuit
+    fig_chaos.add_trace(go.Scatter(
+        x=[sel_row.pit_loss_sec], y=[sel_row.dnf_rate_pct],
+        mode="markers+text", marker=dict(size=16, color=RED, symbol="star"),
+        text=[f"📍 {sel_row.circuit_name}"], textposition="top center",
+        name="Selected Circuit"
+    ))
+    fig_chaos.update_layout(title="All 33 Circuits: Pit Loss vs DNF Rate (Bubble size = Races run)", height=420)
+    st.plotly_chart(fig_chaos, width="stretch")
+
+    # Circuit details tabs
+    c_details = HC.get_circuit_details(feats, sel_id)
+    if c_details:
+        tab_drivers, tab_history = st.tabs(["🏆 Top Drivers at this Circuit", "📜 Historical Grand Prix Results"])
+        with tab_drivers:
+            td = c_details["top_drivers"].copy()
+            td["avg_finish"] = td["avg_finish"].round(2)
+            td.columns = ["Driver", "Races", "Wins", "Podiums", "Avg Finish"]
+            st.dataframe(td.head(15), hide_index=True, width="stretch")
+        with tab_history:
+            rh = c_details["race_history"].copy()
+            rh.columns = ["Season", "Round", "Grand Prix", "Race Winner", "Winning Team", "Pole Sitter", "DNFs", "Weather"]
+            st.dataframe(rh, hide_index=True, width="stretch")
 
 # ================================================================== EXPLORER
 elif page == "🏁 Race Explorer":
