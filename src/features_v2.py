@@ -16,6 +16,18 @@ PROCESSED.mkdir(parents=True, exist_ok=True)
 
 FINISHED = {"Finished", "Lapped"}
 
+CIRCUIT_PIT_LOSS = {
+    "albert_park": 21.5, "americas": 22.5, "bahrain": 23.5, "baku": 21.5,
+    "catalunya": 22.5, "hockenheimring": 21.0, "hungaroring": 21.0, "imola": 26.5,
+    "interlagos": 21.0, "istanbul": 21.5, "jeddah": 20.5, "losail": 25.0,
+    "madring": 22.0, "marina_bay": 29.5, "miami": 22.0, "monaco": 21.0,
+    "monza": 24.5, "mugello": 21.0, "nurburgring": 21.5, "portimao": 22.0,
+    "red_bull_ring": 20.0, "ricard": 25.0, "rodriguez": 22.5, "sepang": 22.0,
+    "shanghai": 24.0, "silverstone": 28.5, "sochi": 24.0, "spa": 22.5,
+    "suzuka": 23.5, "vegas": 21.0, "villeneuve": 20.5, "yas_marina": 22.5,
+    "zandvoort": 21.5
+}
+
 
 def _is_finished(status: str) -> bool:
     s = str(status)
@@ -292,6 +304,18 @@ def build(save=True) -> pd.DataFrame:
                    "circuit_dnf_rate", "circuit_chaos"]],
         on=["circuit_id", "season", "round"], how="left")
 
+    # ---------- Tyre & Strategy features ----------
+    df["pit_loss_time"] = df["circuit_id"].map(CIRCUIT_PIT_LOSS).fillna(22.5)
+    df["pit_loss_scaled"] = (df["pit_loss_time"] - 22.5) / 2.5
+    df["fast_quali_tyre_wear_penalty"] = df["fp_race_vs_quali_pace"] * (df["pit_loss_time"] / 22.5)
+    df["high_deg_circuit"] = (df["pit_loss_time"] >= 23.5).astype(int)
+
+    df["_high_deg_gain"] = df.where(df["high_deg_circuit"] == 1)["pos_gain"]
+    df["drv_tyre_mgmt_skill"] = df.groupby("driver_id", sort=False)["_high_deg_gain"].transform(
+        lambda s: s.shift(1).expanding().mean()
+    ).fillna(0.0)
+    df.drop(columns=["_high_deg_gain"], inplace=True)
+
     # ---------- within-race relative features ----------
     grp = df.groupby(["season", "round"])
     df["grid_rank_pct"] = df["grid_position"] / grp["grid_position"].transform("max")
@@ -325,6 +349,8 @@ FEATURES = [
     "fp_has_data", "fp_laps_count",
     "rainfall", "track_temp", "air_temp", "humidity",
     "drv_wet_vs_dry_gain", "drv_wet_skill_active",
+    "pit_loss_time", "pit_loss_scaled", "fast_quali_tyre_wear_penalty",
+    "high_deg_circuit", "drv_tyre_mgmt_skill",
 ]
 
 if __name__ == "__main__":
