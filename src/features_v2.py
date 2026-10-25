@@ -138,6 +138,25 @@ def build(save=True) -> pd.DataFrame:
         .drop_duplicates(["season", "round"]),
         on=["season", "round"], how="left", suffixes=("", "_sched"))
 
+    # ---------- Weather & Track conditions ----------
+    w_path = RAW / "race_weather.csv"
+    if w_path.exists():
+        w = pd.read_csv(w_path)
+        w["season"] = w["season"].astype(int)
+        w["round"] = w["round"].astype(int)
+        cols = ["season", "round", "rainfall", "track_temp", "air_temp", "humidity"]
+        df = df.merge(w[cols], on=["season", "round"], how="left")
+    else:
+        df["rainfall"] = 0
+        df["track_temp"] = 32.0
+        df["air_temp"] = 24.0
+        df["humidity"] = 50.0
+
+    df["rainfall"] = df["rainfall"].fillna(0).astype(int)
+    df["track_temp"] = df["track_temp"].fillna(32.0)
+    df["air_temp"] = df["air_temp"].fillna(24.0)
+    df["humidity"] = df["humidity"].fillna(50.0)
+
     # ---------- FastF1 practice (FP2 / FP1 long-run pace) ----------
     fp_path = RAW / "fastf1_practice_pace.csv"
     if fp_path.exists():
@@ -213,6 +232,15 @@ def build(save=True) -> pd.DataFrame:
     df["drv_quali_l5"] = roll("qualifying_position", 5)
     df["drv_career_races"] = g.cumcount()
 
+    # Driver historical wet-weather skill (shifted -> zero leakage)
+    df["_wet_gain"] = df.where(df["rainfall"] == 1)["pos_gain"]
+    df["_dry_gain"] = df.where(df["rainfall"] == 0)["pos_gain"]
+    df["drv_hist_wet_gain"] = g["_wet_gain"].transform(lambda s: s.shift(1).expanding().mean()).fillna(0.0)
+    df["drv_hist_dry_gain"] = g["_dry_gain"].transform(lambda s: s.shift(1).expanding().mean()).fillna(0.0)
+    df["drv_wet_vs_dry_gain"] = df["drv_hist_wet_gain"] - df["drv_hist_dry_gain"]
+    df["drv_wet_skill_active"] = df["rainfall"] * df["drv_wet_vs_dry_gain"]
+    df.drop(columns=["_wet_gain", "_dry_gain"], inplace=True)
+
     # ---------- constructor rolling form ----------
     team_race = (df.groupby(["constructor_id", "season", "round"], as_index=False)
                  .agg(t_fin=("finish_position", "mean"),
@@ -286,6 +314,8 @@ FEATURES = [
     "drv_circuit_avg_fin", "circuit_overtaking",
     "fp_longrun_gap_pct", "fp_race_vs_quali_pace", "fp_vs_teammate",
     "fp_has_data", "fp_laps_count",
+    "rainfall", "track_temp", "air_temp", "humidity",
+    "drv_wet_vs_dry_gain", "drv_wet_skill_active",
 ]
 
 if __name__ == "__main__":
