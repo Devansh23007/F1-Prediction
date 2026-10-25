@@ -1,11 +1,14 @@
 requests
 pandas
 numpy
+scipy
 scikit-learn
+lightgbm
 xgboost
 matplotlib
 seaborn
 jupyter
-streamlit
+streamlit>=1.50
 plotly
 python-dotenv
+fastf1

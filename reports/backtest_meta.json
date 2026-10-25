@@ -1,0 +1,21 @@
+{
+  "temperature_model": 1.2,
+  "temperature_grid": 1.6,
+  "tune_seasons": [
+    2022,
+    2023
+  ],
+  "holdout_seasons": [
+    2024,
+    2025,
+    2026
+  ],
+  "prob_metrics": {
+    "podium_brier_model": 0.06452101829954955,
+    "podium_brier_grid_baseline": 0.06326806390765766,
+    "podium_brier_constant": 0.12496449151854559,
+    "win_brier_model": 0.02900768393393393,
+    "win_brier_grid_baseline": 0.029379764921171173,
+    "win_brier_constant": 0.04641747603459316
+  }
+}

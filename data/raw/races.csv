@@ -172,3 +172,26 @@ season,round,race_name,race_date,circuit_id,circuit_name,country,locality
 2025,22,Las Vegas Grand Prix,2025-11-23,vegas,Las Vegas Strip Street Circuit,USA,Las Vegas
 2025,23,Qatar Grand Prix,2025-11-30,losail,Lusail International Circuit,Qatar,Lusail
 2025,24,Abu Dhabi Grand Prix,2025-12-07,yas_marina,Yas Marina Circuit,UAE,Abu Dhabi
+2026,1,Australian Grand Prix,2026-03-08,albert_park,Albert Park Grand Prix Circuit,Australia,Melbourne
+2026,2,Chinese Grand Prix,2026-03-15,shanghai,Shanghai International Circuit,China,Shanghai
+2026,3,Japanese Grand Prix,2026-03-29,suzuka,Suzuka Circuit,Japan,Suzuka
+2026,4,Miami Grand Prix,2026-05-03,miami,Miami International Autodrome,USA,Miami
+2026,5,Canadian Grand Prix,2026-05-24,villeneuve,Circuit Gilles Villeneuve,Canada,Montreal
+2026,6,Monaco Grand Prix,2026-06-07,monaco,Circuit de Monaco,Monaco,Monte Carlo
+2026,7,Barcelona Grand Prix,2026-06-14,catalunya,Circuit de Barcelona-Catalunya,Spain,Barcelona
+2026,8,Austrian Grand Prix,2026-06-28,red_bull_ring,Red Bull Ring,Austria,Spielberg
+2026,9,British Grand Prix,2026-07-05,silverstone,Silverstone Circuit,UK,Silverstone
+2026,10,Belgian Grand Prix,2026-07-19,spa,Circuit de Spa-Francorchamps,Belgium,Spa
+2026,11,Hungarian Grand Prix,2026-07-26,hungaroring,Hungaroring,Hungary,Budapest
+2026,12,Dutch Grand Prix,2026-08-23,zandvoort,Circuit Park Zandvoort,Netherlands,Zandvoort
+2026,13,Italian Grand Prix,2026-09-06,monza,Autodromo Nazionale di Monza,Italy,Monza
+2026,14,Spanish Grand Prix,2026-09-13,madring,Madring,Spain,Madrid
+2026,15,Azerbaijan Grand Prix,2026-09-26,baku,Baku City Circuit,Azerbaijan,Baku
+2026,16,Bahrain Grand Prix in Malaysia,2026-10-04,sepang,Sepang International Circuit,Malaysia,Kuala Lumpur
+2026,17,Singapore Grand Prix,2026-10-11,marina_bay,Marina Bay Street Circuit,Singapore,Marina Bay
+2026,18,United States Grand Prix,2026-10-25,americas,Circuit of the Americas,USA,Austin
+2026,19,Mexico City Grand Prix,2026-11-01,rodriguez,Autódromo Hermanos Rodríguez,Mexico,Mexico City
+2026,20,Brazilian Grand Prix,2026-11-08,interlagos,Autódromo José Carlos Pace,Brazil,São Paulo
+2026,21,Las Vegas Grand Prix,2026-11-22,vegas,Las Vegas Strip Street Circuit,USA,Las Vegas
+2026,22,Qatar Grand Prix,2026-11-29,losail,Lusail International Circuit,Qatar,Lusail
+2026,23,Abu Dhabi Grand Prix,2026-12-06,yas_marina,Yas Marina Circuit,UAE,Abu Dhabi
