@@ -1,308 +1,182 @@
-# F1 Race Predictor
+# 🏎️ Formula 1 Race Predictor & Championship Analytics Engine
 
-> **Version 2 (current).** The v1 pipeline below is kept for reference. v2 adds a leak-free
-> feature set, a walk-forward backtest against baselines, calibrated race simulation and a
-> new dashboard. Start here:
->
-> ```bash
-> pip install -r requirements.txt
-> python src/backtest_v2.py          # builds features, backtests 2022-2025, writes reports/
-> streamlit run dashboard/app_v2.py  # Explorer, Check Yourself, Model Report, What-if Lab
-> ```
+[![CI](https://github.com/YOUR_GITHUB_REPOSITORY_URL/actions/workflows/pipeline.yml/badge.svg)](https://github.com/YOUR_GITHUB_REPOSITORY_URL/actions)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/streamlit-1.50+-red.svg)](https://streamlit.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## What changed in v2 and why
+An end-to-end Formula 1 race prediction, Monte Carlo championship simulation, and interpretability platform. Spanning the entire Turbo-Hybrid era (**2014–2026**, 269 Grands Prix, 5,479 driver records), this system predicts race finishing positions, podium/win probabilities, and retirement likelihood using leak-free historical signals, FastF1 practice pace, track chaos indices, and official Sprint features.
 
-| Problem found in v1 | v2 fix |
-|---|---|
-| Random Forest (MAE 3.36) did **not** beat simply using the grid order (MAE 3.34); no baseline was reported | Baselines (grid order, Elo) are part of every report |
-| One test season (24 races) | Walk-forward backtest: every race 2022-25 predicted from earlier races only (92 races) |
-| `season`, `round`, `race_name` and one-hot `driver_id` as features (memorisation) | Removed; features are numeric pace / form / reliability signals |
-| Shallow features (previous finishes) | Driver and constructor Elo (race + qualifying), qualifying gap to pole %, teammate-relative qualifying, DNF rates, position gain, circuit overtaking index |
-| Model predicts finishing position from scratch | Model predicts the *correction to the grid* (LightGBM + Ridge blend), so it starts from a strong baseline |
-| Podium probability from a classifier (Brier worse than a grid baseline) | Plackett-Luce + retirement Monte Carlo (10k sims), temperature chosen on 2022-23 only |
-
-## Results (hold-out 2024-25, 48 races, never used for tuning)
-
-| | Grid order | Combined Elo | **Grid + learned correction** |
-|---|---|---|---|
-| Spearman rank correlation | 0.690 | 0.575 | **0.714** |
-| Avg position error | 3.12 | 3.93 | **3.02** |
-| Podium drivers found (of 3) | 2.13 | 1.65 | **2.17** |
-| Exact podiums | 13 | 4 | **15** |
-
-Across all 92 walk-forward races the gap is larger (position error 3.25 vs 3.47).
-**What this means:** the starting grid is already a very strong predictor, so the model's edge is
-real but small. Podium/win probability quality (Brier) is on par with a grid-based baseline and far
-better than a constant rate; the calibration curve tracks the diagonal.
-
-## Dashboard v2
-* **Race Explorer** - predicted vs actual order, win/podium probabilities, error plot
-* **Check Yourself** - predict a podium from the grid and Elo, then get scored against the model and the grid
-* **Model Report** - baselines, per-season skill, cumulative hits, calibration, Brier table
-* **What-if Lab** - edit the grid (penalties, pole swaps), add chaos / reliability risk, watch probabilities move
-
-## Ideas for v3
-Weather and tyre-strategy data (FastF1), practice long-run pace, safety-car likelihood per circuit,
-history back to 2014, an isotonic calibration layer, and wiring `predict_next_race.py` to the v2 model.
+Every prediction is validated through rigorous **walk-forward backtesting**, cluster-robust bootstrap statistical significance testing, and leave-one-group-out feature ablation.
 
 ---
 
-# v1 documentation (legacy)
+## ⚡ Quick Start
 
+```powershell
+# 1. Clone repository & set up environment
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd "F1 Race Predictor"
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
-A machine learning project that predicts Formula 1 race finishing positions and podium probabilities using historical race results, qualifying performance, driver form, and constructor performance.
+# 2. Install dependencies (includes LightGBM, FastF1, Plotly, Streamlit, Pytest)
+pip install -r requirements.txt
 
-The project combines a Python data pipeline, trained machine learning models, motorsport data retrieval, and an interactive Streamlit dashboard to explore race predictions.
+# 3. Run full walk-forward backtest & statistical calibration
+python src/backtest_v2.py
 
-## Project Overview
-
-The F1 Race Predictor uses historical Formula 1 data from the 2018–2025 seasons to train predictive models. The trained production models can then generate predictions using qualifying data and historical performance features.
-
-**Key features**
-- Historical Formula 1 data collection and preprocessing.
-- Feature engineering for driver and constructor performance.
-- Random Forest and XGBoost model comparison.
-- Race finishing position regression.
-- Podium probability classification.
-- Chronological model evaluation using the 2025 season as the test set.
-- Interactive Streamlit dashboard with charts and downloadable predictions.
-- FastF1 integration for retrieving qualifying session data.
-
-## Technology Stack
-
-- **Language:** Python
-- **Data processing:** Pandas, NumPy
-- **Machine learning:** Scikit-learn, XGBoost
-- **Motorsport data:** Jolpica-compatible API, FastF1
-- **Dashboard:** Streamlit, Plotly
-- **Model persistence:** Joblib
-- **Visualization and analysis:** Matplotlib, Seaborn
-
-## Architecture
-
-```text
-Historical F1 Data
-        |
-        v
-Data Collection
-        |
-        v
-Data Cleaning and Feature Engineering
-        |
-        v
-Processed Modeling Dataset
-        |
-        v
-Chronological Train/Test Split
-        |
-        v
-Random Forest and XGBoost
-        |
-        v
-Model Evaluation and Selection
-        |
-        v
-Production Model Training
-        |
-        v
-Qualifying Data + Historical Features
-        |
-        v
-Race Predictions
-        |
-        v
-Streamlit Dashboard
-        |
-        v
-Charts and CSV Export
+# 4. Launch the Interactive 8-Page Dashboard
+streamlit run dashboard/app_v2.py
 ```
 
-## Machine Learning Approach
+To run the automated leakage prevention and model invariant test suite:
+```powershell
+pytest tests/ -v
+```
 
-### 1. Data collection
+---
 
-The data pipeline collects historical race schedules, race results, and qualifying results. The current historical modeling dataset covers the 2018–2025 seasons.
+## 📊 Backtest Performance vs Baselines
 
-FastF1 is also used to retrieve qualifying-session results for prediction workflows when the primary API does not provide the required qualifying data.
+Modern Formula 1 starting grids are overwhelmingly informative. Unlike naive models that claim unrealistic accuracy, our system explicitly benchmarks against the **Starting Grid baseline** and a **Combined Elo baseline** across a **65-race holdout set (2024–2026)** that was strictly held out during tuning:
 
-### 2. Feature engineering
+### Holdout Evaluation (65 Races: 2024, 2025, 2026)
 
-The model dataset includes features such as:
+| Model / Baseline | Rank MAE ↓ | Spearman Rank Corr. (ρ) ↑ | Winner Hit Rate | Top-3 Hits (of 3) ↑ | Exact Podiums ↑ | Top-10 Hits (of 10) ↑ |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Grid Order Baseline** | 3.219 | 0.679 | 60.0% | 2.062 | 17 | 7.908 |
+| **Combined Elo Baseline** | 4.019 | 0.570 | 29.2% | 1.492 | 4 | 7.369 |
+| **Grid + Learned Correction (Our Model)** | **3.124** | **0.706** | 56.9% | **2.077** | **19** | **7.923** |
 
-- Qualifying position
-- Grid position
-- Driver's previous finishing position
-- Driver's average finishing position over recent races
-- Driver's previous race count
-- Constructor's recent finishing performance
-- Season and championship round
+### Statistical Significance (2,000 Cluster-Robust Bootstrap Resamples)
+- **Spearman Correlation Gain:** $+0.027$ ($95\%$ CI: $[+0.008, +0.045]$, **$p = 0.0025$**) — *statistically significant*.
+- **Rank MAE Advantage:** $+0.095$ spots gained per driver ($p = 0.054$).
+- **Exact Podiums Edge:** $+2.0$ full podium locks ($19$ vs $17$).
 
-Historical performance features are intended to summarize information from previous races. Qualifying and grid-related features support predictions made after qualifying.
+### 2026 New Regulations Holdout (17 Races)
+Under the 2026 aerodynamic and power unit regulation reset:
+- **Rank MAE:** **3.412** (Model) vs 3.497 (Grid)
+- **Spearman Correlation:** **0.681** (Model) vs 0.647 (Grid)
+- **Exact Podiums:** **5** (Model) vs 4 (Grid)
 
-### 3. Model training
+---
 
-Two algorithms were compared:
+## 🔬 Core Modeling Innovations
 
-- **Random Forest:** Used for finishing-position regression and podium classification.
-- **XGBoost:** Evaluated as an alternative model for the same prediction tasks.
+1. **Grid Correction Formulation:** Rather than predicting raw finishes from scratch, the model learns the non-linear position delta $\Delta = \text{Finish} - \text{Grid}$ via an ensembled blend of LightGBM (`num_leaves=8`, `min_child_samples=30`, `learning_rate=0.03`) and $L_2$-regularized Ridge regression (`\alpha=250`), weighted by an optimal shrinkage coefficient ($\gamma = 0.5$).
+2. **Dedicated Retirement (DNF) Classifier:** Replaced heuristic weights with a regularized Logistic Regression pipeline (`C=0.1`) trained on track chaos, historical driver/team DNF rates, ambient temperatures, and practice lap counts. ROC-AUC: **0.625** (vs 0.554 baseline).
+3. **Plackett-Luce Simulation with Track Chaos Temperature:** Win and podium odds are evaluated via 12,000 Monte Carlo draws using the Gumbel-Max trick. The simulation temperature dynamically scales per track:
+   $$T_{\text{circuit}} = T_0 \times (1 + 0.25 \times z_{\text{chaos}})$$
+   Lowering chaos on processional circuits (Monaco, Hungaroring) and widening variance on chaotic circuits (Baku, Jeddah, Interlagos).
+4. **Leak-Free Rolling Feature Windows:** Every rolling signal (`drv_fin_l3`, `drv_pts_l5`, `drv_gain_l5`, `_wet_gain`, `high_deg_gain`) applies `.shift(1)` across historical rows to guarantee absolute zero lookahead bias.
+5. **Regulation Reset Elo Decay:** Team Elo ratings regress by $55\%$ toward baseline across major aerodynamic/power unit resets (2017, 2022, 2026) to mirror car development shakeups.
 
-Random Forest was selected as the champion model based on its overall performance in the 2025 test season. XGBoost achieved a better Brier score for podium probability predictions in that comparison.
+---
 
-### 4. Model evaluation
+## 🖥️ Interactive Dashboard Features (`dashboard/app_v2.py`)
 
-The models were trained on data before the 2025 season and evaluated on 2025 data.
+The redesigned Streamlit application includes 8 modular analytical pages:
 
-| Metric | Random Forest | XGBoost |
-|---|---:|---:|
-| Position MAE | 3.36 | 3.47 |
-| Position RMSE | 4.33 | 4.60 |
-| Podium ROC-AUC | 0.956 | 0.936 |
-| Podium Brier score | 0.0858 | 0.0653 |
-| Exact podium matches | 9/24 | 5/24 |
+1. **⚡ Live Next Race & Prediction Log:**
+   - Automatically detects upcoming Grand Prix rounds via the Jolpica Ergast API (or allows manual round selection).
+   - 1-click **"🔄 Fetch Official Qualifying"** with FastF1 fallback.
+   - Interactive starting grid editor with persistent state (maintains qualifying positions across runs).
+   - Generates predicted finishing positions, expected finishes, win probabilities ($P_{\text{win}}$), and podium odds ($P_{\text{podium}}$).
+   - Logs predictions with timestamps and audit columns to SQLite (`data/predictions_log.db`).
+   - 1-click CSV & JSON export buttons.
 
-**Metric interpretation**
+2. **🏆 2026 Championship Monte Carlo Simulator:**
+   - Real-time driver and constructor standings directly synced from Jolpica.
+   - Simulates remaining calendar races (including Sprint weekends) over 5,000 to 20,000 iterations using official FIA points tables (GP: 25-18-15-12-10-8-6-4-2-1, Sprint: 8-7-6-5-4-3-2-1).
+   - Calculates title win probabilities ($P_{\text{champion}}$), podium probabilities, expected points, and min/max ranges for both WDC and WCC.
 
-- **MAE:** Average absolute error in predicted finishing position. Lower is better.
-- **RMSE:** Penalizes larger position-prediction errors more heavily. Lower is better.
-- **ROC-AUC:** Measures how well the classifier distinguishes podium finishers from other drivers. Higher is better.
-- **Brier score:** Measures the accuracy of predicted probabilities against binary outcomes. Lower is better.
-- **Exact podium matches:** Number of test races in which all three drivers selected for the predicted podium matched the actual podium, regardless of order.
+3. **⚔️ Head-to-Head Rivalry & Elo Evolution:**
+   - Compare any two drivers or constructors from 2014 to 2026.
+   - Metrics: shared races, race finish battle, qualifying duel, wins, and podiums.
+   - Detects teammate pairings and displays shared race counts.
+   - Dual-line interactive Plotly timeline tracking dynamic Elo skill trajectories over time.
 
-These results describe one test season, not guaranteed performance across every season. The predicted probabilities should not be assumed to be perfectly calibrated.
+4. **🗺️ Circuit Profiles & Chaos Index:**
+   - Database of all 33 modern Formula 1 circuits.
+   - Metrics: empirical DNF rate, chaos index $z$-score, pit stop time loss (seconds), tyre degradation category, pole-to-win conversion rate, and overtaking volatility.
+   - Interactive bubble chart highlighting selected circuit vs the entire calendar.
+   - Granular historical race winner and pole sitter logs.
 
-## Dashboard
+5. **🏁 Race Explorer & SHAP Factor Attribution:**
+   - Explore any historical Grand Prix from 2014 to 2026.
+   - Diverging **TreeSHAP** bar chart explaining *why* the model predicted a driver to advance or drop from their grid position.
+   - CSV export for individual Grand Prix predictions.
 
-The Streamlit dashboard presents race predictions in an interactive interface.
+6. **🎯 Check Yourself (Game & Persistent Leaderboard):**
+   - Test your racing intuition against the AI model and the Grid Baseline.
+   - Enter your Racer Tag and lock in your podium picks.
+   - Persistent SQLite Leaderboard table (`leaderboard` and `game_rounds` in `data/predictions_log.db`) tracking all-time scores, average points, and win rates against AI.
 
-Current dashboard capabilities include:
-- Predicted finishing order
-- Estimated podium probabilities
-- Qualifying position versus predicted finishing position
-- Constructor-based visualizations
-- CSV export of predictions
+7. **📊 Model Report:**
+   - Full holdout and walk-forward summary tables.
+   - Leave-One-Group-Out Feature Ablation Study table (`reports/ablation_study.csv`).
+   - 2,000-resample Cluster-Robust Bootstrap Significance cards (`reports/bootstrap_significance.json`).
+   - Reliability curves and Brier score breakdowns.
+   - 1-click CSV export buttons for all reports and backtest tables.
 
-The historical dashboard and live-prediction dashboard are separate applications.
+8. **🔮 What-if Lab:**
+   - Interactive scenario laboratory: reorder the starting grid, apply hypothetical grid penalties, simulate pit-lane starts, or ramp up race chaos to observe real-time probability shifts.
 
-## Project Structure
+---
+
+## 🧪 Automated Testing & CI/CD
+
+The repository contains an automated unit and regression test suite run via `pytest`:
+
+```powershell
+pytest tests/ -v
+```
+
+### Test Coverage Highlights (`tests/`):
+- `tests/test_leakage.py`: Confirms driver debut races contain zero prior information; confirms shifted rolling form never uses current race results; verifies Elo ratings are strictly pre-race.
+- `tests/test_model_invariance.py`: Proves Monte Carlo probabilities sum to targets ($1.0$ for wins, $3.0$ for podiums); verifies DNF probabilities are bounded in $[0.0, 1.0]$; verifies scoring monotonicity and finite TreeSHAP explanations.
+- `tests/test_live_and_sim.py`: Verifies SQLite schema creation; tests calendar lookup; ensures Championship simulator probabilities sum to $100\%$; validates leaderboard match recording.
+- `.github/workflows/pipeline.yml`: Continuous Integration workflow running automated tests and validating dashboard compilation on every push and pull request.
+
+---
+
+## 📁 Repository Structure
 
 ```text
 F1 Race Predictor/
+├── .github/workflows/
+│   └── pipeline.yml              # GitHub Actions CI workflow
+├── .streamlit/
+│   └── config.toml               # Streamlit theme & performance configuration
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── raw/                      # Ergast/Jolpica race results, weather, FastF1 pace, sprints
+│   ├── processed/
+│   │   └── model_dataset_v2.csv  # 5,479 rows x 86 columns (2014-2026)
+│   └── predictions_log.db        # SQLite database (live predictions & leaderboard)
 ├── src/
-│   ├── collect_data.py
-│   ├── build_features.py
-│   ├── train_models.py
-│   ├── evaluate_predictions.py
-│   ├── compare_models.py
-│   ├── train_champion.py
-│   ├── train_production.py
-│   └── predict_next_race.py
-├── models/
-├── reports/
-├── notebooks/
+│   ├── collect_data.py           # Ergast/Jolpica data collector (2014-2026)
+│   ├── collect_practice_pace.py  # FastF1 long-run representative pace harvester
+│   ├── collect_weather.py        # Ambient/track temperature & rain collector
+│   ├── collect_sprints.py        # Saturday sprint race harvester
+│   ├── features_v2.py            # Feature pipeline with Elo, pit loss & chaos
+│   ├── model_v2.py               # LightGBM + Ridge + DNF Classifier + TreeSHAP
+│   ├── backtest_v2.py            # Walk-forward backtest & bootstrap significance
+│   ├── live_predictions.py       # Next-race discovery, qualifying fetcher & SQLite log
+│   ├── championship_sim.py       # Monte Carlo WDC & WCC simulator (10,000+ draws)
+│   ├── leaderboard.py            # Persistent SQLite leaderboard manager
+│   ├── h2h_and_circuits.py       # Driver/team head-to-head & 33-circuit analytics
+│   └── tuning_and_ablation.py    # Cross-validation hyperparameter search & ablation
 ├── dashboard/
-│   ├── app.py
-│   └── live_app.py
-├── requirements.txt
+│   └── app_v2.py                 # Interactive 8-page Streamlit application
+├── reports/                      # Backtest predictions, ablation study, bootstrap metrics
+├── tests/                        # 12 automated pytest unit and invariance tests
+├── requirements.txt              # Production Python dependencies
 └── README.md
 ```
 
-## Getting Started
+---
 
-### Prerequisites
+## ⚖️ Disclaimer
 
-- Python 3.10 or later, compatible with the installed dependencies
-- pip
-- Internet access for retrieving external race data
-
-### 1. Clone the repository
-
-```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-cd "F1 Race Predictor"
-```
-
-Replace `YOUR_GITHUB_REPOSITORY_URL` with your actual GitHub repository URL.
-
-### 2. Create a virtual environment
-
-Windows PowerShell:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-### 3. Install dependencies
-
-```powershell
-python -m pip install -r requirements.txt
-```
-
-### 4. Run the data pipeline
-
-To collect historical data and build the modeling dataset:
-
-```powershell
-python src/collect_data.py
-python src/build_features.py
-```
-
-### 5. Train and evaluate the models
-
-```powershell
-python src/train_models.py
-python src/evaluate_predictions.py
-python src/compare_models.py
-python src/train_champion.py
-python src/train_production.py
-```
-
-Run these training steps when you want to regenerate the corresponding models and reports. Existing generated artifacts may be required for dashboard execution.
-
-### 6. Generate a race prediction
-
-```powershell
-python src/predict_next_race.py
-```
-
-This generates a prediction report when suitable race and qualifying data are available.
-
-### 7. Launch the dashboard
-
-Live prediction dashboard:
-
-```powershell
-streamlit run dashboard/live_app.py
-```
-
-Historical dashboard:
-
-```powershell
-streamlit run dashboard/app.py
-```
-
-## Limitations
-
-- Predictions depend on the quality and availability of historical and qualifying data.
-- Qualifying position may be used as a proxy for grid position; grid penalties can change the actual starting order.
-- New drivers and constructor lineups may have limited historical representation in the training dataset.
-- The current model does not fully account for weather, strategy, safety cars, collisions, or race retirements.
-- Historical evaluation results may not generalize to future seasons.
-- Podium probabilities are model estimates, not guarantees.
-
-## Future Improvements
-
-- Incorporate weather forecasts and circuit characteristics.
-- Model retirements and race completion probability.
-- Add calibration and reliability analysis for podium probabilities.
-- Introduce race-by-race backtesting across multiple seasons.
-- Improve handling of driver transfers and new constructors.
-- Add automated prediction updates and deployment.
-- Track model performance as new race results become available.
-
-## Disclaimer
-
-This project is intended for educational and portfolio purposes. Predictions are experimental estimates and should not be treated as guaranteed race outcomes or betting advice.
+This software is for educational, research, and portfolio purposes only. Formula 1 is inherently uncertain; predictions represent probabilistic estimates and must not be used for commercial gambling or financial wagering. Formula 1, F1, and related marks are trademarks of Formula One Licensing B.V.
