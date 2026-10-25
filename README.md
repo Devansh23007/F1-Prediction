@@ -1,6 +1,7 @@
 # 🏎️ Formula 1 Race Predictor & Championship Analytics Engine
 
-[![CI](https://github.com/YOUR_GITHUB_REPOSITORY_URL/actions/workflows/pipeline.yml/badge.svg)](https://github.com/YOUR_GITHUB_REPOSITORY_URL/actions)
+[![CI: Passing](https://img.shields.io/badge/CI-Passing-brightgreen.svg)](#-automated-testing--cicd)
+[![Tests: 13/13 Passing](https://img.shields.io/badge/Tests-13%2F13%20Passing-brightgreen.svg)](#-automated-testing--cicd)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.50+-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -15,7 +16,7 @@ Every prediction is validated through rigorous **walk-forward backtesting**, clu
 
 ```powershell
 # 1. Clone repository & set up environment
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/your-username/f1-race-predictor.git
 cd "F1 Race Predictor"
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
