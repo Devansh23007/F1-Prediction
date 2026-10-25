@@ -1,0 +1,23 @@
+season,round,race_id,race_name,race_date,driver_id,driver_name,constructor_id,constructor_name,circuit_id,country,qualifying_position,grid_position,grid_vs_qualifying,driver_prev_finish,driver_avg_finish_last3,driver_avg_finish_last5,driver_prev_races,constructor_avg_finish_last5,predicted_finish_position,podium_probability,predicted_order,predicted_podium_rank
+2026,18,2026_18,United States Grand Prix,2026-10-25,antonelli,Kimi Antonelli,mercedes,Mercedes,americas,USA,1.0,1.0,0.0,3.0,3.3333333333333335,2.4,41.0,4.9,2.959324242424242,0.8737543981780901,1,2
+2026,18,2026_18,United States Grand Prix,2026-10-25,max_verstappen,Max Verstappen,red_bull,Red Bull Racing,americas,USA,2.0,2.0,0.0,1.0,1.3333333333333333,1.8,190.0,4.7,3.0289949494949506,0.9621209310407948,2,1
+2026,18,2026_18,United States Grand Prix,2026-10-25,hadjar,Isack Hadjar,red_bull,Red Bull Racing,americas,USA,3.0,3.0,0.0,10.0,6.0,6.0,38.0,4.7,5.395437773337777,0.8376223338794608,3,3
+2026,18,2026_18,United States Grand Prix,2026-10-25,leclerc,Charles Leclerc,ferrari,Ferrari,americas,USA,4.0,4.0,0.0,2.0,3.3333333333333335,7.2,190.0,7.9,7.281542424242423,0.7185985647978513,4,4
+2026,18,2026_18,United States Grand Prix,2026-10-25,hamilton,Lewis Hamilton,ferrari,Ferrari,americas,USA,5.0,5.0,0.0,6.0,5.0,8.6,189.0,7.9,8.223234920634921,0.3213366796401524,5,6
+2026,18,2026_18,United States Grand Prix,2026-10-25,norris,Lando Norris,mclaren,McLaren,americas,USA,8.0,8.0,0.0,4.0,10.666666666666666,7.8,169.0,7.6,8.409195149295146,0.23892915652660104,6,8
+2026,18,2026_18,United States Grand Prix,2026-10-25,piastri,Oscar Piastri,mclaren,McLaren,americas,USA,7.0,7.0,0.0,5.0,8.0,7.4,87.0,7.6,8.990146897546897,0.2716609702615998,7,7
+2026,18,2026_18,United States Grand Prix,2026-10-25,russell,George Russell,mercedes,Mercedes,americas,USA,6.0,6.0,0.0,9.0,10.0,7.4,169.0,4.9,9.021549961149965,0.33742712766621163,8,5
+2026,18,2026_18,United States Grand Prix,2026-10-25,lawson,Liam Lawson,racing_bulls,Racing Bulls,americas,USA,10.0,10.0,0.0,7.0,8.666666666666666,9.2,52.0,,10.414611632811633,0.025630661649662403,9,15
+2026,18,2026_18,United States Grand Prix,2026-10-25,lin,Arvid Lindblad,racing_bulls,Racing Bulls,americas,USA,9.0,9.0,0.0,,,,,,10.911364846264846,0.007536406065127312,10,19
+2026,18,2026_18,United States Grand Prix,2026-10-25,gasly,Pierre Gasly,alpine,Alpine,americas,USA,11.0,11.0,0.0,11.0,15.0,12.8,190.0,13.1,11.894285714285726,0.09623175627654698,11,10
+2026,18,2026_18,United States Grand Prix,2026-10-25,bortoleto,Gabriel Bortoleto,audi,Audi,americas,USA,13.0,13.0,0.0,22.0,18.333333333333332,15.8,41.0,13.1,13.245237823287825,0.0027268229276739913,12,21
+2026,18,2026_18,United States Grand Prix,2026-10-25,hulkenberg,Nico Hulkenberg,audi,Audi,americas,USA,12.0,12.0,0.0,8.0,10.0,10.4,134.0,13.1,13.38256681096681,0.01637328494119483,13,16
+2026,18,2026_18,United States Grand Prix,2026-10-25,bearman,Oliver Bearman,haas,Haas F1 Team,americas,USA,16.0,16.0,0.0,12.0,11.666666666666666,13.2,44.0,12.9,13.603315739815732,0.0,14,22
+2026,18,2026_18,United States Grand Prix,2026-10-25,colapinto,Franco Colapinto,alpine,Alpine,americas,USA,14.0,14.0,0.0,21.0,17.0,13.4,44.0,13.1,13.627710189810198,0.016291130202201277,15,17
+2026,18,2026_18,United States Grand Prix,2026-10-25,ocon,Esteban Ocon,haas,Haas F1 Team,americas,USA,17.0,17.0,0.0,13.0,12.0,12.6,168.0,12.9,14.789267088467085,0.027313165276753947,16,14
+2026,18,2026_18,United States Grand Prix,2026-10-25,alonso,Fernando Alonso,aston_martin,Aston Martin,americas,USA,15.0,15.0,0.0,16.0,15.0,16.6,152.0,17.8,15.217929004329012,0.015983291604357644,17,18
+2026,18,2026_18,United States Grand Prix,2026-10-25,stroll,Lance Stroll,aston_martin,Aston Martin,americas,USA,18.0,18.0,0.0,20.0,18.0,19.0,188.0,17.8,15.82154978354978,0.04551838349888159,18,11
+2026,18,2026_18,United States Grand Prix,2026-10-25,sainz,Carlos Sainz,williams,Williams,americas,USA,19.0,19.0,0.0,14.0,13.666666666666666,14.6,189.0,16.4,15.872784704184703,0.09907516660303313,19,9
+2026,18,2026_18,United States Grand Prix,2026-10-25,perez,Sergio Perez,cadillac,Cadillac,americas,USA,21.0,21.0,0.0,17.0,16.666666666666668,17.6,164.0,18.2,16.31307674547675,0.0454557189916963,20,12
+2026,18,2026_18,United States Grand Prix,2026-10-25,bottas,Valtteri Bottas,cadillac,Cadillac,americas,USA,22.0,22.0,0.0,19.0,19.0,18.8,166.0,18.2,16.47269427239427,0.03021614085546247,21,13
+2026,18,2026_18,United States Grand Prix,2026-10-25,albon,Alexander Albon,williams,Williams,americas,USA,20.0,20.0,0.0,18.0,19.666666666666668,18.2,146.0,16.4,17.247635353535347,0.006493238380188082,22,20

@@ -3,7 +3,7 @@
     "training_rows": 2979,
     "test_rows": 479,
     "test_races": 24,
-    "finishing_position_mae": 3.358622883710228,
+    "finishing_position_mae": 3.3586228837102285,
     "finishing_position_rmse": 4.328369394029795,
     "podium_accuracy_at_threshold_0_5": 0.8768267223382046,
     "podium_brier_score": 0.08583244773059256,

@@ -1,0 +1,16 @@
+{
+    "champion": "Random Forest",
+    "training_seasons": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+    ],
+    "test_season": 2025,
+    "position_mae": 3.3586228837102285,
+    "podium_roc_auc": 0.9558080808080808,
+    "podium_brier_score": 0.08583244773059256
+}

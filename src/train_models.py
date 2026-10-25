@@ -1,4 +1,4 @@
-
+import joblib
 from pathlib import Path
 import json
 
@@ -158,6 +158,10 @@ def main():
     print("\nTraining finishing-position model...")
     regressor = make_regressor()
     regressor.fit(X_train, y_train_position)
+    joblib.dump(
+    regressor,
+    MODEL_DIR / "finishing_position_model.joblib"
+)
 
     predicted_position = regressor.predict(X_test)
 
@@ -172,6 +176,10 @@ def main():
     print("Training podium-probability model...")
     classifier = make_classifier()
     classifier.fit(X_train, y_train_podium)
+    joblib.dump(
+    classifier,
+    MODEL_DIR / "podium_probability_model.joblib"
+)
 
     podium_probability = classifier.predict_proba(X_test)[:, 1]
     predicted_podium = (podium_probability >= 0.5).astype(int)
