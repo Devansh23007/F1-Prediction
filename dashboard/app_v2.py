@@ -17,6 +17,8 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 import model_v2 as M  # noqa: E402
 import live_predictions as LP  # noqa: E402
+import championship_sim as CS  # noqa: E402
+import leaderboard as LB  # noqa: E402
 
 REPORTS = ROOT / "reports"
 DATA = ROOT / "data" / "processed" / "model_dataset_v2.csv"
@@ -93,7 +95,7 @@ def order_top3(g, col, asc=True):
 
 # ------------------------------------------------------------------ sidebar
 st.sidebar.title("🏎️ F1 Race Predictor")
-page = st.sidebar.radio("Page", ["⚡ Live Next Race", "🏁 Race Explorer", "🎯 Check Yourself",
+page = st.sidebar.radio("Page", ["⚡ Live Next Race", "🏆 Championship Simulator", "🏁 Race Explorer", "🎯 Check Yourself",
                                  "📊 Model Report", "🔮 What-if Lab"])
 st.sidebar.caption(
     "All predictions on these pages are **walk-forward**: each race was predicted "
@@ -221,6 +223,90 @@ if page == "⚡ Live Next Race":
     else:
         st.info("No predictions logged in database yet.")
 
+# ================================================================== CHAMPIONSHIP SIMULATOR
+elif page == "🏆 Championship Simulator":
+    st.title("🏆 2026 Championship Monte Carlo Simulator")
+    st.write(
+        "Simulate the remainder of the 2026 Formula 1 Season across **5,000 to 20,000 iterations**. "
+        "Calculates title probabilities, expected final points, and podium finishes for both the "
+        "**Drivers' Championship (WDC)** and **Constructors' Championship (WCC)**."
+    )
+
+    c_sim1, c_sim2, c_sim3 = st.columns([1, 1, 1])
+    with c_sim1:
+        n_sims = st.selectbox("Number of Simulations", [5000, 10000, 20000], index=1)
+    with c_sim2:
+        chaos_sim = st.slider("Circuit Chaos Scale", 0.6, 1.8, 1.0, 0.1, key="champ_chaos")
+    with c_sim3:
+        st.write("")
+        st.write("")
+        run_sim = st.button("🎲 Run Championship Simulation", type="primary")
+
+    if "wdc_sim_data" not in st.session_state or run_sim:
+        with st.spinner(f"Simulating remaining 2026 races ({n_sims:,} seasons)..."):
+            wdc_df, wcc_df = CS.simulate_championship(n_sims=n_sims, chaos_multiplier=chaos_sim)
+            st.session_state["wdc_sim_data"] = wdc_df
+            st.session_state["wcc_sim_data"] = wcc_df
+            st.session_state["sim_count"] = n_sims
+
+    wdc_df = st.session_state["wdc_sim_data"]
+    wcc_df = st.session_state["wcc_sim_data"]
+    sim_count = st.session_state.get("sim_count", 10000)
+
+    tab_wdc, tab_wcc = st.tabs(["Drivers' Championship (WDC)", "Constructors' Championship (WCC)"])
+
+    with tab_wdc:
+        st.subheader("Drivers' World Championship Odds")
+        top_driver = wdc_df.iloc[0]
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("WDC Favorite", top_driver["driver_name"], f"{top_driver['p_champion']:.1f}% Title Prob")
+        c2.metric("Current Points", f"{int(top_driver['current_points'])} pts")
+        c3.metric("Projected Final Points", f"{top_driver['exp_points']:.1f} pts")
+        c4.metric("Top-3 Podium Finish %", f"{top_driver['p_top3']:.1f}%")
+
+        left_d, right_d = st.columns([3, 2])
+        with left_d:
+            wdc_show = wdc_df[["driver_name", "constructor_name", "current_points", "exp_points", "min_points", "max_points", "p_champion", "p_top3"]].copy()
+            wdc_show.columns = ["Driver", "Team", "Current Pts", "Exp Final Pts", "Min Pts", "Max Pts", "Champion %", "Top 3 %"]
+            st.dataframe(wdc_show, hide_index=True, width="stretch", height=32 * min(15, len(wdc_show)) + 38)
+        
+        with right_d:
+            top_wdc_chart = wdc_df.head(8).sort_values("p_champion")
+            fig = px.bar(
+                top_wdc_chart, x="p_champion", y="driver_name", orientation="h",
+                text=top_wdc_chart.p_champion.map(lambda x: f"{x:.1f}%"),
+                labels={"p_champion": "Title Probability (%)", "driver_name": "Driver"},
+                color="p_champion", color_continuous_scale="Reds"
+            )
+            fig.update_layout(title=f"WDC Title Probability ({sim_count:,} Sims)", height=400, coloraxis_showscale=False)
+            st.plotly_chart(fig, width="stretch")
+
+    with tab_wcc:
+        st.subheader("Constructors' World Championship Odds")
+        top_team = wcc_df.iloc[0]
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("WCC Favorite", top_team["constructor_name"], f"{top_team['p_champion']:.1f}% Title Prob")
+        c2.metric("Current Points", f"{int(top_team['current_points'])} pts")
+        c3.metric("Projected Final Points", f"{top_team['exp_points']:.1f} pts")
+        c4.metric("Top-3 Finish %", f"{top_team['p_top3']:.1f}%")
+
+        left_c, right_c = st.columns([3, 2])
+        with left_c:
+            wcc_show = wcc_df[["constructor_name", "current_points", "exp_points", "min_points", "max_points", "p_champion", "p_top3"]].copy()
+            wcc_show.columns = ["Team", "Current Pts", "Exp Final Pts", "Min Pts", "Max Pts", "Champion %", "Top 3 %"]
+            st.dataframe(wcc_show, hide_index=True, width="stretch", height=32 * len(wcc_show) + 38)
+
+        with right_c:
+            top_wcc_chart = wcc_df.head(6).sort_values("p_champion")
+            fig = px.bar(
+                top_wcc_chart, x="p_champion", y="constructor_name", orientation="h",
+                text=top_wcc_chart.p_champion.map(lambda x: f"{x:.1f}%"),
+                labels={"p_champion": "Title Probability (%)", "constructor_name": "Team"},
+                color="p_champion", color_continuous_scale="Blues"
+            )
+            fig.update_layout(title=f"WCC Title Probability ({sim_count:,} Sims)", height=400, coloraxis_showscale=False)
+            st.plotly_chart(fig, width="stretch")
+
 # ================================================================== EXPLORER
 elif page == "🏁 Race Explorer":
     st.title("Race Explorer")
@@ -301,6 +387,8 @@ elif page == "🎯 Check Yourself":
     st.dataframe(view, hide_index=True, width="stretch", height=36 * 21)
     st.caption("Elo = rating built from previous races only (higher = stronger).")
 
+    player_name = st.text_input("🏷️ Your Racer Tag / Nickname", value="F1 Fan", key="player_nick")
+
     names = g.driver_name.tolist()
     c1, c2, c3 = st.columns(3)
     p1 = c1.selectbox("🥇 P1", names, index=0, key=f"p1_{rid}")
@@ -323,28 +411,57 @@ elif page == "🎯 Check Yourself":
                 ss.score[k] += v
             ss.score["rounds"] += 1
             ss.revealed.add(rid)
+
+            # Persist to SQLite leaderboard
+            LB.record_round(player_name, int(rid), rname, mine, actual, s["You"], s["Model"], s["Grid"])
+
             st.success(f"**{rname}**  -  actual podium: 🥇 {actual[0]}  🥈 {actual[1]}  🥉 {actual[2]}")
             cc = st.columns(3)
-            cc[0].metric("You", f"{s['You']} / 9", ", ".join(mine))
+            cc[0].metric(f"{player_name} (You)", f"{s['You']} / 9", ", ".join(mine))
             cc[1].metric("Model", f"{s['Model']} / 9", ", ".join(model))
             cc[2].metric("Grid copy", f"{s['Grid']} / 9", ", ".join(grid))
             st.caption("Scoring: 3 pts per driver in the exact podium spot, 1 pt for a podium driver in the wrong spot.")
 
-    if ss.score["rounds"]:
-        st.divider()
-        n = ss.score["rounds"]
-        st.subheader(f"Scoreboard after {n} race{'s' if n > 1 else ''}")
-        sc = pd.DataFrame({"Player": ["You", "Model", "Grid copy"],
-                           "Total": [ss.score["You"], ss.score["Model"], ss.score["Grid"]]})
-        sc["Avg per race"] = (sc.Total / n).round(2)
-        st.dataframe(sc, hide_index=True)
-        st.plotly_chart(px.bar(sc, x="Player", y="Avg per race", color="Player",
-                               color_discrete_sequence=[RED, BLUE, GREY], range_y=[0, 9]),
-                        width="stretch")
-        if st.button("Reset scoreboard"):
-            ss.score = {"You": 0, "Model": 0, "Grid": 0, "rounds": 0}
-            ss.revealed = set()
-            st.rerun()
+    # Leaderboard Tabs: Current Session vs All-Time Persistent SQLite Leaderboard
+    st.divider()
+    tab_session, tab_alltime, tab_history = st.tabs(["⚡ Current Session", "🏆 All-Time SQLite Leaderboard", "📜 Recent Matches History"])
+
+    with tab_session:
+        if ss.score["rounds"]:
+            n = ss.score["rounds"]
+            st.subheader(f"Scoreboard after {n} race{'s' if n > 1 else ''}")
+            sc = pd.DataFrame({"Player": [player_name, "Model", "Grid copy"],
+                               "Total": [ss.score["You"], ss.score["Model"], ss.score["Grid"]]})
+            sc["Avg per race"] = (sc.Total / n).round(2)
+            st.dataframe(sc, hide_index=True)
+            st.plotly_chart(px.bar(sc, x="Player", y="Avg per race", color="Player",
+                                   color_discrete_sequence=[RED, BLUE, GREY], range_y=[0, 9]),
+                            width="stretch")
+            if st.button("Reset current session"):
+                ss.score = {"You": 0, "Model": 0, "Grid": 0, "rounds": 0}
+                ss.revealed = set()
+                st.rerun()
+        else:
+            st.info("Play a race above to see session score statistics!")
+
+    with tab_alltime:
+        st.subheader("All-Time Player Leaderboard (Persistent SQLite)")
+        lb_df = LB.get_leaderboard_df()
+        if not lb_df.empty:
+            lb_show = lb_df.copy()
+            lb_show.columns = ["Player", "Rounds", "User Pts", "Model Pts", "Grid Pts", "Wins vs AI", "Last Played", "Avg Pts", "Win %"]
+            st.dataframe(lb_show, hide_index=True, width="stretch")
+        else:
+            st.info("No recorded leaderboard matches yet.")
+
+    with tab_history:
+        st.subheader("Recent Head-to-Head Game Logs")
+        hist_df = LB.get_recent_game_rounds(limit=25)
+        if not hist_df.empty:
+            hist_df.columns = ["Timestamp", "Player", "Race", "User Picks", "Actual Podium", "User Pts", "Model Pts", "Grid Pts"]
+            st.dataframe(hist_df, hide_index=True, width="stretch")
+        else:
+            st.info("No match history recorded yet.")
 
 # ================================================================== MODEL REPORT
 elif page == "📊 Model Report":
