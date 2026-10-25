@@ -11,6 +11,8 @@ sys.path.insert(0, str(ROOT / "src"))
 import live_predictions as LP
 import championship_sim as CS
 import leaderboard as LB
+import h2h_and_circuits as HC
+import pandas as pd
 
 
 def test_sqlite_db_init_and_seed():
@@ -64,3 +66,19 @@ def test_leaderboard_recording():
     assert not p_row.empty
     assert p_row["rounds_played"].iloc[0] >= 1
     assert p_row["total_user_score"].iloc[0] >= 9
+
+
+def test_h2h_and_circuits_analytics():
+    """Validates Head-to-Head analytics and Circuit profiles."""
+    data_path = ROOT / "data" / "processed" / "model_dataset_v2.csv"
+    if not data_path.exists():
+        pytest.skip("Dataset not found")
+    df = pd.read_csv(data_path)
+    h2h = HC.get_driver_h2h(df, "Max Verstappen", "Lewis Hamilton")
+    assert h2h["total_races"] > 100
+    assert h2h["finishes_a_ahead"] > 0
+    assert h2h["finishes_b_ahead"] > 0
+
+    circuits = HC.get_all_circuits_table(df)
+    assert len(circuits) >= 20
+    assert "chaos_index" in circuits.columns

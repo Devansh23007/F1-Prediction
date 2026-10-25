@@ -24,11 +24,16 @@ def get_driver_h2h(df: pd.DataFrame, driver_a: str, driver_b: str) -> Dict[str, 
     m_a = sub_a[sub_a.race_id.isin(common_races)].sort_values(["season", "round"]).reset_index(drop=True)
     m_b = sub_b[sub_b.race_id.isin(common_races)].sort_values(["season", "round"]).reset_index(drop=True)
 
+    cols_a = [c for c in ["race_id", "race_idx", "season", "round", "race_name", "race_date", "finish_position",
+                          "grid_position", "qualifying_position", "points", "dnf", "driver_elo", "constructor_name"]
+              if c in m_a.columns]
+    cols_b = [c for c in ["race_id", "finish_position", "grid_position", "qualifying_position", "points",
+                          "dnf", "driver_elo", "constructor_name"]
+              if c in m_b.columns]
+
     merged = pd.merge(
-        m_a[["race_id", "race_idx", "season", "round", "race_name", "date", "finish_position",
-             "grid_position", "qualifying_position", "points", "dnf", "driver_elo", "constructor_name"]],
-        m_b[["race_id", "finish_position", "grid_position", "qualifying_position", "points",
-             "dnf", "driver_elo", "constructor_name"]],
+        m_a[cols_a],
+        m_b[cols_b],
         on="race_id",
         suffixes=("_a", "_b")
     )
@@ -199,9 +204,9 @@ def get_circuit_details(df: pd.DataFrame, circuit_id: str) -> Dict[str, Any]:
         is_wet = int(g.rainfall.iloc[0]) if "rainfall" in g.columns else 0
 
         race_history.append({
-            "season": int(g.season.iloc[0]),
-            "round": int(g.round.iloc[0]),
-            "race_name": g.race_name.iloc[0],
+            "season": int(g["season"].iloc[0]),
+            "round": int(g["round"].iloc[0]),
+            "race_name": str(g["race_name"].iloc[0]),
             "winner": winner,
             "winner_team": winner_team,
             "pole_sitter": pole,

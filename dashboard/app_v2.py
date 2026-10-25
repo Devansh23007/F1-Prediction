@@ -15,11 +15,18 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+import importlib  # noqa: E402
 import model_v2 as M  # noqa: E402
 import live_predictions as LP  # noqa: E402
 import championship_sim as CS  # noqa: E402
 import leaderboard as LB  # noqa: E402
 import h2h_and_circuits as HC  # noqa: E402
+
+importlib.reload(M)
+importlib.reload(LP)
+importlib.reload(CS)
+importlib.reload(LB)
+importlib.reload(HC)
 
 REPORTS = ROOT / "reports"
 DATA = ROOT / "data" / "processed" / "model_dataset_v2.csv"
