@@ -32,13 +32,212 @@ REPORTS = ROOT / "reports"
 DATA = ROOT / "data" / "processed" / "model_dataset_v2.csv"
 RED, GREY, GREEN, BLUE = "#E10600", "#9AA0A6", "#2CB67D", "#4C8DFF"
 
+TEAM_COLORS = {
+    "Mercedes": "#00D2BE",
+    "Ferrari": "#E80020",
+    "Red Bull": "#3671C6",
+    "McLaren": "#FF8000",
+    "Aston Martin": "#229971",
+    "Alpine": "#0093CC",
+    "Alpine F1 Team": "#0093CC",
+    "Williams": "#64C4FF",
+    "Haas": "#B6BABD",
+    "Haas F1 Team": "#B6BABD",
+    "RB F1 Team": "#6692FF",
+    "Audi": "#52E252",
+    "Sauber": "#52E252",
+    "Cadillac": "#C0C0C0",
+}
+
 st.set_page_config(page_title="F1 Race Predictor", page_icon="🏎️", layout="wide")
-st.markdown("""
+st.html("""
 <style>
-.block-container {padding-top: 1.6rem;}
-div[data-testid="stMetric"] {background: rgba(128,128,128,.08); padding: 10px 14px;
-    border-radius: 10px; border-left: 4px solid #E10600;}
-</style>""", unsafe_allow_html=True)
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,700&display=swap');
+
+/* Base Theme & F1 Typography */
+html, body, .stMarkdown, p, label {
+    font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Titillium Web', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+}
+
+/* Explicitly preserve Material Icons for Streamlit UI (collapse arrows, chevrons, etc.) */
+[data-testid="stIconMaterial"], 
+[data-testid="collapsedControl"],
+[data-testid="stSidebarCollapseButton"],
+button[data-testid="stSidebarCollapseButton"] span,
+button[data-testid="collapsedControl"] span,
+.material-symbols-rounded,
+.material-symbols-outlined,
+.material-icons,
+span[data-testid="stIconMaterial"] {
+    font-family: 'Material Symbols Rounded', 'Material Icons', sans-serif !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    font-feature-settings: normal !important;
+}
+
+.block-container {
+    padding-top: 1.8rem;
+    padding-bottom: 3rem;
+}
+
+/* Glassmorphism Metric Cards */
+div[data-testid="stMetric"] {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-left: 4px solid #E10600;
+    transition: all 0.25s ease-in-out;
+}
+div[data-testid="stMetric"]:hover {
+    transform: translateY(-2px);
+    border-left: 4px solid #FF1801;
+    box-shadow: 0 6px 25px rgba(225, 6, 0, 0.25);
+}
+div[data-testid="stMetricLabel"] {
+    font-family: 'Titillium Web', sans-serif !important;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 0.78rem !important;
+    color: #9AA0A6 !important;
+    font-weight: 600 !important;
+}
+div[data-testid="stMetricValue"] {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    font-size: 1.65rem !important;
+}
+div[data-testid="stMetricDelta"] {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* Primary Action Buttons */
+button[kind="primary"] {
+    background: linear-gradient(90deg, #E10600 0%, #FF2A24 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-family: 'Titillium Web', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1.4rem !important;
+    box-shadow: 0 4px 15px rgba(225, 6, 0, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+button[kind="primary"]:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 6px 22px rgba(225, 6, 0, 0.55) !important;
+}
+
+/* Secondary Buttons */
+button[kind="secondary"] {
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-radius: 8px !important;
+    font-family: 'Titillium Web', sans-serif !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+button[kind="secondary"]:hover {
+    border-color: #E10600 !important;
+    color: #E10600 !important;
+}
+
+/* Tabs Styling */
+button[data-baseweb="tab"] {
+    font-family: 'Titillium Web', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.5px !important;
+    color: #9AA0A6 !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #E10600 !important;
+    border-bottom: 3px solid #E10600 !important;
+}
+
+/* Sidebar Branding */
+section[data-testid="stSidebar"] {
+    background: #0b0f14 !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
+    font-family: 'Titillium Web', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
+    background: rgba(225, 6, 0, 0.12);
+    color: #FFF;
+}
+
+/* Custom Dataframe Aesthetics */
+div[data-testid="stDataFrame"] {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Custom Alert / Info Banners */
+div[data-testid="stAlert"] {
+    border-radius: 10px !important;
+    font-family: 'Titillium Web', sans-serif !important;
+}
+</style>
+""")
+
+
+def render_podium_cards(p1, p2, p3):
+    p1_team = p1.get("constructor_name", "Team")
+    p2_team = p2.get("constructor_name", "Team")
+    p3_team = p3.get("constructor_name", "Team")
+    c1_col = TEAM_COLORS.get(p1_team, "#E10600")
+    c2_col = TEAM_COLORS.get(p2_team, "#4C8DFF")
+    c3_col = TEAM_COLORS.get(p3_team, "#FF8000")
+    
+    html = f"""
+    <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 15px 0 25px 0;">
+        <!-- P2 -->
+        <div style="flex: 1; max-width: 280px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-top: 4px solid {c2_col}; border-radius: 12px; padding: 18px 14px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="font-size: 1.8rem; margin-bottom: 2px;">🥈</div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: #A0AAB5; font-weight: 600;">P2 Contender</div>
+            <div style="font-size: 1.25rem; font-weight: 700; color: #FFF; margin: 4px 0;">{p2['driver_name']}</div>
+            <div style="display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; background: {c2_col}22; color: {c2_col}; font-weight: 600; margin-bottom: 8px;">{p2_team}</div>
+            <div style="font-family: 'Chakra Petch', sans-serif; font-size: 1.15rem; font-weight: 700; color: #2CB67D;">{p2['p_podium']*100:.1f}% <span style="font-size: 0.75rem; color: #A0AAB5;">Podium</span></div>
+        </div>
+        <!-- P1 -->
+        <div style="flex: 1.1; max-width: 320px; background: linear-gradient(180deg, rgba(225,6,0,0.14) 0%, rgba(255,255,255,0.03) 100%); border: 1px solid rgba(225,6,0,0.4); border-top: 5px solid {c1_col}; border-radius: 14px; padding: 22px 16px; text-align: center; transform: translateY(-10px); box-shadow: 0 8px 30px rgba(225,6,0,0.28);">
+            <div style="font-size: 2.2rem; margin-bottom: 2px;">🥇</div>
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #FFD700; font-weight: 700;">Predicted Winner</div>
+            <div style="font-size: 1.45rem; font-weight: 900; color: #FFF; margin: 5px 0;">{p1['driver_name']}</div>
+            <div style="display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.8rem; background: {c1_col}33; color: {c1_col}; font-weight: 700; margin-bottom: 8px;">{p1_team}</div>
+            <div style="font-family: 'Chakra Petch', sans-serif; font-size: 1.35rem; font-weight: 700; color: #FFD700;">{p1['p_win']*100:.1f}% <span style="font-size: 0.8rem; color: #A0AAB5;">Win Prob</span></div>
+        </div>
+        <!-- P3 -->
+        <div style="flex: 1; max-width: 280px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-top: 4px solid {c3_col}; border-radius: 12px; padding: 18px 14px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="font-size: 1.8rem; margin-bottom: 2px;">🥉</div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: #A0AAB5; font-weight: 600;">P3 Contender</div>
+            <div style="font-size: 1.25rem; font-weight: 700; color: #FFF; margin: 4px 0;">{p3['driver_name']}</div>
+            <div style="display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; background: {c3_col}22; color: {c3_col}; font-weight: 600; margin-bottom: 8px;">{p3_team}</div>
+            <div style="font-family: 'Chakra Petch', sans-serif; font-size: 1.15rem; font-weight: 700; color: #2CB67D;">{p3['p_podium']*100:.1f}% <span style="font-size: 0.75rem; color: #A0AAB5;">Podium</span></div>
+        </div>
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
 
 
 # ------------------------------------------------------------------ data
@@ -227,12 +426,9 @@ if page == "⚡ Live Next Race":
         live_res = st.session_state[f"latest_live_preds_{s}_{r}"]
         st.write("### 2. Predicted Finishing Order & Probabilities")
         
-        # Top 3 cards
+        # F1 Visual Podium Cards
         top3 = live_res.nsmallest(3, "pred_position")
-        c1, c2, c3 = st.columns(3)
-        c1.metric("🥇 Predicted Winner", top3.iloc[0]["driver_name"], f"{top3.iloc[0]['p_win']*100:.1f}% Win Probability")
-        c2.metric("🥈 P2 Prediction", top3.iloc[1]["driver_name"], f"{top3.iloc[1]['p_podium']*100:.1f}% Podium Probability")
-        c3.metric("🥉 P3 Prediction", top3.iloc[2]["driver_name"], f"{top3.iloc[2]['p_podium']*100:.1f}% Podium Probability")
+        render_podium_cards(top3.iloc[0], top3.iloc[1], top3.iloc[2])
 
         l_tab, r_tab = st.columns([3, 2])
         with l_tab:
@@ -247,13 +443,24 @@ if page == "⚡ Live Next Race":
         
         with r_tab:
             top_prob = live_res.nlargest(10, "p_podium").sort_values("p_podium")
+            bar_colors = [TEAM_COLORS.get(row["constructor_name"], RED) for _, row in top_prob.iterrows()]
             fig = go.Figure(go.Bar(
                 x=top_prob.p_podium * 100, y=top_prob.driver_name, orientation="h",
-                marker_color=RED,
+                marker=dict(color=bar_colors, line=dict(color="rgba(255,255,255,0.2)", width=1)),
                 text=(top_prob.p_podium * 100).round(1).astype(str) + "%",
                 textposition="outside"
             ))
-            fig.update_layout(title="Top 10 Podium Probabilities", xaxis_title="Probability (%)", height=420, margin=dict(l=0, r=20, t=50, b=0))
+            fig.update_layout(
+                title="Top 10 Podium Probabilities",
+                xaxis_title="Probability (%)",
+                height=420,
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                font=dict(family="Titillium Web", color="#FFF"),
+                margin=dict(l=0, r=30, t=50, b=0),
+                xaxis=dict(gridcolor="rgba(255,255,255,0.06)", zerolinecolor="rgba(255,255,255,0.1)"),
+                yaxis=dict(gridcolor="rgba(255,255,255,0.06)")
+            )
             st.plotly_chart(fig, width="stretch")
 
         c_dl1, c_dl2 = st.columns(2)
@@ -426,7 +633,12 @@ elif page == "⚔️ Head-to-Head":
                     title="Pre-Race Elo Rating Over Time (Higher = Stronger)",
                     xaxis_title="Chronological Common Race #",
                     yaxis_title="Elo Rating",
-                    height=420
+                    height=420,
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    plot_bgcolor="rgba(0,0,0,0)",
+                    font=dict(family="Titillium Web", color="#FFF"),
+                    xaxis=dict(gridcolor="rgba(255,255,255,0.06)"),
+                    yaxis=dict(gridcolor="rgba(255,255,255,0.06)")
                 )
                 st.plotly_chart(fig, width="stretch")
 
@@ -458,16 +670,18 @@ elif page == "⚔️ Head-to-Head":
 
                 st.subheader(f"Team Elo Trajectory: {t_a} vs {t_b}")
                 elo_t = h2h_team["elo_ts"]
+                t_col_a = TEAM_COLORS.get(t_a, RED)
+                t_col_b = TEAM_COLORS.get(t_b, BLUE)
                 fig_t = go.Figure()
                 fig_t.add_trace(go.Scatter(
                     x=elo_t.index, y=elo_t.team_elo_a, mode="lines",
-                    name=t_a, line=dict(color=RED, width=2.5),
+                    name=t_a, line=dict(color=t_col_a, width=3),
                     text=elo_t.apply(lambda r: f"{r.season} {r.race_name}", axis=1),
                     hoverinfo="text+y"
                 ))
                 fig_t.add_trace(go.Scatter(
                     x=elo_t.index, y=elo_t.team_elo_b, mode="lines",
-                    name=t_b, line=dict(color=BLUE, width=2.5),
+                    name=t_b, line=dict(color=t_col_b, width=3),
                     text=elo_t.apply(lambda r: f"{r.season} {r.race_name}", axis=1),
                     hoverinfo="text+y"
                 ))
@@ -475,7 +689,12 @@ elif page == "⚔️ Head-to-Head":
                     title="Pre-Race Team Elo Rating Over Time (Car Pace)",
                     xaxis_title="Chronological Common Race #",
                     yaxis_title="Team Elo",
-                    height=420
+                    height=420,
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    plot_bgcolor="rgba(0,0,0,0)",
+                    font=dict(family="Titillium Web", color="#FFF"),
+                    xaxis=dict(gridcolor="rgba(255,255,255,0.06)"),
+                    yaxis=dict(gridcolor="rgba(255,255,255,0.06)")
                 )
                 st.plotly_chart(fig_t, width="stretch")
 
@@ -518,7 +737,15 @@ elif page == "🗺️ Circuit Profiles":
         text=[f"📍 {sel_row.circuit_name}"], textposition="top center",
         name="Selected Circuit"
     ))
-    fig_chaos.update_layout(title="All 33 Circuits: Pit Loss vs DNF Rate (Bubble size = Races run)", height=420)
+    fig_chaos.update_layout(
+        title="All 33 Circuits: Pit Loss vs DNF Rate (Bubble size = Races run)",
+        height=420,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Titillium Web", color="#FFF"),
+        xaxis=dict(gridcolor="rgba(255,255,255,0.06)"),
+        yaxis=dict(gridcolor="rgba(255,255,255,0.06)")
+    )
     st.plotly_chart(fig_chaos, width="stretch")
 
     # Circuit details tabs
@@ -572,16 +799,28 @@ elif page == "🏁 Race Explorer":
             marker_color=[GREEN if d in act3 else RED for d in top.driver_name],
             text=(top.p_podium * 100).round(0).astype(int).astype(str) + "%",
             textposition="outside"))
-        fig.update_layout(title="Podium probability (green = actually on podium)",
-                          xaxis_title="%", height=420, margin=dict(l=0, r=20, t=50, b=0))
+        fig.update_layout(
+            title="Podium probability (green = actually on podium)",
+            xaxis_title="%", height=420, margin=dict(l=0, r=20, t=50, b=0),
+            paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(family="Titillium Web", color="#FFF"),
+            xaxis=dict(gridcolor="rgba(255,255,255,0.06)")
+        )
         st.plotly_chart(fig, width="stretch")
 
     fig = px.scatter(g, x="pred_order", y="finish_position", hover_name="driver_name",
                      color="constructor_name", labels={"pred_order": "Predicted position",
-                                                       "finish_position": "Actual position"})
+                                                       "finish_position": "Actual position"},
+                     color_discrete_map=TEAM_COLORS)
     fig.add_trace(go.Scatter(x=[1, 20], y=[1, 20], mode="lines",
                              line=dict(color=GREY, dash="dash"), name="perfect"))
-    fig.update_layout(height=380, title="Predicted vs actual finishing position")
+    fig.update_layout(
+        height=380, title="Predicted vs actual finishing position",
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Titillium Web", color="#FFF"),
+        xaxis=dict(gridcolor="rgba(255,255,255,0.06)"),
+        yaxis=dict(gridcolor="rgba(255,255,255,0.06)")
+    )
     st.plotly_chart(fig, width="stretch")
 
     st.divider()
