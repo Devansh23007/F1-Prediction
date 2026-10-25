@@ -1,0 +1,9 @@
+feature_group,rank_mae,mae_degradation,spearman_corr,spearman_drop,exact_podiums
+Full Production Model (All Features),3.125,0.0,0.705,0.0,20
+Without FastF1 Practice Pace,3.121,-0.004,0.703,0.002,19
+Without Weather & Conditions,3.123,-0.002,0.704,0.001,19
+Without Tyre & Strategy Signals,3.13,0.006,0.704,0.001,19
+Without Sprint Weekend Features,3.121,-0.003,0.706,-0.001,18
+Without Elo Ratings,3.102,-0.023,0.706,-0.001,18
+Without Rolling Form Metrics,3.116,-0.008,0.706,-0.0,20
+Starting Grid Baseline (No Model),3.219,0.094,0.679,0.026,17

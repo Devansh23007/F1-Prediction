@@ -1,0 +1,8 @@
+{
+  "num_leaves": 8,
+  "min_child_samples": 30,
+  "learning_rate": 0.03,
+  "reg_lambda": 15,
+  "alpha": 250,
+  "shrink": 0.5
+}

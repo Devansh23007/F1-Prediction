@@ -32,14 +32,14 @@ SHRINK = 0.5   # weight of the blended correction (0.5 each model => 1.0 total)
 
 def _lgb():
     return lgb.LGBMRegressor(
-        n_estimators=150, learning_rate=0.03, num_leaves=6, min_child_samples=40,
-        subsample=0.8, subsample_freq=1, colsample_bytree=0.7, reg_lambda=20,
+        n_estimators=150, learning_rate=0.03, num_leaves=8, min_child_samples=30,
+        subsample=0.8, subsample_freq=1, colsample_bytree=0.7, reg_lambda=15,
         random_state=1, verbose=-1)
 
 
 def _ridge():
     return make_pipeline(SimpleImputer(strategy="median"), StandardScaler(),
-                         Ridge(alpha=300))
+                         Ridge(alpha=250))
 
 
 DNF_FEATURES = [

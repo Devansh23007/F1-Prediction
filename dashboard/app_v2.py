@@ -16,6 +16,7 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 import model_v2 as M  # noqa: E402
+import live_predictions as LP  # noqa: E402
 
 REPORTS = ROOT / "reports"
 DATA = ROOT / "data" / "processed" / "model_dataset_v2.csv"
@@ -92,14 +93,136 @@ def order_top3(g, col, asc=True):
 
 # ------------------------------------------------------------------ sidebar
 st.sidebar.title("🏎️ F1 Race Predictor")
-page = st.sidebar.radio("Page", ["🏁 Race Explorer", "🎯 Check Yourself",
+page = st.sidebar.radio("Page", ["⚡ Live Next Race", "🏁 Race Explorer", "🎯 Check Yourself",
                                  "📊 Model Report", "🔮 What-if Lab"])
 st.sidebar.caption(
     "All predictions on these pages are **walk-forward**: each race was predicted "
     "by a model that had only seen earlier races.")
 
+
+# ================================================================== LIVE NEXT RACE
+if page == "⚡ Live Next Race":
+    st.title("⚡ Live Race Predictor & Prediction Log")
+    st.write(
+        "Real-time prediction for the upcoming Grand Prix on the F1 calendar. "
+        "Predictions are saved to a persistent **SQLite database** (`data/predictions_log.db`) "
+        "with timestamps for transparency and post-race audit."
+    )
+
+    LP.init_db()
+    LP.seed_recent_predictions_if_empty()
+
+    upcoming = LP.get_upcoming_round(2026)
+    s, r, rname = upcoming["season"], upcoming["round"], upcoming["race_name"]
+    circuit = upcoming["circuit_id"]
+
+    col1, col2, col3 = st.columns([2, 1, 1])
+    with col1:
+        st.subheader(f"Next Event: Round {r} - {rname}")
+        st.caption(f"Circuit: **{circuit}** | Date: **{upcoming.get('date', 'TBD')}**")
+    with col2:
+        st.metric("Season", s)
+    with col3:
+        st.metric("Round", f"R{r:02d}")
+
+    # Check for live qualifying
+    qual_df = None
+    if st.button("🔄 Check Live Qualifying on Jolpica / FastF1"):
+        qual_df = LP.fetch_live_qualifying(s, r)
+        if qual_df is not None and not qual_df.empty:
+            st.success(f"Fetched official qualifying grid with {len(qual_df)} drivers!")
+        else:
+            st.info("Official qualifying not published yet. Using latest driver form grid.")
+
+    if qual_df is None or qual_df.empty:
+        grid_base = LP.get_default_grid_for_next_round(s)
+    else:
+        grid_base = qual_df
+
+    st.write("### 1. Starting Grid for this Grand Prix")
+    st.caption("You can edit starting positions or penalty drops before running predictions.")
+    
+    edited_grid = st.data_editor(
+        grid_base[["grid_position", "driver_name", "constructor_name"]].rename(
+            columns={"grid_position": "Grid", "driver_name": "Driver", "constructor_name": "Team"}
+        ),
+        disabled=["Driver", "Team"],
+        hide_index=True,
+        width="stretch",
+        height=32 * len(grid_base) + 38,
+        key=f"grid_live_{s}_{r}"
+    )
+
+    grid_input = grid_base.copy()
+    grid_input["grid_position"] = edited_grid["Grid"].values
+
+    c_run, c_temp = st.columns([1, 2])
+    with c_run:
+        run_btn = st.button("🚀 Run Live Prediction & Log to Database", type="primary")
+    with c_temp:
+        temp_scale = st.slider("Race Chaos Multiplier", 0.6, 1.8, 1.0, 0.1, key="live_chaos")
+
+    if run_btn:
+        with st.spinner("Training walk-forward model on historical data & running 12,000 Monte Carlo simulations..."):
+            live_res = LP.run_prediction_for_grid(grid_input, s, r, rname, circuit, temp_scale=temp_scale)
+            run_id = LP.log_predictions_to_db(live_res, notes=f"Dashboard live run (chaos={temp_scale})")
+            st.session_state[f"latest_live_preds_{s}_{r}"] = live_res
+            st.success(f"Predictions calculated & logged to SQLite database! (Run ID: #{run_id})")
+
+    # Display prediction if in state
+    if f"latest_live_preds_{s}_{r}" in st.session_state:
+        live_res = st.session_state[f"latest_live_preds_{s}_{r}"]
+        st.write("### 2. Predicted Finishing Order & Probabilities")
+        
+        # Top 3 cards
+        top3 = live_res.nsmallest(3, "pred_position")
+        c1, c2, c3 = st.columns(3)
+        c1.metric("🥇 Predicted Winner", top3.iloc[0]["driver_name"], f"{top3.iloc[0]['p_win']*100:.1f}% Win Probability")
+        c2.metric("🥈 P2 Prediction", top3.iloc[1]["driver_name"], f"{top3.iloc[1]['p_podium']*100:.1f}% Podium Probability")
+        c3.metric("🥉 P3 Prediction", top3.iloc[2]["driver_name"], f"{top3.iloc[2]['p_podium']*100:.1f}% Podium Probability")
+
+        l_tab, r_tab = st.columns([3, 2])
+        with l_tab:
+            show = live_res[["pred_position", "driver_name", "constructor_name", "grid_position", "p_win", "p_podium", "p_top10", "exp_position"]].copy()
+            show["p_win"] = (show.p_win * 100).round(1)
+            show["p_podium"] = (show.p_podium * 100).round(1)
+            show["p_top10"] = (show.p_top10 * 100).round(1)
+            show["exp_position"] = show.exp_position.round(2)
+            show["gain_vs_grid"] = (show.grid_position - show.pred_position).astype(int)
+            show.columns = ["Pred Pos", "Driver", "Team", "Grid", "Win %", "Podium %", "Top 10 %", "Exp Finish", "Gain vs Grid"]
+            st.dataframe(show, hide_index=True, width="stretch", height=32 * len(show) + 38)
+        
+        with r_tab:
+            top_prob = live_res.nlargest(10, "p_podium").sort_values("p_podium")
+            fig = go.Figure(go.Bar(
+                x=top_prob.p_podium * 100, y=top_prob.driver_name, orientation="h",
+                marker_color=RED,
+                text=(top_prob.p_podium * 100).round(1).astype(str) + "%",
+                textposition="outside"
+            ))
+            fig.update_layout(title="Top 10 Podium Probabilities", xaxis_title="Probability (%)", height=420, margin=dict(l=0, r=20, t=50, b=0))
+            st.plotly_chart(fig, width="stretch")
+
+    # SQLite Database Log Viewer
+    st.divider()
+    st.write("### 3. Persistent SQLite Prediction Log (`data/predictions_log.db`)")
+    log_df = LP.get_logged_predictions()
+    if not log_df.empty:
+        log_runs = log_df[["season", "round", "race_name", "timestamp"]].drop_duplicates()
+        st.write(f"Logged Runs Count: **{len(log_runs)}** | Total Driver Predictions Logged: **{len(log_df)}**")
+        
+        # Formatted log display
+        disp = log_df.copy()
+        disp["p_win"] = (disp.p_win * 100).round(1).astype(str) + "%"
+        disp["p_podium"] = (disp.p_podium * 100).round(1).astype(str) + "%"
+        disp["actual_position"] = disp["actual_position"].fillna("Pending")
+        disp.columns = ["ID", "Timestamp", "Season", "Round", "Race", "Driver", "Team", "Grid", "Pred", "Win %", "Podium %", "Actual", "Scored"]
+        st.dataframe(disp.head(30), hide_index=True, width="stretch")
+    else:
+        st.info("No predictions logged in database yet.")
+
 # ================================================================== EXPLORER
-if page == "🏁 Race Explorer":
+elif page == "🏁 Race Explorer":
     st.title("Race Explorer")
     rid = race_picker("explore")
     g = preds[preds.race_id == rid].sort_values("pred_order").copy()
