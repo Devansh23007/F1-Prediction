@@ -105,3 +105,65 @@ def summarise_probs(P):
     pos = np.arange(1, P.shape[1] + 1)
     return {"p_win": P[:, 0], "p_podium": P[:, :3].sum(1),
             "p_top10": P[:, :10].sum(1), "exp_position": (P * pos).sum(1)}
+
+
+FEATURE_NAME_MAP = {
+    "driver_elo": "Driver Elo Rating",
+    "team_elo": "Team Car Performance (Elo)",
+    "drv_vs_tm_pace_pct": "Qualifying Pace vs Teammate",
+    "fp_longrun_gap_pct": "FP2 Long-Run Pace",
+    "sprint_pos_gain": "Sprint Race Gain",
+    "circuit_chaos": "Circuit Chaos Index",
+    "circuit_dnf_rate": "Track DNF Risk",
+    "grid_penalty": "Starting Grid Penalty",
+    "pit_loss_time": "Pit Stop Time Loss",
+    "drv_fin_l5": "Recent Finishing Form",
+    "drv_pts_l5": "Recent Points Form",
+    "drv_wet_skill_active": "Wet Weather Track Skill",
+    "high_deg_circuit": "High Tyre Degradation",
+    "drv_gain_l5": "Recent Overtaking Gain",
+    "driver_vs_car_elo": "Driver-over-Car Edge",
+    "grid_rank_pct": "Grid Rank Percentile",
+    "pit_lane_start": "Pit Lane Start Penalty"
+}
+
+
+def explain_driver_delta(models, test_row: pd.DataFrame) -> pd.DataFrame:
+    """Calculates exact feature attributions (TreeSHAP + Linear SHAP) for a driver row.
+    Returns DataFrame: [feature, label, impact, direction].
+    Negative impact means the feature pushed the driver forward (improved finishing position).
+    Positive impact means the feature pushed the driver backward.
+    """
+    if len(test_row) == 0:
+        return pd.DataFrame()
+
+    row = test_row.head(1)
+    
+    # 1. TreeSHAP from LightGBM booster
+    shap_lgb = models["lgb"].booster_.predict(row[SMALL].astype(float), pred_contrib=True)
+    lgb_contribs = dict(zip(SMALL, shap_lgb[0, :-1]))
+
+    # 2. Linear SHAP from Ridge Pipeline
+    scaler = models["ridge"].named_steps["standardscaler"]
+    imputer = models["ridge"].named_steps["simpleimputer"]
+    ridge_step = models["ridge"].named_steps["ridge"]
+    X_imp = imputer.transform(row[FEATURES].astype(float))
+    X_scaled = (X_imp - scaler.mean_) / scaler.scale_
+    ridge_contribs = dict(zip(FEATURES, X_scaled[0] * ridge_step.coef_))
+
+    # 3. Combine with SHRINK weight
+    all_keys = set(SMALL).union(FEATURES)
+    records = []
+    for f in all_keys:
+        val = SHRINK * (lgb_contribs.get(f, 0.0) + ridge_contribs.get(f, 0.0))
+        if abs(val) > 0.005:
+            records.append({
+                "feature": f,
+                "feature_name": FEATURE_NAME_MAP.get(f, f.replace("_", " ").title()),
+                "impact": float(val),
+                "direction": "Pushes Forward (Improves Position)" if val < 0 else "Pushes Backward (Hurts Position)",
+                "abs_impact": abs(float(val))
+            })
+
+    res = pd.DataFrame(records).sort_values("abs_impact", ascending=False).reset_index(drop=True)
+    return res

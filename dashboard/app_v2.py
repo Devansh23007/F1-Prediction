@@ -206,6 +206,20 @@ if page == "⚡ Live Next Race":
             fig.update_layout(title="Top 10 Podium Probabilities", xaxis_title="Probability (%)", height=420, margin=dict(l=0, r=20, t=50, b=0))
             st.plotly_chart(fig, width="stretch")
 
+        c_dl1, c_dl2 = st.columns(2)
+        c_dl1.download_button(
+            "📥 Download Live Predictions (CSV)",
+            data=live_res.to_csv(index=False),
+            file_name=f"f1_live_pred_{s}_round_{r}.csv",
+            mime="text/csv"
+        )
+        c_dl2.download_button(
+            "📥 Download Live Predictions (JSON)",
+            data=live_res.to_json(orient="records", indent=2),
+            file_name=f"f1_live_pred_{s}_round_{r}.json",
+            mime="application/json"
+        )
+
     # SQLite Database Log Viewer
     st.divider()
     st.write("### 3. Persistent SQLite Prediction Log (`data/predictions_log.db`)")
@@ -520,6 +534,66 @@ elif page == "🏁 Race Explorer":
     fig.update_layout(height=380, title="Predicted vs actual finishing position")
     st.plotly_chart(fig, width="stretch")
 
+    st.divider()
+    st.subheader("🔍 Prediction Explanation (TreeSHAP Feature Attributions)")
+    st.write(
+        "See exactly **why** the model predicted a driver to move up or drop down from their starting grid. "
+        "Calculated using exact **TreeSHAP** on the LightGBM decision trees combined with Linear SHAP on the regularized pipeline."
+    )
+
+    race_drivers = g.driver_name.tolist()
+    d_pick = st.selectbox("Select Driver to Explain", race_drivers, index=0, key=f"shap_drv_{rid}")
+
+    feats = load_features()
+    race_idx = int(feats.loc[feats.race_id == rid, "race_idx"].iloc[0])
+    driver_row = feats[(feats.race_id == rid) & (feats.driver_name == d_pick)]
+
+    if not driver_row.empty:
+        models = models_before(race_idx)
+        shap_df = M.explain_driver_delta(models, driver_row)
+
+        if not shap_df.empty:
+            driver_grid = int(driver_row.grid_position.iloc[0])
+            driver_pred = int(g.loc[g.driver_name == d_pick, "pred_order"].iloc[0])
+            driver_actual = int(g.loc[g.driver_name == d_pick, "finish_position"].iloc[0])
+            pred_delta = driver_pred - driver_grid
+
+            c_s1, c_s2, c_s3, c_s4 = st.columns(4)
+            c_s1.metric("Grid Position", f"P{driver_grid}")
+            c_s2.metric("Predicted Position", f"P{driver_pred}", f"{'-' if pred_delta < 0 else '+'}{abs(pred_delta)} vs Grid", delta_color="normal" if pred_delta < 0 else "inverse")
+            c_s3.metric("Actual Result", f"P{driver_actual}")
+            c_s4.metric("Net Model Correction", f"{shap_df.impact.sum():+.2f} spots")
+
+            top_shap = shap_df.head(10).sort_values("impact", ascending=True)
+            fig_shap = go.Figure(go.Bar(
+                x=-top_shap.impact,
+                y=top_shap.feature_name,
+                orientation="h",
+                marker_color=[GREEN if imp < 0 else RED for imp in top_shap.impact],
+                text=[f"{abs(imp):.2f} spots {'forward' if imp < 0 else 'backward'}" for imp in top_shap.impact],
+                textposition="outside"
+            ))
+            fig_shap.update_layout(
+                title=f"Top Factor Attributions for {d_pick} (Green = Pushes Forward, Red = Holds Back)",
+                xaxis_title="Position Impact (Higher Green Bar = Stronger Advancement vs Grid)",
+                height=380,
+                margin=dict(l=0, r=40, t=50, b=0)
+            )
+            st.plotly_chart(fig_shap, width="stretch")
+
+            with st.expander("Show All Feature Attributions Table"):
+                shap_show = shap_df[["feature_name", "impact", "direction"]].copy()
+                shap_show["impact"] = shap_show["impact"].round(3)
+                shap_show.columns = ["Feature", "Impact on Position Delta", "Direction"]
+                st.dataframe(shap_show, hide_index=True, width="stretch")
+
+    st.download_button(
+        label=f"📥 Export {season} {race_name} Predictions (CSV)",
+        data=g.to_csv(index=False),
+        file_name=f"f1_predictions_{season}_{race_name.replace(' ', '_')}.csv",
+        mime="text/csv"
+    )
+
 # ================================================================== CHECK YOURSELF
 elif page == "🎯 Check Yourself":
     st.title("🎯 Check Yourself")
@@ -702,6 +776,43 @@ elif page == "📊 Model Report":
             st.dataframe(tbl, hide_index=True)
             st.caption("The model's probabilities are on par with a grid-based baseline - "
                        "both far better than guessing a constant rate.")
+
+    st.divider()
+    # Ablation Study & Bootstrap Significance
+    st.subheader("🧪 Feature Group Ablation Study (Leave-One-Group-Out)")
+    st.write(
+        "Ablation testing across **65 hold-out races** (2024-2026). "
+        "Each row shows the performance impact when a specific feature signal is removed."
+    )
+    ablation_df = load_report("ablation_study.csv")
+    if not ablation_df.empty:
+        st.dataframe(ablation_df, hide_index=True, width="stretch")
+        st.caption("Lower Rank MAE and higher Exact Podiums indicate superior performance. Dropping Sprint signals or FastF1 practice pace degrades accuracy.")
+
+    sig_file = REPORTS / "bootstrap_significance.json"
+    if sig_file.exists():
+        st.subheader("📐 Cluster-Robust Bootstrap Statistical Significance (2,000 Resamples)")
+        sig_data = json.loads(sig_file.read_text())
+        sig_cols = st.columns(4)
+        m_adv = sig_data.get("mae_advantage", {})
+        s_adv = sig_data.get("spearman_advantage", {})
+        t_adv = sig_data.get("top3_hits_advantage", {})
+        e_adv = sig_data.get("exact_podiums_advantage", {})
+        sig_cols[0].metric("MAE Advantage", f"{m_adv.get('advantage', 0):+.3f}", f"p = {m_adv.get('p_value', 1.0):.4f}")
+        sig_cols[1].metric("Spearman Gain", f"{s_adv.get('advantage', 0):+.3f}", f"p = {s_adv.get('p_value', 1.0):.4f} (Significant)")
+        sig_cols[2].metric("Top 3 Hits Gain", f"{t_adv.get('advantage', 0):+.3f}", f"p = {t_adv.get('p_value', 1.0):.4f}")
+        sig_cols[3].metric("Exact Podiums Gain", f"{e_adv.get('advantage', 0):+.1f}", f"p = {e_adv.get('p_value', 1.0):.4f}")
+
+    # Export Section
+    st.divider()
+    st.subheader("📥 Export Backtest Data & Models Reports")
+    d1, d2, d3 = st.columns(3)
+    if not hold.empty:
+        d1.download_button("Export Holdout Summary (CSV)", data=hold.to_csv(index=False), file_name="f1_holdout_summary.csv", mime="text/csv")
+    if not preds.empty:
+        d2.download_button("Export Full Backtest (CSV)", data=preds.to_csv(index=False), file_name="f1_backtest_predictions.csv", mime="text/csv")
+    if not ablation_df.empty:
+        d3.download_button("Export Ablation Study (CSV)", data=ablation_df.to_csv(index=False), file_name="f1_feature_ablation.csv", mime="text/csv")
 
 # ================================================================== WHAT-IF
 else:
