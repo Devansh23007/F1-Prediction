@@ -1,4 +1,83 @@
 season,round,race_name,race_date,circuit_id,circuit_name,country,locality
+2014,1,Australian Grand Prix,2014-03-16,albert_park,Albert Park Grand Prix Circuit,Australia,Melbourne
+2014,2,Malaysian Grand Prix,2014-03-30,sepang,Sepang International Circuit,Malaysia,Kuala Lumpur
+2014,3,Bahrain Grand Prix,2014-04-06,bahrain,Bahrain International Circuit,Bahrain,Sakhir
+2014,4,Chinese Grand Prix,2014-04-20,shanghai,Shanghai International Circuit,China,Shanghai
+2014,5,Spanish Grand Prix,2014-05-11,catalunya,Circuit de Barcelona-Catalunya,Spain,Barcelona
+2014,6,Monaco Grand Prix,2014-05-25,monaco,Circuit de Monaco,Monaco,Monte Carlo
+2014,7,Canadian Grand Prix,2014-06-08,villeneuve,Circuit Gilles Villeneuve,Canada,Montreal
+2014,8,Austrian Grand Prix,2014-06-22,red_bull_ring,Red Bull Ring,Austria,Spielberg
+2014,9,British Grand Prix,2014-07-06,silverstone,Silverstone Circuit,UK,Silverstone
+2014,10,German Grand Prix,2014-07-20,hockenheimring,Hockenheimring,Germany,Hockenheim
+2014,11,Hungarian Grand Prix,2014-07-27,hungaroring,Hungaroring,Hungary,Budapest
+2014,12,Belgian Grand Prix,2014-08-24,spa,Circuit de Spa-Francorchamps,Belgium,Spa
+2014,13,Italian Grand Prix,2014-09-07,monza,Autodromo Nazionale di Monza,Italy,Monza
+2014,14,Singapore Grand Prix,2014-09-21,marina_bay,Marina Bay Street Circuit,Singapore,Marina Bay
+2014,15,Japanese Grand Prix,2014-10-05,suzuka,Suzuka Circuit,Japan,Suzuka
+2014,16,Russian Grand Prix,2014-10-12,sochi,Sochi Autodrom,Russia,Sochi
+2014,17,United States Grand Prix,2014-11-02,americas,Circuit of the Americas,USA,Austin
+2014,18,Brazilian Grand Prix,2014-11-09,interlagos,Autódromo José Carlos Pace,Brazil,São Paulo
+2014,19,Abu Dhabi Grand Prix,2014-11-23,yas_marina,Yas Marina Circuit,UAE,Abu Dhabi
+2015,1,Australian Grand Prix,2015-03-15,albert_park,Albert Park Grand Prix Circuit,Australia,Melbourne
+2015,2,Malaysian Grand Prix,2015-03-29,sepang,Sepang International Circuit,Malaysia,Kuala Lumpur
+2015,3,Chinese Grand Prix,2015-04-12,shanghai,Shanghai International Circuit,China,Shanghai
+2015,4,Bahrain Grand Prix,2015-04-19,bahrain,Bahrain International Circuit,Bahrain,Sakhir
+2015,5,Spanish Grand Prix,2015-05-10,catalunya,Circuit de Barcelona-Catalunya,Spain,Barcelona
+2015,6,Monaco Grand Prix,2015-05-24,monaco,Circuit de Monaco,Monaco,Monte Carlo
+2015,7,Canadian Grand Prix,2015-06-07,villeneuve,Circuit Gilles Villeneuve,Canada,Montreal
+2015,8,Austrian Grand Prix,2015-06-21,red_bull_ring,Red Bull Ring,Austria,Spielberg
+2015,9,British Grand Prix,2015-07-05,silverstone,Silverstone Circuit,UK,Silverstone
+2015,10,Hungarian Grand Prix,2015-07-26,hungaroring,Hungaroring,Hungary,Budapest
+2015,11,Belgian Grand Prix,2015-08-23,spa,Circuit de Spa-Francorchamps,Belgium,Spa
+2015,12,Italian Grand Prix,2015-09-06,monza,Autodromo Nazionale di Monza,Italy,Monza
+2015,13,Singapore Grand Prix,2015-09-20,marina_bay,Marina Bay Street Circuit,Singapore,Marina Bay
+2015,14,Japanese Grand Prix,2015-09-27,suzuka,Suzuka Circuit,Japan,Suzuka
+2015,15,Russian Grand Prix,2015-10-11,sochi,Sochi Autodrom,Russia,Sochi
+2015,16,United States Grand Prix,2015-10-25,americas,Circuit of the Americas,USA,Austin
+2015,17,Mexican Grand Prix,2015-11-01,rodriguez,Autódromo Hermanos Rodríguez,Mexico,Mexico City
+2015,18,Brazilian Grand Prix,2015-11-15,interlagos,Autódromo José Carlos Pace,Brazil,São Paulo
+2015,19,Abu Dhabi Grand Prix,2015-11-29,yas_marina,Yas Marina Circuit,UAE,Abu Dhabi
+2016,1,Australian Grand Prix,2016-03-20,albert_park,Albert Park Grand Prix Circuit,Australia,Melbourne
+2016,2,Bahrain Grand Prix,2016-04-03,bahrain,Bahrain International Circuit,Bahrain,Sakhir
+2016,3,Chinese Grand Prix,2016-04-17,shanghai,Shanghai International Circuit,China,Shanghai
+2016,4,Russian Grand Prix,2016-05-01,sochi,Sochi Autodrom,Russia,Sochi
+2016,5,Spanish Grand Prix,2016-05-15,catalunya,Circuit de Barcelona-Catalunya,Spain,Barcelona
+2016,6,Monaco Grand Prix,2016-05-29,monaco,Circuit de Monaco,Monaco,Monte Carlo
+2016,7,Canadian Grand Prix,2016-06-12,villeneuve,Circuit Gilles Villeneuve,Canada,Montreal
+2016,8,European Grand Prix,2016-06-19,baku,Baku City Circuit,Azerbaijan,Baku
+2016,9,Austrian Grand Prix,2016-07-03,red_bull_ring,Red Bull Ring,Austria,Spielberg
+2016,10,British Grand Prix,2016-07-10,silverstone,Silverstone Circuit,UK,Silverstone
+2016,11,Hungarian Grand Prix,2016-07-24,hungaroring,Hungaroring,Hungary,Budapest
+2016,12,German Grand Prix,2016-07-31,hockenheimring,Hockenheimring,Germany,Hockenheim
+2016,13,Belgian Grand Prix,2016-08-28,spa,Circuit de Spa-Francorchamps,Belgium,Spa
+2016,14,Italian Grand Prix,2016-09-04,monza,Autodromo Nazionale di Monza,Italy,Monza
+2016,15,Singapore Grand Prix,2016-09-18,marina_bay,Marina Bay Street Circuit,Singapore,Marina Bay
+2016,16,Malaysian Grand Prix,2016-10-02,sepang,Sepang International Circuit,Malaysia,Kuala Lumpur
+2016,17,Japanese Grand Prix,2016-10-09,suzuka,Suzuka Circuit,Japan,Suzuka
+2016,18,United States Grand Prix,2016-10-23,americas,Circuit of the Americas,USA,Austin
+2016,19,Mexican Grand Prix,2016-10-30,rodriguez,Autódromo Hermanos Rodríguez,Mexico,Mexico City
+2016,20,Brazilian Grand Prix,2016-11-13,interlagos,Autódromo José Carlos Pace,Brazil,São Paulo
+2016,21,Abu Dhabi Grand Prix,2016-11-27,yas_marina,Yas Marina Circuit,UAE,Abu Dhabi
+2017,1,Australian Grand Prix,2017-03-26,albert_park,Albert Park Grand Prix Circuit,Australia,Melbourne
+2017,2,Chinese Grand Prix,2017-04-09,shanghai,Shanghai International Circuit,China,Shanghai
+2017,3,Bahrain Grand Prix,2017-04-16,bahrain,Bahrain International Circuit,Bahrain,Sakhir
+2017,4,Russian Grand Prix,2017-04-30,sochi,Sochi Autodrom,Russia,Sochi
+2017,5,Spanish Grand Prix,2017-05-14,catalunya,Circuit de Barcelona-Catalunya,Spain,Barcelona
+2017,6,Monaco Grand Prix,2017-05-28,monaco,Circuit de Monaco,Monaco,Monte Carlo
+2017,7,Canadian Grand Prix,2017-06-11,villeneuve,Circuit Gilles Villeneuve,Canada,Montreal
+2017,8,Azerbaijan Grand Prix,2017-06-25,baku,Baku City Circuit,Azerbaijan,Baku
+2017,9,Austrian Grand Prix,2017-07-09,red_bull_ring,Red Bull Ring,Austria,Spielberg
+2017,10,British Grand Prix,2017-07-16,silverstone,Silverstone Circuit,UK,Silverstone
+2017,11,Hungarian Grand Prix,2017-07-30,hungaroring,Hungaroring,Hungary,Budapest
+2017,12,Belgian Grand Prix,2017-08-27,spa,Circuit de Spa-Francorchamps,Belgium,Spa
+2017,13,Italian Grand Prix,2017-09-03,monza,Autodromo Nazionale di Monza,Italy,Monza
+2017,14,Singapore Grand Prix,2017-09-17,marina_bay,Marina Bay Street Circuit,Singapore,Marina Bay
+2017,15,Malaysian Grand Prix,2017-10-01,sepang,Sepang International Circuit,Malaysia,Kuala Lumpur
+2017,16,Japanese Grand Prix,2017-10-08,suzuka,Suzuka Circuit,Japan,Suzuka
+2017,17,United States Grand Prix,2017-10-22,americas,Circuit of the Americas,USA,Austin
+2017,18,Mexican Grand Prix,2017-10-29,rodriguez,Autódromo Hermanos Rodríguez,Mexico,Mexico City
+2017,19,Brazilian Grand Prix,2017-11-12,interlagos,Autódromo José Carlos Pace,Brazil,São Paulo
+2017,20,Abu Dhabi Grand Prix,2017-11-26,yas_marina,Yas Marina Circuit,UAE,Abu Dhabi
 2018,1,Australian Grand Prix,2018-03-25,albert_park,Albert Park Grand Prix Circuit,Australia,Melbourne
 2018,2,Bahrain Grand Prix,2018-04-08,bahrain,Bahrain International Circuit,Bahrain,Sakhir
 2018,3,Chinese Grand Prix,2018-04-15,shanghai,Shanghai International Circuit,China,Shanghai

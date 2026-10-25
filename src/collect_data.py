@@ -13,7 +13,7 @@ from urllib3.util.retry import Retry
 # --------------------------------------------------
 
 BASE_URL = "https://api.jolpi.ca/ergast/f1"
-START_YEAR = 2018
+START_YEAR = 2014
 END_YEAR = 2026
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent

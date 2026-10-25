@@ -85,7 +85,7 @@ def quali_pace_features(qual: pd.DataFrame) -> pd.DataFrame:
 def run_elo(df: pd.DataFrame, pos_col: str, prefix: str,
             entity: str, k=10.0, season_regress=0.25,
             rules_reset_regress=0.55,
-            reset_seasons=(2022, 2026)) -> pd.DataFrame:
+            reset_seasons=(2017, 2022, 2026)) -> pd.DataFrame:
     """Pairwise Elo within each race.  Stores PRE-race rating.
 
     entity: 'driver_id' or 'constructor_id'.  For constructors the
@@ -346,6 +346,22 @@ def build(save=True) -> pd.DataFrame:
     df["combined_elo"] = df["driver_elo"] + df["team_elo"]
     df["combined_elo_rank"] = grp["combined_elo"].rank(ascending=False)
 
+    # ---------- Regulation era features ----------
+    def _era(s):
+        if s <= 2016: return 0
+        if s <= 2021: return 1
+        if s <= 2025: return 2
+        return 3
+
+    def _since_reset(s):
+        if s <= 2016: return s - 2014
+        if s <= 2021: return s - 2017
+        if s <= 2025: return s - 2022
+        return s - 2026
+
+    df["reg_era"] = df["season"].map(_era)
+    df["seasons_since_rules_reset"] = df["season"].map(_since_reset)
+
     df["podium"] = (df["finish_position"] <= 3).astype(int)
     df["win"] = (df["finish_position"] == 1).astype(int)
 
@@ -375,6 +391,7 @@ FEATURES = [
     "high_deg_circuit", "drv_tyre_mgmt_skill",
     "is_sprint_weekend", "sprint_finish", "sprint_points",
     "sprint_pos_gain", "sprint_vs_grid",
+    "reg_era", "seasons_since_rules_reset",
 ]
 
 if __name__ == "__main__":

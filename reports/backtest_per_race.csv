@@ -108,33 +108,33 @@ rank_mae,spearman,winner_hit,top3_hits,exact_podium,top10_hits,model,race_id,sea
 4.909090909090909,0.4850367024280069,1,1,0,6,Grid order (baseline),2026_15,2026,Azerbaijan Grand Prix
 3.909090909090909,0.6544325239977415,1,3,1,7,Grid order (baseline),2026_16,2026,Bahrain Grand Prix in Malaysia
 3.0,0.7526821005081875,1,2,0,8,Grid order (baseline),2026_17,2026,Singapore Grand Prix
-6.3,0.10676691729323308,0,2,0,5,Combined Elo (baseline),2022_01,2022,Bahrain Grand Prix
+6.3,0.10977443609022557,0,2,0,5,Combined Elo (baseline),2022_01,2022,Bahrain Grand Prix
 3.8,0.6511278195488721,0,2,0,8,Combined Elo (baseline),2022_02,2022,Saudi Arabian Grand Prix
 4.8,0.3789473684210526,0,0,0,8,Combined Elo (baseline),2022_03,2022,Australian Grand Prix
 5.5,0.31729323308270674,0,1,0,6,Combined Elo (baseline),2022_04,2022,Emilia Romagna Grand Prix
-3.9,0.6270676691729322,0,2,0,8,Combined Elo (baseline),2022_05,2022,Miami Grand Prix
+3.8,0.6526315789473683,0,2,0,8,Combined Elo (baseline),2022_05,2022,Miami Grand Prix
 3.2,0.6541353383458646,0,1,0,8,Combined Elo (baseline),2022_06,2022,Spanish Grand Prix
-2.3,0.8781954887218045,0,2,0,8,Combined Elo (baseline),2022_07,2022,Monaco Grand Prix
+2.1,0.8917293233082706,0,2,0,8,Combined Elo (baseline),2022_07,2022,Monaco Grand Prix
 4.1,0.4872180451127819,0,2,0,7,Combined Elo (baseline),2022_08,2022,Azerbaijan Grand Prix
 3.6,0.5909774436090225,0,2,0,7,Combined Elo (baseline),2022_09,2022,Canadian Grand Prix
 5.0,0.4421052631578947,0,2,0,6,Combined Elo (baseline),2022_10,2022,British Grand Prix
-4.1,0.3699248120300751,0,2,0,7,Combined Elo (baseline),2022_11,2022,Austrian Grand Prix
-2.5,0.7473684210526315,0,2,0,9,Combined Elo (baseline),2022_12,2022,French Grand Prix
+4.2,0.3639097744360902,0,2,0,7,Combined Elo (baseline),2022_11,2022,Austrian Grand Prix
+2.5,0.7488721804511278,0,2,0,9,Combined Elo (baseline),2022_12,2022,French Grand Prix
 2.3,0.8541353383458646,0,2,0,9,Combined Elo (baseline),2022_13,2022,Hungarian Grand Prix
 3.8,0.5338345864661653,0,2,0,7,Combined Elo (baseline),2022_14,2022,Belgian Grand Prix
 3.1,0.7954887218045112,0,1,0,9,Combined Elo (baseline),2022_15,2022,Dutch Grand Prix
 4.2,0.6150375939849623,0,1,0,7,Combined Elo (baseline),2022_16,2022,Italian Grand Prix
-4.5,0.5624060150375939,0,1,0,7,Combined Elo (baseline),2022_17,2022,Singapore Grand Prix
+4.5,0.5654135338345864,0,1,0,7,Combined Elo (baseline),2022_17,2022,Singapore Grand Prix
 3.5,0.6421052631578947,1,2,0,8,Combined Elo (baseline),2022_18,2022,Japanese Grand Prix
 3.6,0.6300751879699248,1,2,0,7,Combined Elo (baseline),2022_19,2022,United States Grand Prix
 2.5,0.8270676691729323,1,3,1,9,Combined Elo (baseline),2022_20,2022,Mexico City Grand Prix
-3.2,0.706766917293233,0,1,0,8,Combined Elo (baseline),2022_21,2022,São Paulo Grand Prix
+3.2,0.7082706766917292,0,1,0,8,Combined Elo (baseline),2022_21,2022,São Paulo Grand Prix
 3.1,0.631578947368421,1,2,0,8,Combined Elo (baseline),2022_22,2022,Abu Dhabi Grand Prix
-5.3,0.3278195488721804,1,2,0,6,Combined Elo (baseline),2023_01,2023,Bahrain Grand Prix
+5.2,0.3383458646616541,1,2,0,6,Combined Elo (baseline),2023_01,2023,Bahrain Grand Prix
 3.5,0.6481203007518795,0,2,0,9,Combined Elo (baseline),2023_02,2023,Saudi Arabian Grand Prix
 4.9,0.35187969924812035,1,2,0,5,Combined Elo (baseline),2023_03,2023,Australian Grand Prix
-3.6,0.724812030075188,0,2,0,8,Combined Elo (baseline),2023_04,2023,Azerbaijan Grand Prix
-2.9,0.7203007518796991,1,2,0,9,Combined Elo (baseline),2023_05,2023,Miami Grand Prix
+3.7,0.7172932330827068,0,2,0,8,Combined Elo (baseline),2023_04,2023,Azerbaijan Grand Prix
+2.9,0.7308270676691728,1,2,0,9,Combined Elo (baseline),2023_05,2023,Miami Grand Prix
 2.8,0.706766917293233,1,1,0,9,Combined Elo (baseline),2023_06,2023,Monaco Grand Prix
 2.4,0.8165413533834586,1,2,0,8,Combined Elo (baseline),2023_07,2023,Spanish Grand Prix
 3.1,0.6436090225563909,1,2,0,7,Combined Elo (baseline),2023_08,2023,Canadian Grand Prix
@@ -143,7 +143,7 @@ rank_mae,spearman,winner_hit,top3_hits,exact_podium,top10_hits,model,race_id,sea
 3.0,0.7293233082706766,1,2,0,9,Combined Elo (baseline),2023_11,2023,Hungarian Grand Prix
 2.8,0.7187969924812029,1,2,0,8,Combined Elo (baseline),2023_12,2023,Belgian Grand Prix
 3.9,0.5082706766917292,1,1,0,7,Combined Elo (baseline),2023_13,2023,Dutch Grand Prix
-3.0,0.7443609022556391,1,2,0,8,Combined Elo (baseline),2023_14,2023,Italian Grand Prix
+3.0,0.7383458646616541,1,2,0,8,Combined Elo (baseline),2023_14,2023,Italian Grand Prix
 5.4,0.41804511278195483,0,1,0,6,Combined Elo (baseline),2023_15,2023,Singapore Grand Prix
 3.8,0.5684210526315789,1,1,0,8,Combined Elo (baseline),2023_16,2023,Japanese Grand Prix
 4.5,0.41052631578947363,1,1,0,8,Combined Elo (baseline),2023_17,2023,Qatar Grand Prix
@@ -153,7 +153,7 @@ rank_mae,spearman,winner_hit,top3_hits,exact_podium,top10_hits,model,race_id,sea
 3.3,0.6932330827067669,1,2,0,8,Combined Elo (baseline),2023_21,2023,Las Vegas Grand Prix
 2.9,0.7112781954887217,1,1,0,9,Combined Elo (baseline),2023_22,2023,Abu Dhabi Grand Prix
 2.5,0.8240601503759398,1,2,0,10,Combined Elo (baseline),2024_01,2024,Bahrain Grand Prix
-3.6,0.6676691729323309,1,2,0,9,Combined Elo (baseline),2024_02,2024,Saudi Arabian Grand Prix
+3.6,0.6706766917293233,1,2,0,9,Combined Elo (baseline),2024_02,2024,Saudi Arabian Grand Prix
 5.578947368421052,0.07543859649122807,0,0,0,7,Combined Elo (baseline),2024_03,2024,Australian Grand Prix
 2.7,0.8150375939849623,1,2,0,9,Combined Elo (baseline),2024_04,2024,Japanese Grand Prix
 2.9,0.7849624060150376,1,2,0,9,Combined Elo (baseline),2024_05,2024,Chinese Grand Prix
@@ -161,7 +161,7 @@ rank_mae,spearman,winner_hit,top3_hits,exact_podium,top10_hits,model,race_id,sea
 3.0,0.7563909774436091,1,2,0,9,Combined Elo (baseline),2024_07,2024,Emilia Romagna Grand Prix
 3.8,0.5894736842105263,0,1,0,7,Combined Elo (baseline),2024_08,2024,Monaco Grand Prix
 4.7,0.34586466165413526,1,1,0,7,Combined Elo (baseline),2024_09,2024,Canadian Grand Prix
-2.9,0.813533834586466,1,1,0,8,Combined Elo (baseline),2024_10,2024,Spanish Grand Prix
+2.8,0.8270676691729323,1,1,0,8,Combined Elo (baseline),2024_10,2024,Spanish Grand Prix
 4.7,0.41654135338345866,0,0,0,6,Combined Elo (baseline),2024_11,2024,Austrian Grand Prix
 5.3,0.28872180451127816,0,2,0,7,Combined Elo (baseline),2024_12,2024,British Grand Prix
 3.0,0.7909774436090224,0,1,0,9,Combined Elo (baseline),2024_13,2024,Hungarian Grand Prix
@@ -180,9 +180,9 @@ rank_mae,spearman,winner_hit,top3_hits,exact_podium,top10_hits,model,race_id,sea
 5.2,0.27368421052631575,0,1,0,6,Combined Elo (baseline),2025_02,2025,Chinese Grand Prix
 2.7,0.7609022556390977,1,3,1,7,Combined Elo (baseline),2025_03,2025,Japanese Grand Prix
 3.3,0.6781954887218045,0,2,0,7,Combined Elo (baseline),2025_04,2025,Bahrain Grand Prix
-3.0,0.7398496240601502,0,2,0,8,Combined Elo (baseline),2025_05,2025,Saudi Arabian Grand Prix
+3.1,0.7308270676691728,0,2,0,8,Combined Elo (baseline),2025_05,2025,Saudi Arabian Grand Prix
 3.4,0.6977443609022556,0,2,0,9,Combined Elo (baseline),2025_06,2025,Miami Grand Prix
-3.2,0.6330827067669172,1,3,1,8,Combined Elo (baseline),2025_07,2025,Emilia Romagna Grand Prix
+3.3,0.6240601503759398,1,3,1,8,Combined Elo (baseline),2025_07,2025,Emilia Romagna Grand Prix
 4.2,0.5548872180451127,1,2,0,6,Combined Elo (baseline),2025_08,2025,Monaco Grand Prix
 4.421052631578948,0.44912280701754387,0,2,0,7,Combined Elo (baseline),2025_09,2025,Spanish Grand Prix
 4.6,0.47218045112781953,0,1,0,7,Combined Elo (baseline),2025_10,2025,Canadian Grand Prix
@@ -191,21 +191,21 @@ rank_mae,spearman,winner_hit,top3_hits,exact_podium,top10_hits,model,race_id,sea
 4.4,0.4857142857142857,0,2,0,6,Combined Elo (baseline),2025_13,2025,Belgian Grand Prix
 3.9,0.5924812030075187,1,2,0,7,Combined Elo (baseline),2025_14,2025,Hungarian Grand Prix
 6.1,0.02857142857142857,0,1,0,5,Combined Elo (baseline),2025_15,2025,Dutch Grand Prix
-2.9,0.7097744360902255,0,3,1,8,Combined Elo (baseline),2025_16,2025,Italian Grand Prix
+3.0,0.7082706766917292,0,3,1,7,Combined Elo (baseline),2025_16,2025,Italian Grand Prix
 4.2,0.4977443609022556,0,1,0,8,Combined Elo (baseline),2025_17,2025,Azerbaijan Grand Prix
 2.0,0.9142857142857143,0,2,0,9,Combined Elo (baseline),2025_18,2025,Singapore Grand Prix
 2.8,0.7624060150375939,0,2,0,8,Combined Elo (baseline),2025_19,2025,United States Grand Prix
 3.8,0.6481203007518795,1,2,0,7,Combined Elo (baseline),2025_20,2025,Mexico City Grand Prix
 5.2,0.37293233082706767,1,2,0,5,Combined Elo (baseline),2025_21,2025,São Paulo Grand Prix
-4.7,0.28872180451127816,0,1,0,6,Combined Elo (baseline),2025_22,2025,Las Vegas Grand Prix
+4.8,0.28120300751879695,0,1,0,6,Combined Elo (baseline),2025_22,2025,Las Vegas Grand Prix
 3.9,0.6736842105263157,0,2,0,7,Combined Elo (baseline),2025_23,2025,Qatar Grand Prix
 3.7,0.6646616541353383,0,3,1,6,Combined Elo (baseline),2025_24,2025,Abu Dhabi Grand Prix
-6.0,0.3754940711462451,0,0,0,6,Combined Elo (baseline),2026_01,2026,Australian Grand Prix
+6.090909090909091,0.35855448898927167,0,0,0,6,Combined Elo (baseline),2026_01,2026,Australian Grand Prix
 6.454545454545454,0.1485036702428007,0,1,0,5,Combined Elo (baseline),2026_02,2026,Chinese Grand Prix
 4.2727272727272725,0.6307171089779786,0,0,0,7,Combined Elo (baseline),2026_03,2026,Japanese Grand Prix
 4.545454545454546,0.5663466967814795,0,1,0,7,Combined Elo (baseline),2026_04,2026,Miami Grand Prix
 5.909090909090909,0.24901185770750994,0,1,0,6,Combined Elo (baseline),2026_05,2026,Canadian Grand Prix
-7.363636363636363,0.0378317334839074,0,0,0,4,Combined Elo (baseline),2026_06,2026,Monaco Grand Prix
+7.363636363636363,0.03444381705251271,0,0,0,4,Combined Elo (baseline),2026_06,2026,Monaco Grand Prix
 3.0,0.7165443252399775,0,2,0,8,Combined Elo (baseline),2026_07,2026,Barcelona Grand Prix
 2.8181818181818183,0.8475437605872389,1,2,0,10,Combined Elo (baseline),2026_08,2026,Austrian Grand Prix
 4.2727272727272725,0.5957086391869001,0,2,0,7,Combined Elo (baseline),2026_09,2026,British Grand Prix
@@ -214,115 +214,115 @@ rank_mae,spearman,winner_hit,top3_hits,exact_podium,top10_hits,model,race_id,sea
 3.727272727272727,0.6182947487295314,0,1,0,7,Combined Elo (baseline),2026_12,2026,Dutch Grand Prix
 3.0,0.6645962732919255,0,1,0,8,Combined Elo (baseline),2026_13,2026,Italian Grand Prix
 3.4545454545454546,0.6465273856578204,0,1,0,8,Combined Elo (baseline),2026_14,2026,Spanish Grand Prix
-4.0,0.6307171089779786,1,1,0,7,Combined Elo (baseline),2026_15,2026,Azerbaijan Grand Prix
+4.090909090909091,0.6250705815923208,1,1,0,7,Combined Elo (baseline),2026_15,2026,Azerbaijan Grand Prix
 3.4545454545454546,0.593450028232637,0,2,0,9,Combined Elo (baseline),2026_16,2026,Bahrain Grand Prix in Malaysia
-3.1818181818181817,0.7899491812535292,0,2,0,9,Combined Elo (baseline),2026_17,2026,Singapore Grand Prix
-4.4,0.4060150375939849,1,2,0,8,Grid + learned correction,2022_01,2022,Bahrain Grand Prix
-3.0,0.7849624060150376,0,2,0,8,Grid + learned correction,2022_02,2022,Saudi Arabian Grand Prix
-4.3,0.44360902255639095,0,2,0,7,Grid + learned correction,2022_03,2022,Australian Grand Prix
-5.5,0.2526315789473684,0,1,0,6,Grid + learned correction,2022_04,2022,Emilia Romagna Grand Prix
-3.8,0.5744360902255639,0,3,1,7,Grid + learned correction,2022_05,2022,Miami Grand Prix
-3.7,0.5383458646616541,0,1,0,7,Grid + learned correction,2022_06,2022,Spanish Grand Prix
-2.3,0.875187969924812,0,2,0,9,Grid + learned correction,2022_07,2022,Monaco Grand Prix
-4.2,0.43909774436090226,0,2,0,7,Grid + learned correction,2022_08,2022,Azerbaijan Grand Prix
-4.2,0.5353383458646617,1,2,0,6,Grid + learned correction,2022_09,2022,Canadian Grand Prix
-4.6,0.4601503759398496,1,1,0,7,Grid + learned correction,2022_10,2022,British Grand Prix
-3.6,0.5007518796992482,0,2,0,8,Grid + learned correction,2022_11,2022,Austrian Grand Prix
-3.2,0.6075187969924812,0,1,0,9,Grid + learned correction,2022_12,2022,French Grand Prix
-3.5,0.7413533834586465,0,1,0,9,Grid + learned correction,2022_13,2022,Hungarian Grand Prix
-4.0,0.524812030075188,0,2,0,7,Grid + learned correction,2022_14,2022,Belgian Grand Prix
-2.6,0.806015037593985,1,2,0,9,Grid + learned correction,2022_15,2022,Dutch Grand Prix
-3.9,0.58796992481203,0,3,1,8,Grid + learned correction,2022_16,2022,Italian Grand Prix
-3.6,0.6736842105263157,0,2,0,8,Grid + learned correction,2022_17,2022,Singapore Grand Prix
-3.1,0.6285714285714286,1,2,0,8,Grid + learned correction,2022_18,2022,Japanese Grand Prix
-4.6,0.38646616541353385,0,2,0,7,Grid + learned correction,2022_19,2022,United States Grand Prix
-2.4,0.8120300751879698,1,2,0,9,Grid + learned correction,2022_20,2022,Mexico City Grand Prix
-4.4,0.5323308270676691,0,2,0,6,Grid + learned correction,2022_21,2022,São Paulo Grand Prix
-2.7,0.6857142857142857,1,3,1,8,Grid + learned correction,2022_22,2022,Abu Dhabi Grand Prix
-4.7,0.4631578947368421,1,2,0,7,Grid + learned correction,2023_01,2023,Bahrain Grand Prix
-2.7,0.7383458646616541,1,2,0,9,Grid + learned correction,2023_02,2023,Saudi Arabian Grand Prix
-5.8,0.24812030075187969,1,2,0,4,Grid + learned correction,2023_03,2023,Australian Grand Prix
-1.9,0.9112781954887217,0,3,1,9,Grid + learned correction,2023_04,2023,Azerbaijan Grand Prix
-1.7,0.9142857142857143,0,2,0,10,Grid + learned correction,2023_05,2023,Miami Grand Prix
-2.3,0.8511278195488721,1,2,0,10,Grid + learned correction,2023_06,2023,Monaco Grand Prix
-2.8,0.7548872180451127,1,2,0,9,Grid + learned correction,2023_07,2023,Spanish Grand Prix
-3.3,0.625563909774436,1,3,1,7,Grid + learned correction,2023_08,2023,Canadian Grand Prix
-2.8,0.8075187969924811,1,2,0,9,Grid + learned correction,2023_09,2023,Austrian Grand Prix
-3.1,0.7729323308270677,1,2,0,9,Grid + learned correction,2023_10,2023,British Grand Prix
-2.6,0.8120300751879698,1,2,0,8,Grid + learned correction,2023_11,2023,Hungarian Grand Prix
-2.8,0.6631578947368421,1,3,1,8,Grid + learned correction,2023_12,2023,Belgian Grand Prix
-4.1,0.5293233082706766,1,1,0,8,Grid + learned correction,2023_13,2023,Dutch Grand Prix
-2.1,0.8541353383458646,1,3,1,9,Grid + learned correction,2023_14,2023,Italian Grand Prix
-4.1,0.5383458646616541,1,1,0,7,Grid + learned correction,2023_15,2023,Singapore Grand Prix
-2.7,0.6902255639097743,1,2,0,9,Grid + learned correction,2023_16,2023,Japanese Grand Prix
-4.0,0.47368421052631576,1,1,0,7,Grid + learned correction,2023_17,2023,Qatar Grand Prix
-5.5,0.14736842105263157,0,1,0,6,Grid + learned correction,2023_18,2023,United States Grand Prix
-3.4,0.6165413533834586,0,2,0,7,Grid + learned correction,2023_19,2023,Mexico City Grand Prix
-4.3,0.5022556390977443,1,1,0,7,Grid + learned correction,2023_20,2023,São Paulo Grand Prix
-4.0,0.5969924812030075,1,2,0,7,Grid + learned correction,2023_21,2023,Las Vegas Grand Prix
-2.1,0.8781954887218045,1,2,0,9,Grid + learned correction,2023_22,2023,Abu Dhabi Grand Prix
-1.8,0.9097744360902256,1,1,0,10,Grid + learned correction,2024_01,2024,Bahrain Grand Prix
-2.8,0.7864661654135338,1,3,1,9,Grid + learned correction,2024_02,2024,Saudi Arabian Grand Prix
-4.526315789473684,0.3596491228070175,0,1,0,6,Grid + learned correction,2024_03,2024,Australian Grand Prix
+3.090909090909091,0.8023715415019763,0,2,0,9,Combined Elo (baseline),2026_17,2026,Singapore Grand Prix
+4.5,0.3954887218045112,0,2,0,8,Grid + learned correction,2022_01,2022,Bahrain Grand Prix
+3.0,0.7984962406015037,0,2,0,8,Grid + learned correction,2022_02,2022,Saudi Arabian Grand Prix
+4.2,0.45714285714285713,0,2,0,7,Grid + learned correction,2022_03,2022,Australian Grand Prix
+5.7,0.22857142857142856,0,2,0,6,Grid + learned correction,2022_04,2022,Emilia Romagna Grand Prix
+3.6,0.5954887218045113,0,3,1,7,Grid + learned correction,2022_05,2022,Miami Grand Prix
+3.8,0.5428571428571428,0,1,0,7,Grid + learned correction,2022_06,2022,Spanish Grand Prix
+2.4,0.8646616541353382,0,2,0,8,Grid + learned correction,2022_07,2022,Monaco Grand Prix
+4.2,0.41804511278195483,0,2,0,7,Grid + learned correction,2022_08,2022,Azerbaijan Grand Prix
+4.2,0.524812030075188,1,2,0,6,Grid + learned correction,2022_09,2022,Canadian Grand Prix
+4.7,0.4496240601503759,1,1,0,7,Grid + learned correction,2022_10,2022,British Grand Prix
+3.6,0.46917293233082696,0,2,0,8,Grid + learned correction,2022_11,2022,Austrian Grand Prix
+3.2,0.6120300751879698,0,1,0,9,Grid + learned correction,2022_12,2022,French Grand Prix
+3.5,0.7383458646616541,0,1,0,9,Grid + learned correction,2022_13,2022,Hungarian Grand Prix
+3.7,0.5368421052631579,0,2,0,8,Grid + learned correction,2022_14,2022,Belgian Grand Prix
+2.3,0.8300751879699247,1,2,0,10,Grid + learned correction,2022_15,2022,Dutch Grand Prix
+3.9,0.593984962406015,0,3,1,8,Grid + learned correction,2022_16,2022,Italian Grand Prix
+3.8,0.6466165413533834,0,2,0,7,Grid + learned correction,2022_17,2022,Singapore Grand Prix
+3.0,0.6421052631578947,1,2,0,8,Grid + learned correction,2022_18,2022,Japanese Grand Prix
+4.5,0.38496240601503756,0,2,0,7,Grid + learned correction,2022_19,2022,United States Grand Prix
+2.4,0.793984962406015,1,2,0,9,Grid + learned correction,2022_20,2022,Mexico City Grand Prix
+4.5,0.5278195488721804,0,2,0,6,Grid + learned correction,2022_21,2022,São Paulo Grand Prix
+2.8,0.6872180451127818,1,3,1,8,Grid + learned correction,2022_22,2022,Abu Dhabi Grand Prix
+4.8,0.4496240601503759,1,2,0,7,Grid + learned correction,2023_01,2023,Bahrain Grand Prix
+2.8,0.7338345864661654,1,2,0,9,Grid + learned correction,2023_02,2023,Saudi Arabian Grand Prix
+5.4,0.29624060150375936,1,2,0,5,Grid + learned correction,2023_03,2023,Australian Grand Prix
+1.6,0.932330827067669,0,3,1,9,Grid + learned correction,2023_04,2023,Azerbaijan Grand Prix
+1.5,0.9308270676691727,0,2,0,10,Grid + learned correction,2023_05,2023,Miami Grand Prix
+2.7,0.7999999999999999,1,2,0,9,Grid + learned correction,2023_06,2023,Monaco Grand Prix
+2.7,0.7533834586466165,1,2,0,9,Grid + learned correction,2023_07,2023,Spanish Grand Prix
+3.3,0.6451127819548872,1,3,1,7,Grid + learned correction,2023_08,2023,Canadian Grand Prix
+2.8,0.8150375939849623,1,2,0,9,Grid + learned correction,2023_09,2023,Austrian Grand Prix
+3.2,0.7503759398496239,1,2,0,9,Grid + learned correction,2023_10,2023,British Grand Prix
+2.7,0.8165413533834586,1,2,0,8,Grid + learned correction,2023_11,2023,Hungarian Grand Prix
+2.9,0.6466165413533834,1,3,1,8,Grid + learned correction,2023_12,2023,Belgian Grand Prix
+4.2,0.5007518796992482,1,1,0,8,Grid + learned correction,2023_13,2023,Dutch Grand Prix
+2.4,0.8270676691729323,1,2,0,9,Grid + learned correction,2023_14,2023,Italian Grand Prix
+3.9,0.5684210526315789,1,1,0,7,Grid + learned correction,2023_15,2023,Singapore Grand Prix
+2.8,0.675187969924812,1,2,0,8,Grid + learned correction,2023_16,2023,Japanese Grand Prix
+4.0,0.4842105263157894,1,1,0,7,Grid + learned correction,2023_17,2023,Qatar Grand Prix
+5.7,0.11879699248120301,0,1,0,6,Grid + learned correction,2023_18,2023,United States Grand Prix
+3.0,0.6541353383458646,1,2,0,8,Grid + learned correction,2023_19,2023,Mexico City Grand Prix
+3.9,0.5398496240601504,1,1,0,7,Grid + learned correction,2023_20,2023,São Paulo Grand Prix
+3.7,0.6210526315789473,1,2,0,7,Grid + learned correction,2023_21,2023,Las Vegas Grand Prix
+2.1,0.8736842105263156,1,2,0,9,Grid + learned correction,2023_22,2023,Abu Dhabi Grand Prix
+1.8,0.9097744360902256,1,2,0,10,Grid + learned correction,2024_01,2024,Bahrain Grand Prix
+2.7,0.7969924812030074,1,3,1,9,Grid + learned correction,2024_02,2024,Saudi Arabian Grand Prix
+4.315789473684211,0.3929824561403509,0,1,0,7,Grid + learned correction,2024_03,2024,Australian Grand Prix
 1.9,0.8842105263157894,1,2,0,10,Grid + learned correction,2024_04,2024,Japanese Grand Prix
-2.5,0.8360902255639097,1,3,1,9,Grid + learned correction,2024_05,2024,Chinese Grand Prix
-3.1,0.7894736842105263,0,2,0,7,Grid + learned correction,2024_06,2024,Miami Grand Prix
-2.1,0.8887218045112781,1,3,1,9,Grid + learned correction,2024_07,2024,Emilia Romagna Grand Prix
-1.9,0.8436090225563909,1,3,1,8,Grid + learned correction,2024_08,2024,Monaco Grand Prix
-4.2,0.6105263157894737,1,3,1,7,Grid + learned correction,2024_09,2024,Canadian Grand Prix
-1.1,0.9639097744360902,1,3,1,9,Grid + learned correction,2024_10,2024,Spanish Grand Prix
-3.5,0.6105263157894737,0,1,0,7,Grid + learned correction,2024_11,2024,Austrian Grand Prix
-3.3,0.6015037593984961,0,2,0,8,Grid + learned correction,2024_12,2024,British Grand Prix
-1.7,0.9398496240601503,0,2,0,8,Grid + learned correction,2024_13,2024,Hungarian Grand Prix
-2.6,0.7639097744360903,0,2,0,9,Grid + learned correction,2024_14,2024,Belgian Grand Prix
-1.9,0.9233082706766916,0,2,0,9,Grid + learned correction,2024_15,2024,Dutch Grand Prix
-2.4,0.8646616541353382,0,2,0,9,Grid + learned correction,2024_16,2024,Italian Grand Prix
-4.1,0.5398496240601504,0,2,0,8,Grid + learned correction,2024_17,2024,Azerbaijan Grand Prix
-1.8,0.8872180451127819,1,2,0,10,Grid + learned correction,2024_18,2024,Singapore Grand Prix
-3.1,0.7413533834586465,0,2,0,7,Grid + learned correction,2024_19,2024,United States Grand Prix
-3.4,0.7488721804511278,0,2,0,9,Grid + learned correction,2024_20,2024,Mexico City Grand Prix
-3.8,0.6766917293233082,0,0,0,9,Grid + learned correction,2024_21,2024,São Paulo Grand Prix
-2.8,0.7338345864661654,1,2,0,9,Grid + learned correction,2024_22,2024,Las Vegas Grand Prix
-3.0,0.7849624060150376,1,1,0,8,Grid + learned correction,2024_23,2024,Qatar Grand Prix
-3.3,0.6436090225563909,1,1,0,9,Grid + learned correction,2024_24,2024,Abu Dhabi Grand Prix
-4.5,0.5533834586466165,1,2,0,7,Grid + learned correction,2025_01,2025,Australian Grand Prix
-5.1,0.3744360902255639,1,3,1,5,Grid + learned correction,2025_02,2025,Chinese Grand Prix
-0.8,0.9714285714285714,1,3,1,9,Grid + learned correction,2025_03,2025,Japanese Grand Prix
-2.6,0.7609022556390977,1,2,0,8,Grid + learned correction,2025_04,2025,Bahrain Grand Prix
+2.6,0.8330827067669173,1,3,1,9,Grid + learned correction,2024_05,2024,Chinese Grand Prix
+3.0,0.7909774436090224,0,2,0,8,Grid + learned correction,2024_06,2024,Miami Grand Prix
+2.0,0.8962406015037594,1,3,1,9,Grid + learned correction,2024_07,2024,Emilia Romagna Grand Prix
+2.0,0.837593984962406,1,3,1,8,Grid + learned correction,2024_08,2024,Monaco Grand Prix
+4.1,0.58796992481203,1,3,1,7,Grid + learned correction,2024_09,2024,Canadian Grand Prix
+1.0,0.9624060150375938,1,3,1,9,Grid + learned correction,2024_10,2024,Spanish Grand Prix
+3.5,0.6,0,1,0,7,Grid + learned correction,2024_11,2024,Austrian Grand Prix
+3.2,0.6105263157894737,0,2,0,8,Grid + learned correction,2024_12,2024,British Grand Prix
+1.7,0.9398496240601503,0,2,0,9,Grid + learned correction,2024_13,2024,Hungarian Grand Prix
+2.6,0.793984962406015,0,2,0,9,Grid + learned correction,2024_14,2024,Belgian Grand Prix
+2.0,0.9172932330827066,0,2,0,9,Grid + learned correction,2024_15,2024,Dutch Grand Prix
+2.4,0.8556390977443609,0,2,0,8,Grid + learned correction,2024_16,2024,Italian Grand Prix
+4.1,0.5458646616541353,0,2,0,8,Grid + learned correction,2024_17,2024,Azerbaijan Grand Prix
+1.9,0.8857142857142858,1,2,0,10,Grid + learned correction,2024_18,2024,Singapore Grand Prix
+3.2,0.7338345864661654,0,2,0,7,Grid + learned correction,2024_19,2024,United States Grand Prix
+3.4,0.7293233082706766,0,2,0,9,Grid + learned correction,2024_20,2024,Mexico City Grand Prix
+3.8,0.6781954887218045,0,0,0,9,Grid + learned correction,2024_21,2024,São Paulo Grand Prix
+2.8,0.7353383458646616,1,2,0,9,Grid + learned correction,2024_22,2024,Las Vegas Grand Prix
+3.1,0.7639097744360903,1,1,0,8,Grid + learned correction,2024_23,2024,Qatar Grand Prix
+3.2,0.6706766917293233,1,2,0,9,Grid + learned correction,2024_24,2024,Abu Dhabi Grand Prix
+4.3,0.5849624060150376,1,2,0,8,Grid + learned correction,2025_01,2025,Australian Grand Prix
+5.0,0.3714285714285714,1,3,1,5,Grid + learned correction,2025_02,2025,Chinese Grand Prix
+1.0,0.9624060150375938,1,3,1,9,Grid + learned correction,2025_03,2025,Japanese Grand Prix
+2.7,0.7609022556390977,1,2,0,8,Grid + learned correction,2025_04,2025,Bahrain Grand Prix
 2.5,0.7774436090225564,0,2,0,8,Grid + learned correction,2025_05,2025,Saudi Arabian Grand Prix
-2.5,0.8616541353383457,0,2,0,10,Grid + learned correction,2025_06,2025,Miami Grand Prix
-2.7,0.7924812030075187,0,3,1,8,Grid + learned correction,2025_07,2025,Emilia Romagna Grand Prix
-3.6,0.6406015037593984,1,3,1,6,Grid + learned correction,2025_08,2025,Monaco Grand Prix
-2.9473684210526314,0.6140350877192983,1,2,0,9,Grid + learned correction,2025_09,2025,Spanish Grand Prix
-3.5,0.631578947368421,1,2,0,7,Grid + learned correction,2025_10,2025,Canadian Grand Prix
-3.5,0.5774436090225563,1,3,1,8,Grid + learned correction,2025_11,2025,Austrian Grand Prix
-4.6,0.45714285714285713,0,2,0,6,Grid + learned correction,2025_12,2025,British Grand Prix
-2.6,0.7804511278195487,0,3,1,8,Grid + learned correction,2025_13,2025,Belgian Grand Prix
-2.4,0.8601503759398496,0,2,0,9,Grid + learned correction,2025_14,2025,Hungarian Grand Prix
-6.3,0.021052631578947364,1,2,0,4,Grid + learned correction,2025_15,2025,Dutch Grand Prix
-2.9,0.7368421052631579,0,3,1,8,Grid + learned correction,2025_16,2025,Italian Grand Prix
-2.6,0.7578947368421052,1,2,0,9,Grid + learned correction,2025_17,2025,Azerbaijan Grand Prix
-2.5,0.8481203007518796,1,2,0,8,Grid + learned correction,2025_18,2025,Singapore Grand Prix
-2.7,0.7744360902255639,1,3,1,8,Grid + learned correction,2025_19,2025,United States Grand Prix
-3.7,0.7233082706766917,1,2,0,7,Grid + learned correction,2025_20,2025,Mexico City Grand Prix
-3.8,0.5503759398496241,1,1,0,8,Grid + learned correction,2025_21,2025,São Paulo Grand Prix
-4.9,0.33082706766917286,0,2,0,6,Grid + learned correction,2025_22,2025,Las Vegas Grand Prix
-3.2,0.7293233082706766,0,2,0,9,Grid + learned correction,2025_23,2025,Qatar Grand Prix
-2.5,0.8030075187969924,1,3,1,7,Grid + learned correction,2025_24,2025,Abu Dhabi Grand Prix
-4.545454545454546,0.48390739695087526,1,3,1,7,Grid + learned correction,2026_01,2026,Australian Grand Prix
-4.090909090909091,0.5878035008469792,0,3,1,7,Grid + learned correction,2026_02,2026,Chinese Grand Prix
+2.5,0.8721804511278194,0,2,0,10,Grid + learned correction,2025_06,2025,Miami Grand Prix
+3.0,0.7624060150375939,0,3,1,8,Grid + learned correction,2025_07,2025,Emilia Romagna Grand Prix
+3.7,0.6240601503759398,1,3,1,6,Grid + learned correction,2025_08,2025,Monaco Grand Prix
+2.9473684210526314,0.6350877192982456,1,2,0,8,Grid + learned correction,2025_09,2025,Spanish Grand Prix
+3.5,0.6240601503759398,0,2,0,7,Grid + learned correction,2025_10,2025,Canadian Grand Prix
+3.3,0.5894736842105263,1,3,1,8,Grid + learned correction,2025_11,2025,Austrian Grand Prix
+4.7,0.4451127819548871,0,2,0,6,Grid + learned correction,2025_12,2025,British Grand Prix
+2.9,0.7503759398496239,0,3,1,8,Grid + learned correction,2025_13,2025,Belgian Grand Prix
+2.3,0.8706766917293233,0,2,0,9,Grid + learned correction,2025_14,2025,Hungarian Grand Prix
+6.1,0.030075187969924807,1,2,0,4,Grid + learned correction,2025_15,2025,Dutch Grand Prix
+2.7,0.7714285714285714,1,3,1,8,Grid + learned correction,2025_16,2025,Italian Grand Prix
+2.8,0.7308270676691728,1,2,0,9,Grid + learned correction,2025_17,2025,Azerbaijan Grand Prix
+2.5,0.8436090225563909,1,2,0,8,Grid + learned correction,2025_18,2025,Singapore Grand Prix
+2.5,0.7804511278195487,1,3,1,8,Grid + learned correction,2025_19,2025,United States Grand Prix
+3.7,0.7172932330827068,1,2,0,7,Grid + learned correction,2025_20,2025,Mexico City Grand Prix
+3.9,0.5669172932330826,1,1,0,8,Grid + learned correction,2025_21,2025,São Paulo Grand Prix
+4.9,0.3142857142857143,0,2,0,6,Grid + learned correction,2025_22,2025,Las Vegas Grand Prix
+3.2,0.7383458646616541,0,2,0,9,Grid + learned correction,2025_23,2025,Qatar Grand Prix
+2.6,0.78796992481203,1,3,1,7,Grid + learned correction,2025_24,2025,Abu Dhabi Grand Prix
+4.545454545454546,0.5019762845849802,1,3,1,7,Grid + learned correction,2026_01,2026,Australian Grand Prix
+4.181818181818182,0.5731225296442689,0,3,1,7,Grid + learned correction,2026_02,2026,Chinese Grand Prix
 2.0,0.9209486166007905,0,2,0,8,Grid + learned correction,2026_03,2026,Japanese Grand Prix
-3.727272727272727,0.6860530773574253,1,1,0,8,Grid + learned correction,2026_04,2026,Miami Grand Prix
+3.909090909090909,0.6623376623376624,1,1,0,8,Grid + learned correction,2026_04,2026,Miami Grand Prix
 5.363636363636363,0.39130434782608703,0,1,0,5,Grid + learned correction,2026_05,2026,Canadian Grand Prix
-5.2727272727272725,0.3529079616036138,1,2,0,6,Grid + learned correction,2026_06,2026,Monaco Grand Prix
-3.1818181818181817,0.7402597402597403,0,2,0,7,Grid + learned correction,2026_07,2026,Barcelona Grand Prix
-1.8181818181818181,0.9367588932806326,1,1,0,10,Grid + learned correction,2026_08,2026,Austrian Grand Prix
-4.454545454545454,0.5550536420101638,0,2,0,7,Grid + learned correction,2026_09,2026,British Grand Prix
-2.272727272727273,0.7481648785996614,1,2,0,8,Grid + learned correction,2026_10,2026,Belgian Grand Prix
-2.5454545454545454,0.7843026538678713,1,1,0,9,Grid + learned correction,2026_11,2026,Hungarian Grand Prix
-2.6363636363636362,0.753811405985319,1,3,1,7,Grid + learned correction,2026_12,2026,Dutch Grand Prix
+5.363636363636363,0.347261434217956,1,2,0,6,Grid + learned correction,2026_06,2026,Monaco Grand Prix
+3.1818181818181817,0.7391304347826088,0,2,0,7,Grid + learned correction,2026_07,2026,Barcelona Grand Prix
+1.9090909090909092,0.9311123658949747,1,1,0,10,Grid + learned correction,2026_08,2026,Austrian Grand Prix
+4.2727272727272725,0.6013551665725579,0,2,0,7,Grid + learned correction,2026_09,2026,British Grand Prix
+2.272727272727273,0.7470355731225299,1,2,0,8,Grid + learned correction,2026_10,2026,Belgian Grand Prix
+2.6363636363636362,0.779785431959345,1,1,0,9,Grid + learned correction,2026_11,2026,Hungarian Grand Prix
+2.727272727272727,0.7526821005081875,1,3,1,7,Grid + learned correction,2026_12,2026,Dutch Grand Prix
 2.727272727272727,0.6984754376058724,0,1,0,9,Grid + learned correction,2026_13,2026,Italian Grand Prix
-2.1818181818181817,0.777526821005082,0,3,1,9,Grid + learned correction,2026_14,2026,Spanish Grand Prix
-4.7272727272727275,0.549407114624506,1,1,0,6,Grid + learned correction,2026_15,2026,Azerbaijan Grand Prix
-3.272727272727273,0.7526821005081875,1,3,1,8,Grid + learned correction,2026_16,2026,Bahrain Grand Prix in Malaysia
-2.0,0.9153020892151329,1,2,0,8,Grid + learned correction,2026_17,2026,Singapore Grand Prix
+2.272727272727273,0.7730095990965559,0,3,1,9,Grid + learned correction,2026_14,2026,Spanish Grand Prix
+4.7272727272727275,0.5527950310559007,1,1,0,6,Grid + learned correction,2026_15,2026,Azerbaijan Grand Prix
+3.4545454545454546,0.7413890457368719,1,3,1,8,Grid + learned correction,2026_16,2026,Bahrain Grand Prix in Malaysia
+2.1818181818181817,0.8983625070581593,1,2,0,8,Grid + learned correction,2026_17,2026,Singapore Grand Prix
