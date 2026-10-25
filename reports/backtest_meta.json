@@ -11,11 +11,11 @@
     2026
   ],
   "prob_metrics": {
-    "podium_brier_model": 0.06438329466966966,
-    "podium_brier_grid_baseline": 0.06326806390765766,
+    "podium_brier_model": 0.06445207723348348,
+    "podium_brier_grid_baseline": 0.0629391303490991,
     "podium_brier_constant": 0.12496449151854559,
-    "win_brier_model": 0.02897180424174174,
-    "win_brier_grid_baseline": 0.029379764921171173,
+    "win_brier_model": 0.02852124108483483,
+    "win_brier_grid_baseline": 0.028722298704954963,
     "win_brier_constant": 0.04641747603459316
   }
 }

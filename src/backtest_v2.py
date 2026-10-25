@@ -63,11 +63,22 @@ def summarise(pred, seasons, models=MODELS):
     return pd.DataFrame(rows).set_index("model")
 
 
+def get_circuit_temps(df, base_temp):
+    """Compute per-circuit simulation temperature scaled by track chaos and safety car likelihood."""
+    chaos_per_race = df.groupby("race_id")["circuit_chaos"].first().fillna(4.1)
+    mean_c = chaos_per_race.mean()
+    std_c = chaos_per_race.std()
+    z = ((chaos_per_race - mean_c) / (std_c if std_c > 0 else 1.0)).clip(-1.5, 1.5)
+    return (base_temp * (1.0 + 0.25 * z)).clip(0.6, 2.5).to_dict()
+
+
 def probs_for(pred, col, temp, n=4000):
     cols = {k: pd.Series(index=pred.index, dtype=float)
             for k in ["p_win", "p_podium", "p_top10", "exp_position"]}
-    for _, g in pred.groupby("race_id"):
-        P = M.simulate(g[col].values, g["p_dnf"].values, temp, n=n)
+    is_map = isinstance(temp, dict)
+    for rid, g in pred.groupby("race_id"):
+        T = float(temp[rid]) if is_map else float(temp)
+        P = M.simulate(g[col].values, g["p_dnf"].values, T, n=n)
         for k, v in M.summarise_probs(P).items():
             cols[k].loc[g.index] = v
     return pd.DataFrame(cols)
@@ -84,14 +95,17 @@ def main():
     tune = pred[pred.season.isin(TUNE_SEASONS)]
     grid = [0.6, 0.9, 1.2, 1.6, 2.0, 2.6, 3.2]
     def loss(col, T):
-        p = probs_for(tune, col, T, n=2500)
+        T_map = get_circuit_temps(tune, T)
+        p = probs_for(tune, col, T_map, n=2500)
         return brier(p.p_podium, tune.podium) + brier(p.p_win, tune.win)
     T_model = min(grid, key=lambda T: loss("score_model", T))
     T_grid = min(grid, key=lambda T: loss("score_grid", T))
-    print(f"temperatures  model={T_model}  grid={T_grid}")
+    print(f"base temperatures  model={T_model}  grid={T_grid}")
 
-    pm = probs_for(pred, "score_model", T_model)
-    pg = probs_for(pred, "score_grid", T_grid)
+    T_map_m = get_circuit_temps(pred, T_model)
+    T_map_g = get_circuit_temps(pred, T_grid)
+    pm = probs_for(pred, "score_model", T_map_m)
+    pg = probs_for(pred, "score_grid", T_map_g)
     for c in pm: pred[c] = pm[c]
     for c in pg: pred[c + "_grid"] = pg[c]
     pred["pred_order"] = pred.groupby("race_id")["score_model"].rank(method="first").astype(int)

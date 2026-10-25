@@ -272,16 +272,25 @@ def build(save=True) -> pd.DataFrame:
         df["qualifying_position"] - (team_q_sum - df["qualifying_position"]) / (team_n - 1).clip(lower=1),
         0.0)
 
-    # ---------- circuit history ----------
+    # ---------- circuit history & chaos ----------
     df["drv_circuit_avg_fin"] = df.groupby(["driver_id", "circuit_id"])[
         "finish_position"].transform(lambda s: s.shift(1).expanding().mean())
     race_move = (df.groupby(["circuit_id", "season", "round"], as_index=False)
-                 .agg(move=("pos_gain", lambda s: s.abs().mean()))
+                 .agg(move=("pos_gain", lambda s: s.abs().mean()),
+                      c_dnf=("dnf", "mean"))
                  .sort_values(["season", "round"]))
     race_move["circuit_overtaking"] = race_move.groupby("circuit_id")["move"].transform(
         lambda s: s.shift(1).expanding().mean())
-    df = df.merge(race_move[["circuit_id", "season", "round", "circuit_overtaking"]],
-                  on=["circuit_id", "season", "round"], how="left")
+    race_move["circuit_dnf_rate"] = race_move.groupby("circuit_id")["c_dnf"].transform(
+        lambda s: s.shift(1).expanding().mean())
+    race_move["circuit_chaos"] = (
+        race_move["circuit_overtaking"].fillna(3.5)
+        + 4.0 * race_move["circuit_dnf_rate"].fillna(0.15)
+    )
+    df = df.merge(
+        race_move[["circuit_id", "season", "round", "circuit_overtaking",
+                   "circuit_dnf_rate", "circuit_chaos"]],
+        on=["circuit_id", "season", "round"], how="left")
 
     # ---------- within-race relative features ----------
     grp = df.groupby(["season", "round"])
@@ -311,7 +320,7 @@ FEATURES = [
     "drv_fin_l3", "drv_fin_l5", "drv_fin_l10", "drv_pts_l5", "drv_gain_l5",
     "drv_dnf_l10", "drv_quali_l5", "drv_career_races",
     "team_fin_l5", "team_pts_l5", "team_dnf_l10", "team_quali_l5",
-    "drv_circuit_avg_fin", "circuit_overtaking",
+    "drv_circuit_avg_fin", "circuit_overtaking", "circuit_dnf_rate", "circuit_chaos",
     "fp_longrun_gap_pct", "fp_race_vs_quali_pace", "fp_vs_teammate",
     "fp_has_data", "fp_laps_count",
     "rainfall", "track_temp", "air_temp", "humidity",

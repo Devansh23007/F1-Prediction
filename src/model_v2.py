@@ -20,7 +20,7 @@ SMALL = [
     "grid_position", "quali_gap_pct", "quali_vs_teammate", "grid_penalty",
     "driver_vs_car_elo", "driver_vs_car_qelo", "team_elo", "team_qelo",
     "driver_elo", "drv_gain_l5", "drv_dnf_l10", "team_dnf_l10",
-    "team_pts_l5", "circuit_overtaking", "reached_q3", "pit_lane_start",
+    "team_pts_l5", "circuit_overtaking", "circuit_chaos", "reached_q3", "pit_lane_start",
     "fp_longrun_gap_pct", "fp_race_vs_quali_pace", "fp_vs_teammate",
     "rainfall", "track_temp", "drv_wet_skill_active",
 ]
