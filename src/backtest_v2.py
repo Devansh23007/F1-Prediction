@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
+from sklearn.isotonic import IsotonicRegression
 
 import model_v2 as M
 from features_v2 import build
@@ -88,6 +89,65 @@ def brier(p, y):
     return float(np.mean((np.asarray(p) - np.asarray(y)) ** 2))
 
 
+def compute_bootstrap_intervals(hold, n_bootstraps=2000, seed=42):
+    """Cluster bootstrap over races to estimate 95% CIs and empirical p-values."""
+    rng = np.random.default_rng(seed)
+    race_ids = hold["race_id"].unique()
+    n_races = len(race_ids)
+
+    race_metrics_dict = {}
+    for rid, g in hold.groupby("race_id"):
+        r_m = g["score_model"].rank(method="first")
+        r_g = g["grid_position"].rank(method="first")
+        act = g["finish_position"]
+        a3 = set(g.loc[act <= 3, "driver_id"])
+        p3_m = set(g.loc[r_m <= 3, "driver_id"])
+        p3_g = set(g.loc[r_g <= 3, "driver_id"])
+
+        race_metrics_dict[rid] = {
+            "mae_m": (r_m - act).abs().mean(),
+            "mae_g": (r_g - act).abs().mean(),
+            "sp_m": spearmanr(r_m, act)[0],
+            "sp_g": spearmanr(r_g, act)[0],
+            "top3_m": len(p3_m & a3),
+            "top3_g": len(p3_g & a3),
+            "pod_exact_m": int(p3_m == a3),
+            "pod_exact_g": int(p3_g == a3),
+        }
+
+    diff_mae, diff_sp, diff_top3, diff_pod = [], [], [], []
+    for _ in range(n_bootstraps):
+        sampled_rids = rng.choice(race_ids, size=n_races, replace=True)
+        m_list = [race_metrics_dict[rid] for rid in sampled_rids]
+        diff_mae.append(np.mean([m["mae_g"] - m["mae_m"] for m in m_list]))
+        diff_sp.append(np.mean([m["sp_m"] - m["sp_g"] for m in m_list]))
+        diff_top3.append(np.mean([m["top3_m"] - m["top3_g"] for m in m_list]))
+        diff_pod.append(np.sum([m["pod_exact_m"] - m["pod_exact_g"] for m in m_list]))
+
+    return {
+        "mae_advantage": {
+            "mean": float(np.mean(diff_mae)),
+            "ci_95": [float(x) for x in np.percentile(diff_mae, [2.5, 97.5])],
+            "p_value": float((np.array(diff_mae) <= 0).mean()),
+        },
+        "spearman_advantage": {
+            "mean": float(np.mean(diff_sp)),
+            "ci_95": [float(x) for x in np.percentile(diff_sp, [2.5, 97.5])],
+            "p_value": float((np.array(diff_sp) <= 0).mean()),
+        },
+        "top3_hits_advantage": {
+            "mean": float(np.mean(diff_top3)),
+            "ci_95": [float(x) for x in np.percentile(diff_top3, [2.5, 97.5])],
+            "p_value": float((np.array(diff_top3) <= 0).mean()),
+        },
+        "exact_podiums_advantage": {
+            "mean": float(np.mean(diff_pod)),
+            "ci_95": [float(x) for x in np.percentile(diff_pod, [2.5, 97.5])],
+            "p_value": float((np.array(diff_pod) <= 0).mean()),
+        },
+    }
+
+
 def main():
     df = build(save=True)
     pred = walk_forward(df)
@@ -110,12 +170,24 @@ def main():
     for c in pg: pred[c + "_grid"] = pg[c]
     pred["pred_order"] = pred.groupby("race_id")["score_model"].rank(method="first").astype(int)
 
+    # Isotonic probability calibration fitted strictly on earlier tuning seasons (2022-2023)
+    tune = pred[pred.season.isin(TUNE_SEASONS)]
+    iso_podium = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0)
+    iso_podium.fit(tune["p_podium"], tune["podium"])
+    iso_win = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0)
+    iso_win.fit(tune["p_win"], tune["win"])
+
+    pred["p_podium_calibrated"] = iso_podium.predict(pred["p_podium"])
+    pred["p_win_calibrated"] = iso_win.predict(pred["p_win"])
+
     hold = pred[pred.season.isin(HOLDOUT_SEASONS)]
     prob = {
         "podium_brier_model": brier(hold.p_podium, hold.podium),
+        "podium_brier_calibrated": brier(hold.p_podium_calibrated, hold.podium),
         "podium_brier_grid_baseline": brier(hold.p_podium_grid, hold.podium),
         "podium_brier_constant": brier(np.full(len(hold), hold.podium.mean()), hold.podium),
         "win_brier_model": brier(hold.p_win, hold.win),
+        "win_brier_calibrated": brier(hold.p_win_calibrated, hold.win),
         "win_brier_grid_baseline": brier(hold.p_win_grid, hold.win),
         "win_brier_constant": brier(np.full(len(hold), hold.win.mean()), hold.win),
     }
@@ -128,6 +200,12 @@ def main():
     print(f"\nALL walk-forward {sorted(pred.season.unique())}\n", s_all.round(3).to_string())
     print("\n", json.dumps(prob, indent=2))
 
+    # Bootstrap significance testing across holdout races
+    boot = compute_bootstrap_intervals(hold)
+    print("\nBOOTSTRAP STATISTICAL SIGNIFICANCE (65 Holdout Races, 2000 Resamples):")
+    for k, v in boot.items():
+        print(f"  {k}: advantage={v['mean']:+.3f}, 95% CI=[{v['ci_95'][0]:+.3f}, {v['ci_95'][1]:+.3f}], p-value={v['p_value']:.4f}")
+
     d = hold[["p_podium", "podium"]].copy()
     d["bin"] = pd.cut(d.p_podium, np.linspace(0, 1, 11), include_lowest=True)
     calib = d.groupby("bin", observed=True).agg(
@@ -138,11 +216,13 @@ def main():
             "driver_name", "driver_code", "constructor_name", "grid_position",
             "qualifying_position", "finish_position", "podium", "win", "status",
             "score_model", "pred_order", "p_win", "p_podium", "p_top10",
+            "p_win_calibrated", "p_podium_calibrated",
             "exp_position", "p_win_grid", "p_podium_grid", "driver_elo", "team_elo"]
     pred[keep].to_csv(REPORTS / "backtest_predictions.csv", index=False)
     s_hold.reset_index().to_csv(REPORTS / "backtest_summary_holdout.csv", index=False)
     s_all.reset_index().to_csv(REPORTS / "backtest_summary_all.csv", index=False)
     calib.reset_index(drop=True).to_csv(REPORTS / "calibration_podium.csv", index=False)
+    json.dump(boot, open(REPORTS / "bootstrap_significance.json", "w"), indent=2)
     rows = []
     for name, col in MODELS.items():
         for rid, g in pred.groupby("race_id"):
@@ -153,7 +233,8 @@ def main():
     pd.DataFrame(rows).to_csv(REPORTS / "backtest_per_race.csv", index=False)
     json.dump({"temperature_model": T_model, "temperature_grid": T_grid,
                "tune_seasons": TUNE_SEASONS, "holdout_seasons": HOLDOUT_SEASONS,
-               "prob_metrics": prob}, open(REPORTS / "backtest_meta.json", "w"), indent=2)
+               "prob_metrics": prob, "bootstrap_significance": boot},
+              open(REPORTS / "backtest_meta.json", "w"), indent=2)
 
 
 if __name__ == "__main__":
