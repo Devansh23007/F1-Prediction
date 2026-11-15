@@ -47,6 +47,15 @@ def test_simulation_probabilities_sum_to_target():
     assert np.isclose(probs["p_top10"].sum(), 10.0, atol=1e-2), f"P(top10) sum was {probs['p_top10'].sum()}"
 
 
+def test_model_excludes_race_time_weather():
+    """Observed race weather is unavailable when pre-race predictions are made."""
+    race_time_weather = {"rainfall", "track_temp", "air_temp", "humidity",
+                         "drv_wet_skill_active"}
+    model_features = set(M.SMALL) | set(M.FEATURES) | set(M.DNF_FEATURES)
+
+    assert model_features.isdisjoint(race_time_weather)
+
+
 def test_dnf_probabilities_bounded(sample_data):
     """DNF probabilities must always be bounded strictly in [0.0, 1.0]."""
     train_data, test_race = sample_data

@@ -104,14 +104,15 @@ def get_upcoming_round(season: int = 2026) -> dict:
                 "qualifying_available": False,
             }
 
-    # If calendar not accessible or all completed, fall back to next round after max completed
-    next_rnd = (max(completed_rounds) + 1) if completed_rounds else 18
+    # Calendar unreachable or every round already in the dataset: next round after the last one we have.
+    # (Circuit/date are unknown here, so they are left generic rather than guessed.)
+    next_rnd = (max(completed_rounds) + 1) if completed_rounds else 1
     return {
         "season": season,
         "round": next_rnd,
         "race_name": f"Round {next_rnd} Grand Prix",
-        "circuit_id": "cota",
-        "date": "2026-10-18",
+        "circuit_id": "unknown",
+        "date": "",
         "qualifying_available": False,
     }
 
@@ -246,7 +247,7 @@ def run_prediction_for_grid(grid_df: pd.DataFrame, season: int, round_num: int,
 
     # Calculate model score & DNF probability
     scores = M.score(trained, feat_df)
-    dnf_probs = M.dnf_prob(feat_df, trained["base_dnf"])
+    dnf_probs = M.dnf_prob(trained, feat_df)
 
     meta = {}
     if META_PATH.exists():

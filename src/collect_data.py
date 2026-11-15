@@ -14,7 +14,8 @@ from urllib3.util.retry import Retry
 
 BASE_URL = "https://api.jolpi.ca/ergast/f1"
 START_YEAR = 2014
-END_YEAR = 2026
+import datetime as _dt
+END_YEAR = _dt.date.today().year
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = PROJECT_ROOT / "data" / "raw"

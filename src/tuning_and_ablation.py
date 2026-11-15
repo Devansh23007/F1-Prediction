@@ -115,32 +115,19 @@ def run_ablation_study(df, best_params):
     alpha = best_params["alpha"]
     shrink = best_params["shrink"]
 
+    def without(prefixes=(), names=(), substrs=()):
+        keep = lambda c: not (c.startswith(tuple(prefixes)) or c in names
+                              or any(x in c for x in substrs))
+        return ([c for c in M.SMALL if keep(c)], [c for c in FEATURES if keep(c)])
+
     feature_groups = {
         "Full Production Model (All Features)": (None, None),
-        "Without FastF1 Practice Pace": (
-            [c for c in M.SMALL if not c.startswith("fp_")],
-            [c for c in FEATURES if not c.startswith("fp_")]
-        ),
-        "Without Weather & Conditions": (
-            [c for c in M.SMALL if c not in ("rainfall", "track_temp", "drv_wet_skill_active")],
-            [c for c in FEATURES if c not in ("rainfall", "track_temp", "air_temp", "humidity", "drv_wet_vs_dry_gain", "drv_wet_skill_active")]
-        ),
-        "Without Tyre & Strategy Signals": (
-            [c for c in M.SMALL if c not in ("pit_loss_time", "fast_quali_tyre_wear_penalty", "drv_tyre_mgmt_skill")],
-            [c for c in FEATURES if c not in ("pit_loss_time", "pit_loss_scaled", "fast_quali_tyre_wear_penalty", "high_deg_circuit", "drv_tyre_mgmt_skill")]
-        ),
-        "Without Sprint Weekend Features": (
-            [c for c in M.SMALL if c not in ("is_sprint_weekend", "sprint_vs_grid")],
-            [c for c in FEATURES if c not in ("is_sprint_weekend", "sprint_finish", "sprint_points", "sprint_pos_gain", "sprint_vs_grid")]
-        ),
-        "Without Elo Ratings": (
-            [c for c in M.SMALL if "elo" not in c],
-            [c for c in FEATURES if "elo" not in c]
-        ),
-        "Without Rolling Form Metrics": (
-            [c for c in M.SMALL if not any(x in c for x in ("_l3", "_l5", "_l10"))],
-            [c for c in FEATURES if not any(x in c for x in ("_l3", "_l5", "_l10"))]
-        ),
+        "Without FastF1 Practice Pace": without(prefixes=("fp_",)),
+        "Without Elo Ratings": without(substrs=("elo",)),
+        "Without Rolling Form (driver/team)": without(substrs=("_l5", "_l10")),
+        "Without Circuit Stats": without(prefixes=("circuit_",)),
+        "Without Qualifying Pace Gaps": without(names=("quali_gap_pct", "q1_gap", "quali_vs_teammate",
+                                                      "reached_q2", "reached_q3")),
     }
 
     print("Running Feature Group Ablation Study across 65 Holdout Races (2024-2026)...")

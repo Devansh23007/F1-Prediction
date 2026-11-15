@@ -15,6 +15,40 @@ import h2h_and_circuits as HC
 import pandas as pd
 
 
+def test_live_prediction_uses_trained_dnf_classifier(tmp_path, monkeypatch):
+    """Live predictions should use the fitted DNF classifier, not its fallback."""
+    dataset_path = tmp_path / "history.csv"
+    pd.DataFrame([{
+        "driver_id": "driver_a",
+        "driver_name": "Driver A",
+        "constructor_id": "team_a",
+        "constructor_name": "Team A",
+    }]).to_csv(dataset_path, index=False)
+    monkeypatch.setattr(LP, "MODEL_DATASET", dataset_path)
+
+    trained = {"dnf_clf": object()}
+    monkeypatch.setattr(LP.M, "fit", lambda _: trained)
+    monkeypatch.setattr(LP.M, "score", lambda _models, _rows: np.array([1.0]))
+
+    def dnf_prob(models, rows):
+        assert models is trained
+        assert len(rows) == 1
+        return np.array([0.1])
+
+    monkeypatch.setattr(LP.M, "dnf_prob", dnf_prob)
+    grid = pd.DataFrame([{
+        "grid_position": 1,
+        "driver_id": "driver_a",
+        "driver_name": "Driver A",
+        "constructor_id": "team_a",
+        "constructor_name": "Team A",
+    }])
+
+    result = LP.run_prediction_for_grid(grid, 2027, 1, "Test Grand Prix")
+
+    assert result.loc[0, "dnf_prob"] == 0.1
+
+
 def test_sqlite_db_init_and_seed():
     """Ensure SQLite database initializes and creates required tables."""
     LP.init_db()

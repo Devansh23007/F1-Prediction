@@ -373,25 +373,19 @@ def build(save=True) -> pd.DataFrame:
 
 
 FEATURES = [
+    # grid / qualifying
     "grid_position", "qualifying_position", "grid_penalty", "pit_lane_start",
     "quali_gap_pct", "q1_gap", "reached_q2", "reached_q3", "quali_vs_teammate",
-    "grid_rank_pct",
+    # Elo ratings
     "driver_elo", "driver_qelo", "team_elo", "team_qelo",
-    "driver_vs_car_elo", "driver_vs_car_qelo", "elo_rank", "team_elo_rank",
-    "combined_elo", "combined_elo_rank",
-    "drv_fin_l3", "drv_fin_l5", "drv_fin_l10", "drv_pts_l5", "drv_gain_l5",
-    "drv_dnf_l10", "drv_quali_l5", "drv_career_races",
-    "team_fin_l5", "team_pts_l5", "team_dnf_l10", "team_quali_l5",
-    "drv_circuit_avg_fin", "circuit_overtaking", "circuit_dnf_rate", "circuit_chaos",
+    "driver_vs_car_elo", "driver_vs_car_qelo",
+    # recent form
+    "drv_fin_l5", "drv_gain_l5", "drv_dnf_l10", "team_pts_l5", "team_dnf_l10",
+    # circuit
+    "circuit_overtaking", "circuit_dnf_rate", "circuit_chaos",
+    # practice pace
     "fp_longrun_gap_pct", "fp_race_vs_quali_pace", "fp_vs_teammate",
     "fp_has_data", "fp_laps_count",
-    "rainfall", "track_temp", "air_temp", "humidity",
-    "drv_wet_vs_dry_gain", "drv_wet_skill_active",
-    "pit_loss_time", "pit_loss_scaled", "fast_quali_tyre_wear_penalty",
-    "high_deg_circuit", "drv_tyre_mgmt_skill",
-    "is_sprint_weekend", "sprint_finish", "sprint_points",
-    "sprint_pos_gain", "sprint_vs_grid",
-    "reg_era", "seasons_since_rules_reset",
 ]
 
 if __name__ == "__main__":

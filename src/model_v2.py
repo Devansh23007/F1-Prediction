@@ -22,10 +22,6 @@ SMALL = [
     "driver_elo", "drv_gain_l5", "drv_dnf_l10", "team_dnf_l10",
     "team_pts_l5", "circuit_overtaking", "circuit_chaos", "reached_q3", "pit_lane_start",
     "fp_longrun_gap_pct", "fp_race_vs_quali_pace", "fp_vs_teammate",
-    "rainfall", "track_temp", "drv_wet_skill_active",
-    "pit_loss_time", "fast_quali_tyre_wear_penalty", "drv_tyre_mgmt_skill",
-    "is_sprint_weekend", "sprint_vs_grid",
-    "reg_era", "seasons_since_rules_reset",
 ]
 SHRINK = 0.5   # weight of the blended correction (0.5 each model => 1.0 total)
 
@@ -44,7 +40,7 @@ def _ridge():
 
 DNF_FEATURES = [
     "grid_position", "circuit_dnf_rate", "circuit_chaos",
-    "team_dnf_l10", "drv_dnf_l10", "track_temp", "rainfall", "fp_laps_count",
+    "team_dnf_l10", "drv_dnf_l10", "fp_laps_count",
 ]
 
 
