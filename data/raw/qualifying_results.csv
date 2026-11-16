@@ -5458,6 +5458,14 @@ season,round,race_name,driver_id,constructor_id,qualifying_position,q1_time,q2_t
 2026,17,Singapore Grand Prix,bottas,cadillac,21,1:35.984,,
 2026,17,Singapore Grand Prix,hadjar,red_bull,22,,,
 2026,18,United States Grand Prix,antonelli,mercedes,1,1:35.390,1:34.278,1:34.035
+2026,18,United States Grand Prix,max_verstappen,red_bull,2,1:35.215,1:34.471,1:34.214
+2026,18,United States Grand Prix,hadjar,red_bull,3,1:35.286,1:34.887,1:34.250
+2026,18,United States Grand Prix,leclerc,ferrari,4,1:35.200,1:34.198,1:34.267
+2026,18,United States Grand Prix,hamilton,ferrari,5,1:35.355,1:34.833,1:34.311
+2026,18,United States Grand Prix,russell,mercedes,6,1:35.730,1:34.305,1:34.476
+2026,18,United States Grand Prix,piastri,mclaren,7,1:35.842,1:34.818,1:34.803
+2026,18,United States Grand Prix,norris,mclaren,8,1:35.029,1:34.539,1:35.049
+2026,18,United States Grand Prix,arvid_lindblad,rb,9,1:35.755,1:34.950,1:36.049
 2026,18,United States Grand Prix,lawson,rb,10,1:35.662,1:35.058,
 2026,18,United States Grand Prix,gasly,alpine,11,1:35.969,1:35.080,
 2026,18,United States Grand Prix,hulkenberg,audi,12,1:35.704,1:35.158,
@@ -5468,18 +5476,18 @@ season,round,race_name,driver_id,constructor_id,qualifying_position,q1_time,q2_t
 2026,18,United States Grand Prix,ocon,haas,17,1:36.531,,
 2026,18,United States Grand Prix,stroll,aston_martin,18,1:36.677,,
 2026,18,United States Grand Prix,sainz,williams,19,1:36.770,,
-2026,18,United States Grand Prix,max_verstappen,red_bull,2,1:35.215,1:34.471,1:34.214
 2026,18,United States Grand Prix,albon,williams,20,1:36.967,,
 2026,18,United States Grand Prix,perez,cadillac,21,1:37.433,,
 2026,18,United States Grand Prix,bottas,cadillac,22,1:37.523,,
-2026,18,United States Grand Prix,hadjar,red_bull,3,1:35.286,1:34.887,1:34.250
-2026,18,United States Grand Prix,leclerc,ferrari,4,1:35.200,1:34.198,1:34.267
-2026,18,United States Grand Prix,hamilton,ferrari,5,1:35.355,1:34.833,1:34.311
-2026,18,United States Grand Prix,russell,mercedes,6,1:35.730,1:34.305,1:34.476
-2026,18,United States Grand Prix,piastri,mclaren,7,1:35.842,1:34.818,1:34.803
-2026,18,United States Grand Prix,norris,mclaren,8,1:35.029,1:34.539,1:35.049
-2026,18,United States Grand Prix,arvid_lindblad,rb,9,1:35.755,1:34.950,1:36.049
 2026,19,Mexico City Grand Prix,hamilton,ferrari,1,1:17.341,1:16.953,1:16.514
+2026,19,Mexico City Grand Prix,russell,mercedes,2,1:17.659,1:17.027,1:16.523
+2026,19,Mexico City Grand Prix,leclerc,ferrari,3,1:17.506,1:16.944,1:16.633
+2026,19,Mexico City Grand Prix,max_verstappen,red_bull,4,1:17.942,1:16.876,1:16.692
+2026,19,Mexico City Grand Prix,antonelli,mercedes,5,1:17.918,1:17.133,1:16.707
+2026,19,Mexico City Grand Prix,norris,mclaren,6,1:17.733,1:16.728,1:16.824
+2026,19,Mexico City Grand Prix,hadjar,red_bull,7,1:17.385,1:17.047,1:16.900
+2026,19,Mexico City Grand Prix,arvid_lindblad,rb,8,1:18.210,1:17.135,1:17.117
+2026,19,Mexico City Grand Prix,gasly,alpine,9,1:18.194,1:17.278,1:17.153
 2026,19,Mexico City Grand Prix,hulkenberg,audi,10,1:17.868,1:17.306,
 2026,19,Mexico City Grand Prix,colapinto,alpine,11,1:18.517,1:17.640,
 2026,19,Mexico City Grand Prix,piastri,mclaren,12,1:17.659,1:17.646,
@@ -5490,18 +5498,18 @@ season,round,race_name,driver_id,constructor_id,qualifying_position,q1_time,q2_t
 2026,19,Mexico City Grand Prix,alonso,aston_martin,17,1:18.908,,
 2026,19,Mexico City Grand Prix,ryo_hirakawa,haas,18,1:18.958,,
 2026,19,Mexico City Grand Prix,stroll,aston_martin,19,1:19.072,,
-2026,19,Mexico City Grand Prix,russell,mercedes,2,1:17.659,1:17.027,1:16.523
 2026,19,Mexico City Grand Prix,perez,cadillac,20,1:19.105,,
 2026,19,Mexico City Grand Prix,bottas,cadillac,21,1:19.852,,
 2026,19,Mexico City Grand Prix,lawson,rb,22,,,
-2026,19,Mexico City Grand Prix,leclerc,ferrari,3,1:17.506,1:16.944,1:16.633
-2026,19,Mexico City Grand Prix,max_verstappen,red_bull,4,1:17.942,1:16.876,1:16.692
-2026,19,Mexico City Grand Prix,antonelli,mercedes,5,1:17.918,1:17.133,1:16.707
-2026,19,Mexico City Grand Prix,norris,mclaren,6,1:17.733,1:16.728,1:16.824
-2026,19,Mexico City Grand Prix,hadjar,red_bull,7,1:17.385,1:17.047,1:16.900
-2026,19,Mexico City Grand Prix,arvid_lindblad,rb,8,1:18.210,1:17.135,1:17.117
-2026,19,Mexico City Grand Prix,gasly,alpine,9,1:18.194,1:17.278,1:17.153
 2026,20,Brazilian Grand Prix,norris,mclaren,1,1:30.939,1:29.207,1:27.470
+2026,20,Brazilian Grand Prix,russell,mercedes,2,1:31.206,1:26.745,1:27.674
+2026,20,Brazilian Grand Prix,antonelli,mercedes,3,1:32.229,1:29.302,1:28.095
+2026,20,Brazilian Grand Prix,leclerc,ferrari,4,1:32.121,1:28.082,1:28.289
+2026,20,Brazilian Grand Prix,lawson,rb,5,1:32.085,1:27.049,1:28.321
+2026,20,Brazilian Grand Prix,hulkenberg,audi,6,1:31.693,1:28.361,1:28.668
+2026,20,Brazilian Grand Prix,hadjar,red_bull,7,1:32.059,1:27.218,1:28.763
+2026,20,Brazilian Grand Prix,bearman,haas,8,1:33.030,1:29.130,1:29.831
+2026,20,Brazilian Grand Prix,alonso,aston_martin,9,1:32.092,1:29.072,1:30.311
 2026,20,Brazilian Grand Prix,albon,williams,10,1:33.150,1:28.918,1:30.456
 2026,20,Brazilian Grand Prix,hamilton,ferrari,11,1:31.666,1:30.001,
 2026,20,Brazilian Grand Prix,piastri,mclaren,12,1:32.251,1:30.369,
@@ -5512,14 +5520,6 @@ season,round,race_name,driver_id,constructor_id,qualifying_position,q1_time,q2_t
 2026,20,Brazilian Grand Prix,colapinto,alpine,17,1:33.327,,
 2026,20,Brazilian Grand Prix,gasly,alpine,18,1:33.449,,
 2026,20,Brazilian Grand Prix,stroll,aston_martin,19,1:33.653,,
-2026,20,Brazilian Grand Prix,russell,mercedes,2,1:31.206,1:26.745,1:27.674
 2026,20,Brazilian Grand Prix,bottas,cadillac,20,1:33.774,,
 2026,20,Brazilian Grand Prix,perez,cadillac,21,1:34.509,,
 2026,20,Brazilian Grand Prix,bortoleto,audi,22,1:41.564,,
-2026,20,Brazilian Grand Prix,antonelli,mercedes,3,1:32.229,1:29.302,1:28.095
-2026,20,Brazilian Grand Prix,leclerc,ferrari,4,1:32.121,1:28.082,1:28.289
-2026,20,Brazilian Grand Prix,lawson,rb,5,1:32.085,1:27.049,1:28.321
-2026,20,Brazilian Grand Prix,hulkenberg,audi,6,1:31.693,1:28.361,1:28.668
-2026,20,Brazilian Grand Prix,hadjar,red_bull,7,1:32.059,1:27.218,1:28.763
-2026,20,Brazilian Grand Prix,bearman,haas,8,1:33.030,1:29.130,1:29.831
-2026,20,Brazilian Grand Prix,alonso,aston_martin,9,1:32.092,1:29.072,1:30.311
